@@ -1,5 +1,5 @@
 /*************************************************************************//**
- * @file 
+ * @file TEST
  *
  * @mainpage Program 1 - Automated Grading System
  * 
