@@ -25,7 +25,7 @@
  * @section compile_section Compiling and Usage 
  *
  * @par Compiling Instructions: 
- *      g++ -o <name> <name>.cpp -g or make 
+ *      g++ -o grade grade.cpp -g or make 
  * 
  * @par Usage: 
    @verbatim  
@@ -52,6 +52,15 @@
    Feb 13, 2014  run_file() now redirects input such that case_x.tst is read
                  in as the commands for the test and case_x.out is the result
                  from forementioned test.
+                 run_file() now returns integer, 1 if it passes a test case, 
+                 0 if it fails
+                 test_loop() runs through each test case run and tallies how 
+                 many were successes
+                 is_dir() detects if object in directory is a directory
+                 queue_directories() recursively traverses a folder system and
+                 utilizes is_dir() to find all subdirectories. Each of these
+                 subdirectories found is pushed into a queue.
+                 Subdirectory traversal ((((should)))) be complete.
    @endverbatim
  *
  *****************************************************************************/
@@ -64,10 +73,15 @@
 #include <stdio.h>
 #include <stdlib.h> 
 #include <unistd.h>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <dirent.h>
+#include <iostream>     //cout cin
+#include <fstream>      //file i/o
+#include <string>       //basic string handling. cstyle also used for directory
+
+#include <dirent.h>     //
+#include <cstring>      //
+#include<sys/stat.h>    //Handling directory traversal
+#include<sys/types.h>   //
+#include <queue>  
 
 /*************************************************************************//**
 *********************************NAMESPACE************************************
@@ -79,17 +93,24 @@ using namespace std;
 ********************************FUNCTION PROTOTYPES***************************
 ******************************************************************************/
 
-void compile_file(char* cpp_file);
-int run_file(char* cpp_file, int case_num);
-string add_extension(char* input);
-string get_extension(char* input);
-void change_dir(char* cpp_file);
+void compile_file(string cpp_file);
+int run_file(string cpp_file, string test_case);
+string add_extension(string input);
+string get_extension(string input);
+bool change_dir(string dir_name);
+string get_pathname();
 int count_case();
-string case_name(int case_num, string ext);
-void test_loop(char* cpp_file);
-int result_compare(int case_num);
-void usage();
 
+string case_name(string test_case, string ext);
+void test_loop(string cpp_file);
+bool event_loop();
+int result_compare(string test_file);
+void usage();
+bool is_dir(string dir);
+void queue_directories(string baseDir, queue<string>& queue);
+
+void dir_list();
+void queue_test_cases(queue<string>& queue);
 
 /**************************************************************************//**
  * @author Julian Brackins
@@ -109,12 +130,24 @@ void usage();
 
 int main(int argc, char ** argv)
 {
+
     usage();
-    change_dir(argv[1]);
+    while(event_loop() == true){};
+
+
+
+    //
+    
+
+
+
+    //string dir(argv[1]);
+    //change_dir(dir);
+    //find_subdir();
     //compile_file(argv[1]);    
     //run_file(argv[1]);
     //count_case();
-    test_loop(argv[1]);
+    //test_loop(argv[1]);
 
     return 0;
 }
@@ -137,12 +170,11 @@ int main(int argc, char ** argv)
  *
  *****************************************************************************/
 
-void compile_file(char* cpp_file)
+void compile_file(string cpp_file)
 {
-    string filename(cpp_file);
     string buffer("g++ -o");
 
-    buffer += " " + filename + " " + add_extension(cpp_file);
+    buffer += " " + cpp_file + " " + add_extension(cpp_file);
 
     system(buffer.c_str());
 }
@@ -162,25 +194,24 @@ void compile_file(char* cpp_file)
  *
  *****************************************************************************/
 
-int run_file(char* cpp_file, int case_num)
+int run_file(string cpp_file, string test_case) //case_num
 {
     int total = 0;
-    string case_tst(case_name(case_num, "tst"));
-    //string case_ans(case_name(case_num, "ans"));
-    string case_out(case_name(case_num, "out"));
+
+    string case_out(case_name(test_case, "out"));
     //cout << "case suite: " << case_tst << " " << case_ans << "\n";
 
-    string filename(cpp_file);
-    string buffer1("./");
+
+    string buffer1("");
     string buffer2(" < ");
     string buffer3(" > ");
-    string file(cpp_file);
-    buffer1 += filename + buffer2 + case_tst + buffer3 + case_out;
+
+    buffer1 += cpp_file + buffer2 + test_case + buffer3 + case_out;
     
     //cout << buffer1 << endl;
     system(buffer1.c_str());
 
-    return result_compare(case_num);
+    return result_compare(test_case);
 }
 
 /**************************************************************************//**
@@ -198,11 +229,10 @@ int run_file(char* cpp_file, int case_num)
  *
  *****************************************************************************/
 
-string add_extension(char* input)
+string add_extension(string input)
 {
-    string newstring(input);
-    newstring.append(".cpp");  
-    return newstring;
+    input.append(".cpp");  
+    return input;
 }
 
 /**************************************************************************//**
@@ -220,11 +250,10 @@ string add_extension(char* input)
  *
  *****************************************************************************/
 
-string get_extension(char* input)
+string get_extension(string input)
 {
-    string newstring(input);
-    unsigned found = newstring.find_last_of(".");
-    string extension( newstring.substr(found+1) );
+    unsigned found = input.find_last_of(".");
+    string extension( input.substr(found+1) );
     return extension;
 }
 
@@ -243,15 +272,43 @@ string get_extension(char* input)
  *
  *****************************************************************************/
 
-void change_dir(char* cpp_file)
+bool change_dir(string dir_name)
+{
+    string path;
+    if(chdir(dir_name.c_str()) == 0) 
+    {
+        path = get_pathname();
+        //cout << "In " << path << "\n";
+        return true;
+    }
+    return false;
+}
+
+/**************************************************************************//**
+ * @author Julian Brackins
+ *
+ * @par Description:
+ * This function is needed to handle the removal of the .cpp extension on file
+ * names. This is important, for example, when compiling the file, as you need
+ * the full name of the file (example.cpp) as well as the name of the file sans
+ * extension (example)
+ *
+ * @param[in] input - char* containing file name and extension
+ *
+ * @returns newstring - string similar to parameter input without the extension
+ *
+ *****************************************************************************/
+
+string get_pathname()
 {
     char directory[1024];
+    string path;
 
-    if(chdir(cpp_file) == 0) 
-    {
-        getcwd(directory, sizeof(directory));
-        printf("In %s\n", directory);
-    }
+    getcwd(directory, sizeof(directory));
+    //printf("In %s\n", directory);
+    path = directory;
+
+    return path;
 }
 
 /**************************************************************************//**
@@ -271,6 +328,7 @@ int count_case()
     struct dirent *ep;     
     dp = opendir ("./");
 
+    cout << get_pathname() << endl;
     if (dp != NULL)
     {
     while (ep = readdir (dp))
@@ -286,10 +344,11 @@ int count_case()
     else
     perror ("Error in opening Directory...");
 
-    //printf("There's %d file(s) in the directory.\n", count);
+    printf("There's %d file(s) in the directory.\n", count);
 
     return count;
 }
+
 
 /**************************************************************************//**
  * @author Julian Brackins
@@ -306,27 +365,31 @@ int count_case()
  *
  *****************************************************************************/
 
-string case_name(int case_num, string ext)
+string case_name(string test_case, string ext)
 {
     char buffer [20];
     int n;
-    n = sprintf (buffer, "%d", case_num);
+    //n = sprintf (buffer, "%d", case_num);
     
-    string temp(buffer);
-    string new_case("case_");
-    
-    new_case += temp;
+    string temp(test_case.begin(), test_case.end()-4);
+    //string new_case("case_");
+
     if ( ext.compare("tst") == 0)
-        new_case += ".tst";
+        temp += ".tst";
     else if ( ext.compare("ans") == 0)
-        new_case += ".ans";
+        temp += ".ans";
     else if ( ext.compare("out") == 0)
-        new_case += ".out";
+        temp += ".out";
     else if ( ext.compare("tmp") == 0)
-        new_case += ".tmp";
+        temp += ".tmp";
+    else if ( ext.compare("log") == 0)
+        {
+            //HANDLE TIMESTAMP
+            temp += ".log";
+        }
     else
         cout << "Please indicate an extension in second parameter...\n";
-    return new_case;
+    return temp;
 }
 
 /**************************************************************************//**
@@ -338,19 +401,128 @@ string case_name(int case_num, string ext)
  * @returns none
  *
  *****************************************************************************/
-void test_loop(char* cpp_file)
+void test_loop(string cpp_file)
 {
-    int test_cases;
+    int test_cases_temp = 0;
+    int test_cases_total = 0;
     int i;
     int total = 0;
-    test_cases = count_case();
+    
+    
 
-    for(i = 0; i < test_cases; i++)
+
+    queue<string> sub_dir;                  //queue of all the subdirectories
+    queue<string> test_cases;  
+    queue_directories(cpp_file, sub_dir);
+    string homepath(get_pathname() + "/");
+    
+    string subpath(get_pathname() + "/");
+
+    string progpath(get_pathname() + "/" + cpp_file + "/");
+    cout << "subpath " << progpath << endl;
+    cout << "queue size: " << sub_dir.size() << endl;
+
+
+    change_dir(progpath);
+    compile_file(cpp_file);
+
+    while(sub_dir.size() != 0)
     {
-        total += run_file(cpp_file, i);
+       
+        change_dir(homepath + sub_dir.front()); 
+        sub_dir.pop();
+        queue_test_cases(test_cases);
+
+        
+        test_cases_temp = count_case();
+        test_cases_total += test_cases_temp;
+
+
+        while(test_cases.size() != 0)
+        {
+            subpath = get_pathname() + "/";
+            cout << "TEST CASE: " << test_cases.front() << endl;
+            total += run_file(progpath + cpp_file, subpath + test_cases.front());
+            test_cases.pop();
+        }
+
+
+
     }
 
-    cout << "\n\n\n\n\n\n\n" << total << "/" << test_cases << " test cases passed\n";
+//test to see if there are any test cases in the home directory for the cpp as well!!
+change_dir(homepath + cpp_file);
+queue_test_cases(test_cases);
+test_cases_temp = count_case();
+test_cases_total += test_cases_temp;
+
+
+while(test_cases.size() != 0)
+{
+    subpath = get_pathname() + "/";
+    total += run_file(progpath + cpp_file, subpath + test_cases.front());
+    test_cases.pop();
+}
+
+    cout << "\n\n\n\n\n\n\n" << total << "/" << test_cases_total << " test cases passed\n";
+
+    change_dir(homepath);
+}
+
+
+/**************************************************************************//**
+ * @author Julian Brackins
+ *
+ * @par Description:
+ * Prints usage statement
+ *
+ * @returns none
+ *
+ *****************************************************************************/
+bool event_loop()
+{
+    string input;
+    string arg;
+    char* command;
+    char* filename;
+    char buffer[100];
+
+
+
+
+    cout << ">> ";             //prompt
+    
+    /*read in commands, break up arguments into tokens*/
+    fgets(buffer,100, stdin);
+    command = strtok(buffer," \n");
+    filename = strtok(NULL, " \n");
+
+if(command != NULL)
+{
+    input = command;
+    if(input.compare("test") == 0)
+    {
+        if(filename != NULL)
+        {
+            arg = filename;
+            cout << "testing " << arg << "\n";
+
+            test_loop(arg);
+        }
+        else
+            cout << "Invalid Input!!\n";
+    }
+
+    if(input.compare("dir") == 0)
+        dir_list();
+
+    if(input.compare("exit") == 0)
+    {
+        cout << "Exiting Program...\n";
+        return false;
+    }
+}
+    return true;
 }
 
 /**************************************************************************//**
@@ -362,14 +534,14 @@ void test_loop(char* cpp_file)
  * @returns none
  *
  *****************************************************************************/
-int result_compare(int case_num)
+int result_compare(string test_file)
 {
     int length;
     ifstream fin;
 
-    string case_out(case_name(case_num, "out"));
-    string case_ans(case_name(case_num, "ans"));
-    string case_tmp(case_name(case_num, "tmp"));
+    string case_out(case_name(test_file, "out"));
+    string case_ans(case_name(test_file, "ans"));
+    string case_tmp(case_name(test_file, "tmp"));
     
     string buffer("diff ");
     buffer += case_out + " " + case_ans + " > " + case_tmp;
@@ -408,5 +580,128 @@ void usage()
     cout << "COMMANDS:\n";
     cout << "test <filename>  : compile <filename> and test it\n";  
     cout << "                   against available test suites\n";
+    cout << "dir              : print a list of directories\n"; 
+    cout << "                   located in current directory\n";
     cout << "exit             : exit Automated Grading System\n\n";
+}
+
+
+
+
+
+
+
+
+
+
+bool is_dir(string dir)
+{
+    struct stat fileInfo;
+    stat(dir.c_str(), &fileInfo);
+    if (S_ISDIR(fileInfo.st_mode)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void queue_directories(string baseDir, queue<string>& queue)
+{
+    DIR *dp;
+    struct dirent *dirp;
+    string path;
+
+    string dir_name(baseDir);
+
+    baseDir += "/";
+    if ((dp = opendir(baseDir.c_str())) == NULL) 
+    {
+        cout << "Error opening subdirectories...\n";
+        return;
+    } 
+    else 
+    {
+        while ((dirp = readdir(dp)) != NULL) 
+        {
+            if (dirp->d_name != string(".") && dirp->d_name != string("..")) 
+            {
+                if (is_dir(baseDir + dirp->d_name) == true) 
+                {
+                    path = baseDir + dirp->d_name + "/";
+                    cout << path << endl;
+                    queue.push(path);
+                    queue_directories(baseDir + dirp->d_name, queue);
+                }
+            }
+        }
+        closedir(dp);
+    }
+}
+
+void dir_list()
+{
+    DIR *dp;
+    struct dirent *dirp;
+    string path(get_pathname());
+    path += "/";
+    string file_name;
+
+    if ((dp = opendir(path.c_str())) == NULL) 
+    {
+        cout << "Error opening directory...\n";
+        return;
+    } 
+    else 
+    {
+        cout << "Directory List:\n\n";
+        while ((dirp = readdir(dp)) != NULL) 
+        {
+            if (dirp->d_name != string(".") && dirp->d_name != string("..")) 
+            {
+                if (is_dir(path + dirp->d_name) == true) 
+                {
+                    file_name =  dirp->d_name;
+                    cout << file_name << "\n";
+                }
+            }
+        }
+        closedir(dp);
+    }
+    cout << "\n";
+}
+
+void queue_test_cases(queue<string>& queue)
+{
+    DIR *dp;
+    struct dirent *dirp;
+    string path(get_pathname());
+    path += "/";
+    string file_name;
+
+    if ((dp = opendir(path.c_str())) == NULL) 
+    {
+        cout << "Error opening directory...\n";
+        return;
+    } 
+    else 
+    {
+        cout << "files in: " << path << "\n";
+        while ((dirp = readdir(dp)) != NULL) 
+        {
+            if (dirp->d_name != string(".") && dirp->d_name != string("..")) 
+            {
+                if (is_dir(path + dirp->d_name) == false) 
+                {
+                    file_name =  dirp->d_name;
+                    string ext (file_name.end()-3, file_name.end());
+                    if(ext.compare("tst") == 0)
+                    {
+                        cout << file_name << "\n";
+                        queue.push(file_name);
+                    }
+                }
+            }
+        }
+        closedir(dp);
+    }
 }
