@@ -1,11 +1,11 @@
 /*************************************************************************//**
  * @file 
  *
- * @mainpage Program 1 - Automated Grading System
+ * @mainpage Automated Grading System
  * 
  * @section course_section CSC 470
  *
- * @author Julian Brackins
+ * @author Julian Brackins, Jon Dixon, and Hafiza Farzami
  * 
  * @date February 9, 2014
  * 
@@ -20,7 +20,15 @@
  *
  * @section program_section Program Information 
  * 
- * @details PENDING
+ * @details
+ * test.cpp is a testing suite designed for 150/250/300 level c++ file
+ * testing. The application is meant to compile and run c++ files, using
+ * test cases supplied in the same directory as the .cpp file, or nested in
+ * subdirectories under the same directory where the .cpp file is located. 
+ * The test application will run the compiled program, using all available test
+ * cases found in subdirectories, and will keep record of the success or failure
+ * of each test case. An overall grade will be assigned to the program based on
+ * how many test cases are passed.
  *
  * @section compile_section Compiling and Usage 
  *
@@ -30,13 +38,22 @@
  * @par Usage: 
    @verbatim  
    ./test <file>
+   
+   NOTE that the <file> should be in a folder with the same name as the .cpp
+   file you wish to compile and run. the folder should be in the same directory
+   as the test application.
+   Example
+   in /home directory:
+      test example
+   in /home/example directory:
+      example.cpp
    @endverbatim 
  *
  * @section todo_bugs_modification_section Todo, Bugs, and Modifications
  * 
- * @bug PENDING 
+ * @bug none 
  * 
- * @todo EVerything
+ * @todo Sprint 1 complete
  * 
  * @par Modifications and Development Timeline: 
    @verbatim 
@@ -642,50 +659,6 @@ void queue_directories(string base_dir, queue<string>& queue)
  * @author Julian Brackins
  *
  * @par Description:
- * Prints a list of all folders in the current directory. This is useful for
- * the ./grade user, as it lists all directories that could contain programs
- * to test.
- * A modified version of queue_directories(), sans the recursion.
- * 
- * @returns none
- *
- *****************************************************************************/
-void dir_list()
-{
-    DIR *dp;
-    struct dirent *dirp;
-    string path(get_pathname());
-    path += "/";
-    string file_name;
-
-    if ((dp = opendir(path.c_str())) == NULL) 
-    {
-        cout << "Error opening directory...\n";
-        return;
-    } 
-    else 
-    {
-        cout << "Directory List:\n\n";
-        while ((dirp = readdir(dp)) != NULL) 
-        {
-            if (dirp->d_name != string(".") && dirp->d_name != string("..")) 
-            {
-                if (is_dir(path + dirp->d_name) == true) 
-                {
-                    file_name =  dirp->d_name;
-                    cout << file_name << "\n";
-                }
-            }
-        }
-        closedir(dp);
-    }
-    cout << "\n";
-}
-
-/**************************************************************************//**
- * @author Julian Brackins
- *
- * @par Description:
  * Traverse the directory, adding the name of each test case to a queue. 
  * These queued test cases will later be referenced to run the corresponding 
  * program against each test case in the directory.
@@ -734,6 +707,53 @@ void queue_test_cases(queue<string>& queue)
         }
         closedir(dp);
     }
+}
+
+/**************************************************************************//**
+ * @author Julian Brackins
+ *
+ * @par Description:
+ * Prints a list of all folders in the current directory. This is useful for
+ * the ./grade user, as it lists all directories that could contain programs
+ * to test.
+ * A modified version of queue_directories(), sans the recursion.
+ * 
+ * @returns none
+ *
+ *****************************************************************************/
+void dir_list()
+{
+    /*dir_list is not used
+      in sprint 1*/
+
+    DIR *dp;
+    struct dirent *dirp;
+    string path(get_pathname());
+    path += "/";
+    string file_name;
+
+    if ((dp = opendir(path.c_str())) == NULL) 
+    {
+        cout << "Error opening directory...\n";
+        return;
+    } 
+    else 
+    {
+        cout << "Directory List:\n\n";
+        while ((dirp = readdir(dp)) != NULL) 
+        {
+            if (dirp->d_name != string(".") && dirp->d_name != string("..")) 
+            {
+                if (is_dir(path + dirp->d_name) == true) 
+                {
+                    file_name =  dirp->d_name;
+                    cout << file_name << "\n";
+                }
+            }
+        }
+        closedir(dp);
+    }
+    cout << "\n";
 }
 
 /**************************************************************************//**
@@ -843,7 +863,7 @@ string case_name(string test_case, string ext)
  * @author Julian Brackins
  *
  * @par Description:
- * Traverse the directory, adding the name of each test case to a queue. 
+ * Construct a string with the current date and time.
  *
  * @returns ymdt - date string with year_month_date_time format
  *
@@ -865,9 +885,9 @@ string timestamp()
  * @author Julian Brackins
  *
  * @par Description:
- * Temp
+ * Replaces every character in a string that matches the first parameter (a)
+ * with the second parameter character (b)
  *
- * @param[in,out] str - test case queue.
  * @param[in] a - character to be replaced
  * @param[in] b - character to replace a
  *
@@ -888,13 +908,12 @@ string str_replace(string str, char a, char b)
  * @author Julian Brackins
  *
  * @par Description:
- * Temp
+ * A function that creates a string containing the log file name with the
+ * appropriate timestamp extension.
  *
- * @param[in,out] str - test case queue.
- * @param[in] a - character to be replaced
- * @param[in] b - character to replace a
+ * @param[in] cpp_file - file name
  *
- * @returns str - new string with replaced characters
+ * @returns log_str += "_" + timestamp() + ".log" - .log file with timestamp
  *
  *****************************************************************************/
 string log_filename(string cpp_file) 
@@ -907,13 +926,12 @@ string log_filename(string cpp_file)
  * @author Julian Brackins
  *
  * @par Description:
- * Temp
+ * A small function to calculate the percentage of test cases passed.
  *
- * @param[in,out] str - test case queue.
- * @param[in] a - character to be replaced
- * @param[in] b - character to replace a
+ * @param[in] right - number of test cases passed
+ * @param[in] total - total number of test cases
  *
- * @returns str - new string with replaced characters
+ * @returns float( ( float(right) / float(total) ) * 100 ) - % of passed test
  *
  *****************************************************************************/
 double grade_percent(int right, int total) 
@@ -925,13 +943,12 @@ double grade_percent(int right, int total)
  * @author Julian Brackins
  *
  * @par Description:
- * Temp
+ * A double containing the percentage of test cases correct is brought into
+ * this function and a grade letter is assigned.
  *
- * @param[in,out] str - test case queue.
- * @param[in] a - character to be replaced
- * @param[in] b - character to replace a
+ * @param[in] grade_percent - percent of test cases passed
  *
- * @returns str - new string with replaced characters
+ * @returns letter - Letter grade
  *
  *****************************************************************************/
 string grade_letter(double grade_percent) 
