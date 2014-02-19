@@ -7,12 +7,12 @@ CPP = g++
 CFLAGS = -c
 
 #OBJECT FILES
-OBJS = grade.o
+OBJS = test.o
 
-grade: grade.o
-	${CPP} -lm ${OBJS} -o grade
-grade.o: grade.cpp
+test: test.o
+	${CPP} -lm ${OBJS} -o test
+test.o: test.cpp
 clean:
-	rm -f *.o grade *~
+	rm -f *.o test
 realclean:
-	rm -f *.o grade *~ *.swp hello
+	rm -f *.o test *~ *.swp
