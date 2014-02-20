@@ -85,6 +85,8 @@
                  Implemented error handing and modified usage statement
                  User Interface from event_loop() removed, now simply takes in
                  file to be tested via command line.
+   Feb 19, 2014  Revamped function order for a more logical grouping in file.
+                 Final documentation in preparation for submission.
    @endverbatim
  *
  *****************************************************************************/
@@ -105,7 +107,7 @@
 #include <cstring>      //
 #include<sys/stat.h>    //Handling directory traversal
 #include<sys/types.h>   //
-#include <queue>  
+#include <queue>        //
 
 #include <ctime>        //Handling Timestamps
 
@@ -119,37 +121,48 @@ using namespace std;
 ********************************FUNCTION PROTOTYPES***************************
 ******************************************************************************/
 
+/*Compiling and Running File*/
 int compile_file(string cpp_file);
 int run_file(string cpp_file, string test_case);
-bool change_dir(string dir_name);
-int count_case();       //OBSOLETE, JUST RETURN SIZE OF TEST CASE QUEUE...
+
+/*Testing Code*/
 bool test_loop(string cpp_file);
-bool event_loop();
+int count_case();
 int result_compare(string test_file);
-void usage();
-void err_usage();
+
+/*Directory Traversal Code*/
+bool change_dir(string dir_name);
 bool is_dir(string dir);
 void queue_directories(string base_dir, queue<string>& queue);
 void queue_test_cases(queue<string>& queue);
-void dir_list();
 
-//String Manipulations
+/*Log files and Grade calculations*/
+string log_filename(string cpp_file);
+double grade_percent(int right, int total);
+string grade_letter(double grade_percent);
+
+/*Usage Statements*/
+void usage();
+void err_usage();
+
+/*Misc String Manipulations*/
 string add_extension(string input);
 string get_extension(string input);
 string get_pathname();
 string case_name(string test_case, string ext);
 string timestamp();
 string str_replace(string str, char a, char b);
-string log_filename(string cpp_file);
-double grade_percent(int right, int total);
-string grade_letter(double grade_percent);
+
+/*Not used in Sprint 1*/
+bool event_loop();
+void dir_list();
 
 /**************************************************************************//**
  * @author Julian Brackins
  *
  * @par Description:
  * Main function. 
- * Simply prints usage() statement then executes the event_loop().
+ * reads argument from command line into test_loop().
  *
  * @param[in] argc - # of arguments.
  * @param[in] argv - argument vector.
@@ -233,74 +246,6 @@ int run_file(string cpp_file, string test_case) //case_num
 
     //0 = Fail, 1 = Pass
     return result_compare(test_case);
-}
-
-/**************************************************************************//**
- * @author Julian Brackins
- *
- * @par Description:
- * Directory traversal is quintessential in this program in order to find all
- * available test cases for a given program. change_dir() is the heart of the
- * traversal functions designed for this project.
- * It should be noted that most path names read in here should be the full
- * path name to avoid getting stuck in deep-nested directories. Using the full
- * path will allow the program to change to a specific directory, rather than 
- * be restricted to the sub directories present in the current path.
- * Regardless, the function returns a boolean value to indicate whether or not
- * the directory change was successful.
- *
- * @param[in] dir_name - full path of a directory
- *
- * @returns true - successful directory change
- * @returns false - failed to change directories
- *
- *****************************************************************************/
-bool change_dir(string dir_name)
-{
-    string path;
-    if(chdir(dir_name.c_str()) == 0) 
-    {
-        path = get_pathname();
-        //cout << "In " << path << "\n";
-        return true;
-    }
-    return false;
-}
-
-/**************************************************************************//**
- * @author Julian Brackins
- *
- * @par Description:
- * Find number of test cases in directory.
- * Using DIR, current directory is traversed. The name of each file and directory
- * is read in one by one to the DIR pointer. Every file with a tst extension is
- * tallied to count the total number of test cases in the directory.
- *
- * @returns count - number of .tst files in current directory
- *
- *****************************************************************************/
-int count_case()
-{
-    DIR *dp;
-    int count = 0;
-    char* name;
-    struct dirent *ep;     
-    dp = opendir ("./");
-
-    //cout << get_pathname() << endl;
-    if (dp != NULL)
-    {
-        while (ep = readdir (dp))
-        {
-            name = ep->d_name;
-            string str_name(get_extension(name));
-            if (str_name.compare("tst") == 0)
-                count++;
-        }
-        (void) closedir (dp);
-    }
-
-    return count;
 }
 
 /**************************************************************************//**
@@ -437,65 +382,40 @@ bool test_loop(string cpp_file)
     cout << "Done.\n";
     return true;
 }
-
 /**************************************************************************//**
  * @author Julian Brackins
  *
  * @par Description:
- * Prints usage statement
+ * Find number of test cases in directory.
+ * Using DIR, current directory is traversed. The name of each file and directory
+ * is read in one by one to the DIR pointer. Every file with a tst extension is
+ * tallied to count the total number of test cases in the directory.
  *
- * @returns true  - basically anything EXCEPT "exit" was sent to the console
- * @returns false - "exit" was sent to console
+ * @returns count - number of .tst files in current directory
  *
  *****************************************************************************/
-bool event_loop()
+int count_case()
 {
-    /*EVENT LOOP IS NOT
-      USED FOR SPRINT 1*/
+    DIR *dp;
+    int count = 0;
+    char* name;
+    struct dirent *ep;     
+    dp = opendir ("./");
 
-    string input;
-    string arg;
-    char* command;
-    char* filename;
-    char buffer[100];
-
-    cout << ">> ";             //prompt
-
-    //read in commands, break up arguments into tokens
-    fgets(buffer,100, stdin);
-    command = strtok(buffer," \n");
-    filename = strtok(NULL, " \n");
-
-    //Check to see if NULL command was sent from console
-    if(command != NULL)
+    //cout << get_pathname() << endl;
+    if (dp != NULL)
     {
-        input = command;
-        
-        //test <filename>
-        //handle improper commands here as well
-        if(input.compare("test") == 0)
+        while (ep = readdir (dp))
         {
-            if(filename != NULL)
-            {
-            arg = filename;
-            //cout << "testing " << arg << "\n";
-
-            test_loop(arg);
+            name = ep->d_name;
+            string str_name(get_extension(name));
+            if (str_name.compare("tst") == 0)
+                count++;
         }
-        else
-            cout << "Invalid Input!!\n";
-        }
-        //Print list of "program" folders
-        if(input.compare("dir") == 0)
-            dir_list();
-        //Exit
-        if(input.compare("exit") == 0)
-        {
-            cout << "Exiting Program...\n";
-            return false;
-        }
+        (void) closedir (dp);
     }
-    return true;
+
+    return count;
 }
 
 /**************************************************************************//**
@@ -557,33 +477,32 @@ int result_compare(string test_file)
  * @author Julian Brackins
  *
  * @par Description:
- * Prints usage statement
+ * Directory traversal is quintessential in this program in order to find all
+ * available test cases for a given program. change_dir() is the heart of the
+ * traversal functions designed for this project.
+ * It should be noted that most path names read in here should be the full
+ * path name to avoid getting stuck in deep-nested directories. Using the full
+ * path will allow the program to change to a specific directory, rather than 
+ * be restricted to the sub directories present in the current path.
+ * Regardless, the function returns a boolean value to indicate whether or not
+ * the directory change was successful.
  *
- * @returns none
+ * @param[in] dir_name - full path of a directory
  *
- *****************************************************************************/
-void usage()
-{
-    cout << "\n\n*************AUTOMATED GRADING SYSTEM*************\n";
-    cout << "*********************ver  ";
-    cout << CURR_VER << "*********************\n\n";
-}
-
-/**************************************************************************//**
- * @author Julian Brackins
- *
- * @par Description:
- * Prints error message
- *
- * @returns none
+ * @returns true - successful directory change
+ * @returns false - failed to change directories
  *
  *****************************************************************************/
-void err_usage()
+bool change_dir(string dir_name)
 {
-    cout << "\nAn error occurred.....\n";
-    cout << "USAGE:\n";
-    cout << "./test <filename> : compile <filename> and test it\n";  
-    cout << "                    against available test suites\n";
+    string path;
+    if(chdir(dir_name.c_str()) == 0) 
+    {
+        path = get_pathname();
+        //cout << "In " << path << "\n";
+        return true;
+    }
+    return false;
 }
 
 /**************************************************************************//**
@@ -713,47 +632,97 @@ void queue_test_cases(queue<string>& queue)
  * @author Julian Brackins
  *
  * @par Description:
- * Prints a list of all folders in the current directory. This is useful for
- * the ./grade user, as it lists all directories that could contain programs
- * to test.
- * A modified version of queue_directories(), sans the recursion.
- * 
+ * A function that creates a string containing the log file name with the
+ * appropriate timestamp extension.
+ *
+ * @param[in] cpp_file - file name
+ *
+ * @returns log_str += "_" + timestamp() + ".log" - .log file with timestamp
+ *
+ *****************************************************************************/
+string log_filename(string cpp_file) 
+{
+    string log_str(cpp_file);
+    return log_str += "_" + timestamp() + ".log";
+}
+
+/**************************************************************************//**
+ * @author Julian Brackins
+ *
+ * @par Description:
+ * A small function to calculate the percentage of test cases passed.
+ *
+ * @param[in] right - number of test cases passed
+ * @param[in] total - total number of test cases
+ *
+ * @returns float( ( float(right) / float(total) ) * 100 ) - % of passed test
+ *
+ *****************************************************************************/
+double grade_percent(int right, int total) 
+{
+    return float( ( float(right) / float(total) ) * 100 );
+}
+
+/**************************************************************************//**
+ * @author Julian Brackins
+ *
+ * @par Description:
+ * A double containing the percentage of test cases correct is brought into
+ * this function and a grade letter is assigned.
+ *
+ * @param[in] grade_percent - percent of test cases passed
+ *
+ * @returns letter - Letter grade
+ *
+ *****************************************************************************/
+string grade_letter(double grade_percent) 
+{
+    string letter;
+
+    if(grade_percent >= 90.0)
+        letter = "A"; 
+    else if(grade_percent >= 80.0)
+        letter = "B";  
+    else if(grade_percent >= 70.0)
+        letter = "C"; 
+    else if(grade_percent >= 60.0)
+        letter = "D"; 
+    else
+        letter = "F";     
+    return letter;
+}
+
+/**************************************************************************//**
+ * @author Julian Brackins
+ *
+ * @par Description:
+ * Prints Software Info
+ *
  * @returns none
  *
  *****************************************************************************/
-void dir_list()
+void usage()
 {
-    /*dir_list is not used
-      in sprint 1*/
+    cout << "\n\n*************AUTOMATED GRADING SYSTEM*************\n";
+    cout << "*********************ver  ";
+    cout << CURR_VER << "*********************\n\n";
+}
 
-    DIR *dp;
-    struct dirent *dirp;
-    string path(get_pathname());
-    path += "/";
-    string file_name;
-
-    if ((dp = opendir(path.c_str())) == NULL) 
-    {
-        cout << "Error opening directory...\n";
-        return;
-    } 
-    else 
-    {
-        cout << "Directory List:\n\n";
-        while ((dirp = readdir(dp)) != NULL) 
-        {
-            if (dirp->d_name != string(".") && dirp->d_name != string("..")) 
-            {
-                if (is_dir(path + dirp->d_name) == true) 
-                {
-                    file_name =  dirp->d_name;
-                    cout << file_name << "\n";
-                }
-            }
-        }
-        closedir(dp);
-    }
-    cout << "\n";
+/**************************************************************************//**
+ * @author Julian Brackins
+ *
+ * @par Description:
+ * Prints error message
+ *
+ * @returns none
+ *
+ *****************************************************************************/
+void err_usage()
+{
+    cout << "\nAn error occurred.....\n";
+    cout << "USAGE:\n";
+    cout << "./test <filename> : compile <filename> and test it\n";  
+    cout << "                    against available test suites\n";
 }
 
 /**************************************************************************//**
@@ -908,62 +877,106 @@ string str_replace(string str, char a, char b)
  * @author Julian Brackins
  *
  * @par Description:
- * A function that creates a string containing the log file name with the
- * appropriate timestamp extension.
+ * Event loop to handle a user interface for the testing suite rather than
+ * command line usage. not used in sprint 1.
  *
- * @param[in] cpp_file - file name
- *
- * @returns log_str += "_" + timestamp() + ".log" - .log file with timestamp
+ * @returns true  - basically anything EXCEPT "exit" was sent to the console
+ * @returns false - "exit" was sent to console
  *
  *****************************************************************************/
-string log_filename(string cpp_file) 
+bool event_loop()
 {
-    string log_str(cpp_file);
-    return log_str += "_" + timestamp() + ".log";
+    /*EVENT LOOP IS NOT
+      USED FOR SPRINT 1*/
+
+    string input;
+    string arg;
+    char* command;
+    char* filename;
+    char buffer[100];
+
+    cout << ">> ";             //prompt
+
+    //read in commands, break up arguments into tokens
+    fgets(buffer,100, stdin);
+    command = strtok(buffer," \n");
+    filename = strtok(NULL, " \n");
+
+    //Check to see if NULL command was sent from console
+    if(command != NULL)
+    {
+        input = command;
+        
+        //test <filename>
+        //handle improper commands here as well
+        if(input.compare("test") == 0)
+        {
+            if(filename != NULL)
+            {
+            arg = filename;
+            //cout << "testing " << arg << "\n";
+
+            test_loop(arg);
+        }
+        else
+            cout << "Invalid Input!!\n";
+        }
+        //Print list of "program" folders
+        if(input.compare("dir") == 0)
+            dir_list();
+        //Exit
+        if(input.compare("exit") == 0)
+        {
+            cout << "Exiting Program...\n";
+            return false;
+        }
+    }
+    return true;
 }
 
 /**************************************************************************//**
  * @author Julian Brackins
  *
  * @par Description:
- * A small function to calculate the percentage of test cases passed.
- *
- * @param[in] right - number of test cases passed
- * @param[in] total - total number of test cases
- *
- * @returns float( ( float(right) / float(total) ) * 100 ) - % of passed test
- *
- *****************************************************************************/
-double grade_percent(int right, int total) 
-{
-    return float( ( float(right) / float(total) ) * 100 );
-}
-
-/**************************************************************************//**
- * @author Julian Brackins
- *
- * @par Description:
- * A double containing the percentage of test cases correct is brought into
- * this function and a grade letter is assigned.
- *
- * @param[in] grade_percent - percent of test cases passed
- *
- * @returns letter - Letter grade
+ * Prints a list of all folders in the current directory. This is useful for
+ * the ./grade user, as it lists all directories that could contain programs
+ * to test.
+ * A modified version of queue_directories(), sans the recursion.
+ * 
+ * @returns none
  *
  *****************************************************************************/
-string grade_letter(double grade_percent) 
+void dir_list()
 {
-    string letter;
+    /*dir_list is not used
+      in sprint 1*/
 
-    if(grade_percent >= 90.0)
-        letter = "A"; 
-    else if(grade_percent >= 80.0)
-        letter = "B";  
-    else if(grade_percent >= 70.0)
-        letter = "C"; 
-    else if(grade_percent >= 60.0)
-        letter = "D"; 
-    else
-        letter = "F";     
-    return letter;
+    DIR *dp;
+    struct dirent *dirp;
+    string path(get_pathname());
+    path += "/";
+    string file_name;
+
+    if ((dp = opendir(path.c_str())) == NULL) 
+    {
+        cout << "Error opening directory...\n";
+        return;
+    } 
+    else 
+    {
+        cout << "Directory List:\n\n";
+        while ((dirp = readdir(dp)) != NULL) 
+        {
+            if (dirp->d_name != string(".") && dirp->d_name != string("..")) 
+            {
+                if (is_dir(path + dirp->d_name) == true) 
+                {
+                    file_name =  dirp->d_name;
+                    cout << file_name << "\n";
+                }
+            }
+        }
+        closedir(dp);
+    }
+    cout << "\n";
 }
