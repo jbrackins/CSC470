@@ -1,0 +1,14 @@
+% !TEX root = SystemTemplate.tex
+\chapter{Development Environment}
+
+\section{Development IDE and Tools}
+A Linux environment was used with generic text editors. Most compiling, testing, and debugging was done in the Linux Terminal. QT was used for some debugging and editing the code. 
+
+\section{Source  Control}
+The source control system used was GIT. We used GitHub to create the repository and add each team member as a collaborator. A developer needs to be added to the repository as collaborator in order to edit the source code. 
+
+\section{Dependencies}
+Dependencies for this project are Linux, g++, and QT. The way these were used is mentioned above. 
+
+
+

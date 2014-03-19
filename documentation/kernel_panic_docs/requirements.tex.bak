@@ -1,0 +1,115 @@
+% !TEX root = SystemTemplate.tex
+\chapter{User Stories, Backlog and Requirements}
+\section{Overview} 
+
+This section contains an overview of the purpose of this document and the system developed by Kernal\_Panic, important information for stakeholders, the niche the project is meant to fill, the requirements of the project, and some introductory user stories meant to be satisfied.
+
+
+
+
+
+\subsection{Scope}
+This particular document covers the entirety of the information required and discovered for the first stage of development.
+
+
+\subsection{Purpose of the System}
+The purpose is to aid professors and teaching assistants with grading.
+
+
+\section{ Stakeholder Information}
+This section covers stakeholder information. 
+
+
+\subsection{Customer or End User (Product Owner)}
+Ben Sherman is the product owner. The end-user (in this specific case) is Dr. Logar. The target end-user group is all professors and teaching assistants. Dr. Logar will interact via monitoring Trello and GitHub. Ben Sherman will interact more directly through scrum meetings and other miscellaneous project discussions and tasks.
+
+\subsection{Management or Instructor (Scrum Master)}
+James Tillma is the Scrum Master. He will interact by conducting scrum meetings and all other official discussions and task assignments. As Technical Lead, Anthony Morast will also play a role in assignments, timeline estimation, and other management tasks discussed at Scrum Meetings.
+
+
+\subsection{Investors}
+At this point there are no investors, besides those listed above who have donated, in the form of time, to the project.
+
+
+\subsection{Developers --Testers}
+In this case, the developers are the testers and each of the three members of Kernel\_Panic are participants in both groups. The main manager of the product backlog (as it currently exists) is James Tillma because we do not know about the future of the product. When more becomes known, and the product backlog and sprint backlog gain more separation, management duties will fall to the current Project Mananger.
+
+
+\section{Business Need}
+The business need is that professors and teaching assistants currently spend vast amount of times grading programs that have fairly short and stable runtimes. This lends itself well to a basic automation system that require little to know user intervention. 
+
+\section{Requirements and Design Constraints}
+This section details requirement for usage of the system.
+
+
+\subsection{System  Requirements}
+The system requirements are mainly that it must be a Linux platform with the g++ compiler. The SDSMT distribution of Fedora 19 meets this requirement. 
+
+
+\subsection{Network Requirements}
+This does not use an networking (unless the student program does) and therefore does not have any network requirements.
+
+
+\subsection{Development Environment Requirements}
+The development requirements are that it will be done in C++ and for a Linux environment. Assignment Grader is not expected to be cross-platform in any way for the first stage.
+
+
+\subsection{Project  Management Methodology}
+ Below are some questions and answers reguarding the project management methodology.
+\begin{itemize}
+\item What system will be used to keep track of the backlogs and sprint status?
+\begin{itemize}
+\item Primarily Trello
+\end{itemize}
+\item Will all parties have access to the Sprint and Product Backlogs?
+\begin{itemize}
+\item All parties involved with it's development and initial release
+\end{itemize}
+\item How many Sprints will encompass this particular project?
+\begin{itemize}
+\item At this point that is unknown, however there will be at least 2
+\end{itemize}
+\item How long are the Sprint Cycles?
+\begin{itemize}
+\item Two weeks
+\end{itemize}
+\item Are there restrictions on source control? 
+\begin{itemize}
+\item GitHub was recommended and that is what Kernel\_Panic has used
+\end{itemize}
+\end{itemize}
+
+\section{User Stories}
+The following are the user stories thus far.
+
+
+
+\subsection{User Story \#1}:
+As a professor I want to be able to automatically grade a student's source code so that I can save time.
+
+\subsubsection{User Story \#1 Breakdown} 
+The highlight of this story is "automatically". The professor does not want to have to interact with the grading tool after it is run.
+\subsection{User Story \#2} 
+
+As a professor I want to be able to provide test cases with answers so that I can grade different program assignments.
+
+\subsubsection{User Story \#2 Breakdown}
+This story refers to assembling test cases and running the student code on those test cases
+
+\subsection{User Story \#3} 
+
+As a professor I want to be able to regrade a students source code without loosing the data from a previous
+grading so that I can see what changes upgrading test cases have.
+
+\subsubsection{User Story \#3 Breakdown}
+This story refers to saving data. Data from an old runtime should not be removed by a new runtime. Data should be appended to a neatly formatted file for viewing.
+
+
+\section{Research or Proof of Concept Results}
+There was a very small amount of research that needed to be done. This was limited to looking into redirected I/O on a Linux platform and compiling a code file from an external running program.
+
+
+\section{Supporting Material}
+
+There is no supporting material at this time.
+
