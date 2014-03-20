@@ -41,7 +41,7 @@
 #include "test_string.h"
 
 /**************************************************************************//**
- * @authors Benjamin Sherman, Anthony Morast, James Tillma
+ * @authors Julian Brackins, Benjamin Sherman, Anthony Morast, James Tillma
  *
  * @par Description: This is the main function. It calls the function that
  * gets all the test cases and the function that grades a students program.
@@ -55,7 +55,7 @@
 int main (int argc, char* argv[])
 {
     string directory;
-    if(argc != 2)
+    /*if(argc != 2)
     {
         cout << "Usage: ./grade <directory_containing_cpp_file>" << endl;
         return -1;
@@ -67,12 +67,26 @@ int main (int argc, char* argv[])
         cout << "Usage: ./grade <directory_containing_cpp_file>" << endl;
         cout << "Student source code does not exist or is inaccessible" << endl;
         return -1;
-    }
-    directory = argv[argc-1];
-    directory = directory.substr(0, directory.find_first_of('/'));
-    chdir(directory.c_str());
+    }*/
+    //directory = argv[argc-1];
+    //directory = directory.substr(0, directory.find_first_of('/'));
+    //chdir(directory.c_str());
 
     getTstCases();
+
+    cout << "TEST CASES\n";
+    for(int i = 0; i < (int)tstLocations.size(); i++)
+    {
+       cout << tstLocations[i] << endl;
+    }
+    cout << "\nCPP FILES\n";
+    for(int i = 0; i < (int)cppLocations.size(); i++)
+    {
+       cout << cppLocations[i] << endl;
+       compile_file(cppLocations[i]);
+       delete_file(cppLocations[i]);
+    }
+    exit(0);
     gradeSolution(tstLocations, argv[argc -1]);
     cout << endl;
     return 0;

@@ -2,11 +2,13 @@
 #define __TEST_DIR_H_INCLUDED__
 
 #include "header.h"
+#include "test.h"
 
 void drct_recur ( char * buffer);
 void get_folders (char * buffer);
 void get_files (char * buffer);
 void getTstCases();
+void getCppFiles ();
 bool compareFileNames(string a, string b);
 
 /**************************************************************************//**
@@ -132,13 +134,15 @@ void get_files (char * buffer)
             ext = name.substr(name.find_last_of(".") );
             else ext = "";
             if ( 8 == (int)dir_handle->d_type 
-                && (ext == ".tst"  || ext == ".ans"))
+                && (ext == ".tst"  || ext == ".ans" || ext == ".cpp"))
             {
                 path += ("/" + name);
                 if(ext == ".tst")
 	            	tstLocations.push_back(path);
                 else if(ext == ".ans")
 					ansLocations.push_back(path);
+                else if(ext == ".cpp")
+					cppLocations.push_back(path);
             }
 
         }
@@ -149,7 +153,7 @@ void get_files (char * buffer)
 }
 
 /**************************************************************************//**
- * @author Benjamin Sherman
+ * @author Julian Brackins, Benjamin Sherman
  *
  * @par Description: This is the main function. It calls the function that
  * recursively traverses the user
@@ -187,9 +191,50 @@ void getTstCases ()
     sort (tstLocations.begin(), tstLocations.end(), compareFileNames);
     sort (ansLocations.begin(), ansLocations.end(), compareFileNames);
 
+
 }
 
+/**************************************************************************//**
+ * @author Julian Brackins, Benjamin Sherman
+ *
+ * @par Description: This is the main function. It calls the function that
+ * recursively traverses the user
+ * specified directory.
+ *
+ * @returns 0 Program successfully executed.
+ *****************************************************************************/
+void getCppFiles ()
+{
+    char path[PATH_MAX] = "";
+	bool ansFound;
+	string tst, ans;
+    getcwd(path, sizeof(path));
 
+    drct_recur ( path);
+
+    // check that a tst file has a matching ans file
+    for(int i = 0; i < (int)tstLocations.size(); i++)
+    {
+		ansFound = false;
+		tst = tstLocations[i].substr(0, tstLocations[i].find_last_of("."));
+        tst = tst.substr(tst.find_last_of("/") + 1);
+    	for(int j = 0; j < (int)ansLocations.size(); j++)
+		{
+            ans = ansLocations[j].substr(0, ansLocations[j].find_last_of("."));
+            ans = ans.substr(ans.find_last_of("/") + 1);
+            if(tst == ans)
+                ansFound = true;
+		}
+        // discard tst file if no matching ans file found
+        if(!ansFound)
+            tstLocations.erase(tstLocations.begin() + i);
+    }
+
+    sort (tstLocations.begin(), tstLocations.end(), compareFileNames);
+    sort (ansLocations.begin(), ansLocations.end(), compareFileNames);
+
+
+}
 
 //Needs header
 

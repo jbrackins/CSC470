@@ -21,5 +21,6 @@ using namespace std;
 
 vector<string> tstLocations;
 vector<string> ansLocations;
+vector<string> cppLocations;
 #endif
 

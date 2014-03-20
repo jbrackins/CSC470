@@ -19,3 +19,5 @@ clean:
 	rm -f *.o test
 realclean:
 	rm -f *.o test *~ *.swp
+edit:
+	gedit *.h *.cpp &

@@ -14,11 +14,59 @@
 ////                       FUNCTION PROTOTYPES
 ///////////////////////////////////////////////////////////////////////////////
 
-
+int compile_file(string cpp_file);
+int delete_file(string cpp_file);
 bool testOutput(string solution);
 void gradeSolution(vector<string> tst, char arg[]);
 
 
+/**************************************************************************//**
+ * @author Julian Brackins
+ *
+ * @par Description:
+ * Using C++ String manipulation, a g++ compile command is sent to the
+ * terminal in order to compile the file brought in by the argument
+ * cpp_file.
+ *
+ * The compile line is as follows
+ * compile_file(example.cpp);
+ * "g++ -o example example.cpp"
+ *
+ * @param[in] cpp_file - name of .cpp file to be compiled by program
+ *
+ * @returns system(buffer.c_str()) - 0 if compile worked, 1024 if failed
+ *
+ *****************************************************************************/
+int compile_file(string cpp_file)
+{
+    string buffer("g++ -o");
+    buffer += " " + remove_extension(cpp_file) + " " + cpp_file;
+    return system(buffer.c_str());
+}
+
+/**************************************************************************//**
+ * @author Julian Brackins
+ *
+ * @par Description:
+ * Using C++ String manipulation, a g++ compile command is sent to the
+ * terminal in order to compile the file brought in by the argument
+ * cpp_file.
+ *
+ * The compile line is as follows
+ * compile_file(example.cpp);
+ * "g++ -o example example.cpp"
+ *
+ * @param[in] cpp_file - name of .cpp file to be compiled by program
+ *
+ * @returns system(buffer.c_str()) - 0 if compile worked, 1024 if failed
+ *
+ *****************************************************************************/
+int delete_file(string cpp_file)
+{
+    string buffer("rm -f");
+    buffer += " " + remove_extension(cpp_file);
+    return system(buffer.c_str());
+}
 
 /**************************************************************************//**
  * @authors Benjamin Sherman, Anthony Morast, James Tillma
@@ -107,12 +155,6 @@ void gradeSolution(vector<string> tst, char arg[100])
     logFile << logFileContents;
     logFile.close();
 }
-
-
-
-
-
-
 
 /**************************************************************************//**
  * @author Benjamin Sherman
