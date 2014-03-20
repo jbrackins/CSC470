@@ -130,9 +130,12 @@ void get_files (char * buffer)
         {
             path = buffer;
             name = dir_handle->d_name;
-            if(name.find_last_of(".") != string::npos)
-            ext = name.substr(name.find_last_of(".") );
-            else ext = "";
+            /*Check to see if the file has an extension BUT special case
+              so that test.cpp file is not added to the compiled file stack.*/
+            if(name.find_last_of(".") != string::npos && name != "test.cpp")
+                ext = name.substr(name.find_last_of(".") );
+            else 
+                ext = "";
             if ( 8 == (int)dir_handle->d_type 
                 && (ext == ".tst"  || ext == ".ans" || ext == ".cpp"))
             {

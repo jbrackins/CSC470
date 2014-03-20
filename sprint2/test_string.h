@@ -9,6 +9,7 @@ string getFileStream(string file);
 string add_extension(string input);
 string remove_extension(string input);
 string get_extension(string input);
+string get_filepath(string input);
 string get_pathname();
 string case_name(string test_case, string ext);
 string timestamp();
@@ -135,6 +136,25 @@ string get_extension(string input)
 {
     unsigned found = input.find_last_of(".");
     string extension( input.substr(found+1) );
+    return extension;
+}
+
+/**************************************************************************//**
+ * @author Julian Brackins
+ *
+ * @par Description:
+ * This function is needed to detect the path of a given file. The
+ * directory containing the passed in file will be returned.
+ *
+ * @param[in] input - string containing file name and extension
+ *
+ * @returns extension - file extension
+ *
+ *****************************************************************************/
+string get_filepath(string input)
+{
+    unsigned found = input.find_last_of("/");
+    string extension( input.substr(0,found+1) );
     return extension;
 }
 

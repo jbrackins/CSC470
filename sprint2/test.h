@@ -16,9 +16,12 @@
 
 int compile_file(string cpp_file);
 int delete_file(string cpp_file);
+
 bool testOutput(string solution);
 void gradeSolution(vector<string> tst, char arg[]);
 
+int run_file(string cpp_file, string test_case);
+int result_compare(string test_file);
 
 /**************************************************************************//**
  * @author Julian Brackins
@@ -69,91 +72,177 @@ int delete_file(string cpp_file)
 }
 
 /**************************************************************************//**
- * @authors Benjamin Sherman, Anthony Morast, James Tillma
+ * @authors Julian Brackins, Benjamin Sherman, Anthony Morast, James Tillma
  *
  * @par Description: This function is the compilation of some of the code
  * James and Anthony pushed to github on 2/9/14. It uses popen to process
  * all the system commands so that we can get the system command output
  * and ignore the system command output in the terminal.
+ * SPRINT 2 UPDATE:
+ * Julian Brackins: I've modified this solution algorithm heavily, changing
+ * Kernel Panic's system of appending the log files to one big file to instead
+ * log 
  *****************************************************************************/
 void gradeSolution(vector<string> tst, char arg[100])
 {
-    string source = "";
-    string cp;
+    //string source = "";
+    //string cp;
 
+    int total, test_cases_total;
     string tab = "\t";
     string passStr = "\t\npass ";
     string failStr = "\t\nfail ";
-    string input, result, sol, caseName, cppFile;
+    string input, result, sol, caseName, cppFile, clear;
     string logFileContents = "";
     string logStr = ".log";
     string cppStr = ".cpp";
 
     char buffer[20] = "";
-    ofstream logFile;
+    ofstream logFile[256];
     int pass = 0, fail = 0;
-    char append_str[] = "g++ "; //g++ compiler call
-    // get file to execute from the command line
-    source = arg;
-    //source = source.substr(source.find_last_of('/') + 1);
-    //source = source.substr(0,source.find_last_of('.') + 1);
-    source += logStr;
 
-    logFile.open(source.c_str(), ios_base::app);
-    cppFile = arg;
-    cppFile += cppStr;
-    //cppFile = cppFile.substr(cppFile.find_last_of('/') + 1);
-    strcat(append_str, cppFile.c_str()); //append to compiler call
+    int pass_fail = 0;
 
-    if(!logFile) return;
-    for(int i = 0; i < (int)tst.size(); i++)
+    for(int i = 0; i < (int)cppLocations.size(); i++)
     {
-        cp = "cp " + tst[i] + " infile.txt";
-
-        FILE *f = popen(cp.c_str(), "r");
-        f = popen(append_str, "r"); // call g++ pogramname
-        pclose(f);
-
-        // execute program
-        f = popen("./a.out  < infile.txt > outfile.txt 2> /dev/null", "r"); 
-        pclose(f);
-        input = getFileStream(tst[i]);
-        result  =  getFileStream("outfile.txt");
-        sol =  getFileStream(ansLocations[i]);
-
-        caseName = tst[i].substr(tst[i].find_last_of('/') + 1);
-        caseName = caseName.substr(0, caseName.find_last_of('.'));
-
-	string temp = getDateTime();
-
-        if(testOutput(ansLocations[i]))
+        total = 0;
+        test_cases_total = 0;
+        string log_name(log_filename(remove_extension(cppLocations[i])));
+        logFile[i].open(log_name.c_str());
+        for(int j = 0; j < (int)tst.size(); j++)
         {
-            logFileContents += tab + temp + passStr + caseName;
-            pass += 1;
-        }
-        else
-        {
-            logFileContents += tab + temp + failStr + caseName;
-            fail += 1;
-        }
 
-        logFileContents += "\n\t\tInput:" + input + "\n\t\tAnswer:"
-            + result + "\n\tSolution:" +  sol + "\n";
+            pass_fail = run_file(cppLocations[i], tst[j]);
+
+
+            logFile[i] << tst[j] << ": ";
+            if(pass_fail == 1)
+            {
+                total += 1;
+                logFile[i] << "PASSED\n";
+            }
+            else
+            {
+                logFile[i] << "FAILED\n";
+            }
+            test_cases_total++;
+
+        }     
+   
+    //output grade to log file
+    logFile[i] << "\n" << total << "/" << test_cases_total << " test cases passed\n";
+    double grade = grade_percent(total, test_cases_total);
+    logFile[i] << "percentage: " << grade << "%\n";
+    logFile[i] << "     grade: " << grade_letter(grade) << "\n";
+
+
     }
 
-    result = "";
-    sprintf(buffer, "%d", pass);
-    result += buffer;
-    result +=  " passed\t";
-    sprintf(buffer, "%d", fail);
-    result += buffer;
-    result += " failed\n";
-    sprintf(buffer, "%d", int(100*((double)pass/(double)tst.size())));
-    result += buffer;
-    result += "% passed \n";
-    logFileContents.insert(0, result);
-    logFile << logFileContents;
-    logFile.close();
+
+
+}
+
+/**************************************************************************//**
+ * @author Julian Brackins
+ *
+ * @par Description:
+ * Using C++ String manipulation, a command is sent to the terminal in 
+ * order to run the file brought in by the argument cpp_file
+ * String buffers are used to handle piping both for inputting
+ * An integer value is returned from this function.
+ * A 0 indicates the program failed the test case.
+ * A 1 indicates the program has identical results to the test case.
+ *
+ * The run line sent to system() is as follows
+ * run_file(example, case_x.tst);
+ * <full_path>/./example < case_x.tst > case_x.out 
+ *
+ * @param[in] cpp_file - name of program file to be run
+ * @param[in] test_case - string with test case file name
+ *
+ * @returns result_compare(test_case) - 0 if test fails, 1 if test succeeds
+ *
+ *****************************************************************************/
+int run_file(string cpp_file, string test_case) //case_num
+{
+    //create .out file name
+    string case_out(case_name(test_case, "out"));
+
+    //set up piping buffers
+    string buffer1("");
+    string buffer2(" &>/dev/null < ");
+    string buffer3(" > ");
+
+    // "try using | "
+    //construct run command, then send to system
+    //./<filename> &> /dev/null  < case_x.tst > case_x.out
+    buffer1 += remove_extension(cpp_file);
+    buffer1 += buffer2;
+    buffer1 += test_case;
+    buffer1 += buffer3;
+    buffer1 += case_out;
+    //cout << "BUFFER1: " << buffer1 << endl;
+    system(buffer1.c_str());
+
+    //0 = Fail, 1 = Pass
+    return result_compare(test_case);
+}
+
+/**************************************************************************//**
+ * @author Julian Brackins
+ *
+ * @par Description:
+ * The result_compare() function is designed to determine whether or not the
+ * program passes or fails a test case. in the run_file() command, the results
+ * of the test are piped into a .out file with the same name as the .tst file
+ * used for testing input. A file with the same name but a .ans extension will
+ * contain the expected result from the given test case.
+ * By this logic, a successful test case run will result in a .out file that is
+ * identical to the .ans file. This function runs the diff command on the two
+ * files to determine if the files are identical. If the two files match, the
+ * program passed the test case, and a 1 is returned. If the files do not match,
+ * a 0 is returned.
+ * The results of the diff command are actually piped into a .tmp file. This
+ * temporary file will be empty if the files are identical, and will contain
+ * the differences between the two files if they are not identical. The file
+ * is opened to determine if it has any contents, and if not, the .out and .ans
+ * files can be confirmed to be identical.
+ *
+ * @param[in] test_file - test file name
+ *
+ * @returns 1 - Empty .tmp file, test passed.
+ * @returns 0 - diff command yielded results, test failed.
+ *
+ *****************************************************************************/
+int result_compare(string test_file)
+{
+    int length;
+    ifstream fin;
+
+    string case_out(case_name(test_file, "out"));
+    string case_ans(case_name(test_file, "ans"));
+    string case_tmp(case_name(test_file, "tmp"));   //create temp file
+    
+    //perform diff command
+    string buffer("diff ");
+    buffer += case_out + " " + case_ans + " > " + case_tmp;
+    system(buffer.c_str());    
+    
+    fin.open(case_tmp.c_str(), ios::binary);    //open file
+    fin.seekg(0, ios::end);                     //cursor at EOF
+    length = fin.tellg();                       //find cursor position
+    fin.close();
+
+    //remove tmp file
+    buffer = "rm " + case_tmp;
+    system(buffer.c_str());
+
+
+
+    if ( length == 0 ) //File is empty, no diff between .ans and .tmp
+        return 1;
+    else
+        return 0;
 }
 
 /**************************************************************************//**
@@ -168,7 +257,7 @@ void gradeSolution(vector<string> tst, char arg[100])
  *****************************************************************************/
 bool testOutput(string solution)
 {
-    string temp = "diff " + solution + " outfile.txt";
+    string temp = "diff " + solution + " " + case_name(solution, "out");
     char result[100] = "";
     strcpy(result, "");
 

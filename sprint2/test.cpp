@@ -84,10 +84,16 @@ int main (int argc, char* argv[])
     {
        cout << cppLocations[i] << endl;
        compile_file(cppLocations[i]);
+       //delete_file(cppLocations[i]);
+    }
+    //exit(0);
+    gradeSolution(tstLocations, argv[argc -1]);
+    for(int i = 0; i < (int)cppLocations.size(); i++)
+    {
+       //cout << cppLocations[i] << endl;
+       //compile_file(cppLocations[i]);
        delete_file(cppLocations[i]);
     }
-    exit(0);
-    gradeSolution(tstLocations, argv[argc -1]);
     cout << endl;
     return 0;
 }
