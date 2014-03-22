@@ -72,6 +72,7 @@ int main (int argc, char* argv[])
     //directory = directory.substr(0, directory.find_first_of('/'));
     //chdir(directory.c_str());
 
+    genTstCases();
     getTstCases();
 
     cout << "TEST CASES\n";
