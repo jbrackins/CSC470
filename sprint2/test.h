@@ -17,6 +17,7 @@
 int compile_file(string cpp_file);
 int delete_file(string cpp_file);
 
+bool isCritTest( string test_case );
 bool testOutput(string solution);
 void gradeSolution(vector<string> tst, char arg[]);
 
@@ -142,6 +143,8 @@ void gradeSolution(vector<string> tst, char arg[100])
             {
                 /*CHECK IF tst[i] IS A CRIT TEST
                   if It is, then set crit_fail to 1*/
+                if( isCritTest( tst[ i ] ) )
+                    crit_fail = 1;
                 logFile[i] << "FAILED\n";
             }
             test_cases_total++;
@@ -288,6 +291,14 @@ bool testOutput(string solution)
     if(!strcmp(result, "\0"))
         return true;
     return false;
+}
+
+bool isCritTest( string test_case )
+{
+	if( test_case.find( "_crit" ) != string::npos )
+		return true;
+
+	return false;
 }
 
 
