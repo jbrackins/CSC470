@@ -68,7 +68,8 @@ int delete_file(string cpp_file)
 }
 
 /**************************************************************************//**
- * @authors Julian Brackins, Benjamin Sherman, Anthony Morast, James Tillma
+ * @authors Julian Brackins, Hafiza Farzami, Benjamin Sherman, Anthony Morast, 
+ * James Tillma
  *
  * @par Description: This function is the compilation of some of the code
  * James and Anthony pushed to github on 2/9/14. It uses popen to process
@@ -88,11 +89,11 @@ int delete_file(string cpp_file)
  *             >Indicate that student passed test case
  *             >Increment Number of Successes
  *         >If File Failed:
- *             >If .tst file was a critical test                      <NOT IMPLEMENTED YET
- *                 >Indicate Critical Failure                         <NOT IMPLEMENTED YET
+ *             >If .tst file was a critical test                      
+ *                 >Indicate Critical Failure                         
  *             >Indicate that student failed test case
  *     >Output Summary of Student's results to their log file
- *     >Output Student's name and score to Summary File               <NOT IMPLEMENTED YET
+ *     >Output Student's name and score to Summary File               
  *
  *
  *****************************************************************************/
@@ -112,6 +113,7 @@ void gradeSolution(vector<string> tst, char arg[100])
 
     char buffer[20] = "";
     ofstream logFile[256];
+    ofstream summary( "summaryFile.txt" );
     int pass = 0, fail = 0;
 
     int pass_fail = 0;
@@ -156,12 +158,13 @@ void gradeSolution(vector<string> tst, char arg[100])
     double grade = grade_percent(total, test_cases_total);
     logFile[i] << "percentage: " << grade << "%\n";
     logFile[i] << "     grade: " << grade_letter(grade) << "\n";
-
-
+    if( crit_fail > 0 )
+	summary << log_name << "\t" << "FAILED" << endl;
+    else
+    	summary << log_name << "\t" << grade << "%" << endl;
     }
-
-
-
+    
+    summary.close();
 }
 
 /**************************************************************************//**
@@ -300,9 +303,5 @@ bool isCritTest( string test_case )
 
 	return false;
 }
-
-
-
-
 
 #endif
