@@ -296,6 +296,17 @@ bool testOutput(string solution)
     return false;
 }
 
+/**************************************************************************//**
+ * @author Hafiza Farzami
+ *
+ * @par Description: The following function detects whether a given test file is
+ * critical or not. 
+ * 
+ * @param[ in ] 	test_case - the given test case's name 
+ * 
+ * @returns 	true - if critical test
+ * @returns 	false - otherwise
+ *****************************************************************************/
 bool isCritTest( string test_case )
 {
 	if( test_case.find( "_crit" ) != string::npos )
