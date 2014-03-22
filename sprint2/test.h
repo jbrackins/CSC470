@@ -51,13 +51,8 @@ int compile_file(string cpp_file)
  * @author Julian Brackins
  *
  * @par Description:
- * Using C++ String manipulation, a g++ compile command is sent to the
- * terminal in order to compile the file brought in by the argument
- * cpp_file.
+ * A command is sent to the system to delete the cpp file's executable.
  *
- * The compile line is as follows
- * compile_file(example.cpp);
- * "g++ -o example example.cpp"
  *
  * @param[in] cpp_file - name of .cpp file to be compiled by program
  *
@@ -81,7 +76,24 @@ int delete_file(string cpp_file)
  * SPRINT 2 UPDATE:
  * Julian Brackins: I've modified this solution algorithm heavily, changing
  * Kernel Panic's system of appending the log files to one big file to instead
- * log 
+ * log individual files.
+ *
+ * New Solution Algorithm: 
+ * >For Loop based on all .cpp files in directory:
+ *     >Create Log File for current student
+ *     >For Loop based on elements in tst file vector:
+ *         >Run File using current .tst file
+ *         >If File Passed:
+ *             >Indicate that student passed test case
+ *             >Increment Number of Successes
+ *         >If File Failed:
+ *             >If .tst file was a critical test                      <NOT IMPLEMENTED YET
+ *                 >Indicate Critical Failure                         <NOT IMPLEMENTED YET
+ *             >Indicate that student failed test case
+ *     >Output Summary of Student's results to their log file
+ *     >Output Student's name and score to Summary File               <NOT IMPLEMENTED YET
+ *
+ *
  *****************************************************************************/
 void gradeSolution(vector<string> tst, char arg[100])
 {
@@ -102,6 +114,8 @@ void gradeSolution(vector<string> tst, char arg[100])
     int pass = 0, fail = 0;
 
     int pass_fail = 0;
+    /*Data type for critical failure maybe?*/
+    int crit_fail = 0;
 
     for(int i = 0; i < (int)cppLocations.size(); i++)
     {
@@ -112,8 +126,11 @@ void gradeSolution(vector<string> tst, char arg[100])
         for(int j = 0; j < (int)tst.size(); j++)
         {
 
-            pass_fail = run_file(cppLocations[i], tst[j]);
 
+            /*Check to see if cpp file passed the current
+              test in the list. If successful, tally the
+              success.*/
+            pass_fail = run_file(cppLocations[i], tst[j]);
 
             logFile[i] << tst[j] << ": ";
             if(pass_fail == 1)
@@ -123,6 +140,8 @@ void gradeSolution(vector<string> tst, char arg[100])
             }
             else
             {
+                /*CHECK IF tst[i] IS A CRIT TEST
+                  if It is, then set crit_fail to 1*/
                 logFile[i] << "FAILED\n";
             }
             test_cases_total++;
