@@ -29,8 +29,13 @@ void genTstCases()
    int numToGen;
    int filesToGen;
    
-   while( likeToGen != 'y' && likeToGen != 'n' )
-   {
+   
+   cout << "::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
+   cout << ":         TEST CASE GENERATION PHASE           :" << endl;
+   cout << "::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
+   
+   //while( likeToGen != 'y' && likeToGen != 'n' )
+   //{
       cout << "Would you like to generate test cases? (y/n): ";
       cin >> likeToGen;
       
@@ -40,63 +45,17 @@ void genTstCases()
       
       likeToGen = tolower( likeToGen );
       
-      if( likeToGen != 'y' && likeToGen != 'n' )
+      while( likeToGen != 'y' && likeToGen != 'n' )
       {
-         cout << "Please enter a valid response. (y/n)" << endl;
+         cout << "*** Please enter a valid response. (y/n): ";
+         cin >> likeToGen;
       }
-   }
+   //}
 
    if( likeToGen == 'n' )
       return;   
-   cout << "Valid response received!" << endl;
-   
-   while( !validfilesToGen )
-   {
-      cout << "How many files would you like to generate? (1-100): ";
-      cin >> filesToGen;
-      
-      while( cin.fail() )
-      {
-         cin.clear();
-         cin.ignore( 500, '\n' );
-         cout << "Enter a number, please (1-100): ";
-         cin >> filesToGen;
-      }
-      
-      if( filesToGen > 100 || filesToGen < 1 )
-      {
-         cout << "Please enter a valid number of files. (1-100)" << endl;
-      }
-      else
-         validfilesToGen = true;
-   }
-   
-   cout << "Valid number of files received: " << filesToGen << endl;
-   
-   while( !validnumToGen )
-   {
-      cout << "How many numbers would you like to generate? (0-200): ";
-      cin >> numToGen;
-      
-      while( cin.fail() )
-      {
-         cin.clear();
-         cin.ignore( 500, '\n' );
-         cout << "Enter a number, please (1-200): ";
-         cin >> numToGen;
-      }
-
-      
-      if( numToGen > 200 || numToGen < 1 )
-      {
-         cout << "Please enter a valid number. (1-200)" << endl;
-      }
-      else
-         validnumToGen = true;
-   }
-   
-   cout << "Valid Number received: " << numToGen << endl;
-   
+         
+         
    while( typeToGen != 'i' && typeToGen != 'f' )
    {
       cout << "Would you like to generate ints or floats? (i/f): ";
@@ -110,20 +69,66 @@ void genTstCases()
       
       if( typeToGen != 'i' && typeToGen != 'f' )
       {
-         cout << "Please enter a valid response. (i/f)" << endl;
+         cout << "*** Please enter a valid response. (i/f)" << endl;
       }
-   }  
+   }
    
+          
+   while( !validfilesToGen )
+   {
+      cout << "How many files would you like to generate? (1-100): ";
+      cin >> filesToGen;
+      
+      while( cin.fail() )
+      {
+         cin.clear();
+         cin.ignore( 500, '\n' );
+         cout << "*** Enter a number, please (1-100): ";
+         cin >> filesToGen;
+      }
+      
+      if( filesToGen > 100 || filesToGen < 1 )
+      {
+         cout << "*** Please enter a valid number of files. (1-100)" << endl;
+      }
+      else
+         validfilesToGen = true;
+   }
+      
+   while( !validnumToGen )
+   {
+      cout << "How many numbers would you like to generate? (0-200): ";
+      cin >> numToGen;
+      
+      while( cin.fail() )
+      {
+         cin.clear();
+         cin.ignore( 500, '\n' );
+         cout << "*** Enter a number, please (1-200): ";
+         cin >> numToGen;
+      }
+
+      
+      if( numToGen > 200 || numToGen < 1 )
+      {
+         cout << "*** Please enter a valid number. (1-200)" << endl;
+      }
+      else
+         validnumToGen = true;
+   }
    
    //First, it is important to create these in the 'tests' subdirectory
-   if( !system("mkdir tests") )
+   if( !system("mkdir tests &>/dev/null") )
+   {
       cout << "\"tests\" directory created!" << endl;
+      chdir( "tests" );
+   }   
    else
+   {
       cout << "\"tests\" directory exists!" << endl;
-      
-   chdir( "tests" );
-   
-   
+      chdir( "tests" );
+      system( "rm -f *.tst" );
+   }   
    
    for( int i = 1; i <= filesToGen; i++ )
    {
@@ -144,6 +149,10 @@ void genTstCases()
       
       fout.close();
    }
+   
+   cout << "::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
+   cout << ":       TEST CASE GENERATION SUCCESSFUL        :" << endl;
+   cout << "::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
    
    chdir( ".." );
 }
