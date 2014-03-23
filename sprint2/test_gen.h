@@ -2,6 +2,7 @@
 #define __TEST_GEN_H_INCLUDED__
 
 #include "header.h"
+#include "test.h"
 /****************************************************
  *
  *              test_gen.h
@@ -17,9 +18,12 @@
 #include <string>
 #include <sstream>
 #include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
+
+void make_ans( int filesToGen );
 
 void genTstCases()
 {
@@ -29,6 +33,7 @@ void genTstCases()
    int numToGen;
    int filesToGen;
    
+   srand(time(0));
    
    cout << "::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
    cout << ":         TEST CASE GENERATION PHASE           :" << endl;
@@ -123,7 +128,7 @@ void genTstCases()
    {
       cout << "\"tests\" directory exists!" << endl;
       chdir( "tests" );
-      system( "rm -f *.tst" );
+      system( "rm -f *" );
    }   
    
    for( int i = 1; i <= filesToGen; i++ )
@@ -151,5 +156,58 @@ void genTstCases()
    cout << "::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
    
    chdir( ".." );
+   
+   //NOW we need to create the answer cases for these here programs
+   //Start by compiling the key cpp file
+   make_ans( filesToGen );
+}
+
+void make_ans( int filesToGen )
+{
+   char buffer[PATH_MAX];
+   DIR *a_file;
+   struct dirent *dir_handle;
+   string ext;
+   string path;
+   string name;
+   string command;
+   
+   getcwd( buffer, sizeof(buffer) );
+   a_file = opendir( buffer );
+   dir_handle = readdir( a_file );
+   ext = dir_handle->d_name;
+   name = dir_handle->d_name;
+   
+   if( dir_handle != NULL )
+   {
+      do //search for .cpp files
+      {
+         path = buffer;
+         name = dir_handle->d_name;
+         
+         if( name.find_last_of(".") != string::npos && name != "test.cpp" )
+            ext = name.substr( name.find_last_of(".") );
+         else
+            ext = "";
+         
+         if( 8 == (int)dir_handle->d_type && ext == ".cpp" )
+         {
+            path += ( "/" + name );
+            command = "g++ ";
+            command += path;
+            command += " -o key";
+            system( command.c_str() );
+         }
+      }while( ( dir_handle = readdir( a_file ) ) != NULL );
+   }
+   
+   for( int i = 1; i <= filesToGen; i++ )
+   {
+      stringstream runcommand;
+      runcommand << "./key < tests/test" << i << ".tst > tests/test" << i << ".ans";
+      
+      system( runcommand.str().c_str() );
+   }
+   
 }
 #endif
