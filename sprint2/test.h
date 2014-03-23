@@ -113,7 +113,8 @@ void gradeSolution(vector<string> tst, char arg[100])
 
     char buffer[20] = "";
     ofstream logFile[256];
-    ofstream summary( "summaryFile.txt" );
+    ofsteram sumFile( summary_filename());
+
     int pass = 0, fail = 0;
 
     int pass_fail = 0;
@@ -159,9 +160,10 @@ void gradeSolution(vector<string> tst, char arg[100])
     logFile[i] << "percentage: " << grade << "%\n";
     logFile[i] << "     grade: " << grade_letter(grade) << "\n";
     if( crit_fail > 0 )
-	summary << log_name << "\t" << "FAILED" << endl;
+	    summary << log_name << "\t" << "FAILED" << endl;
     else
     	summary << log_name << "\t" << grade << "%" << endl;
+    crit_fail = 0;
     }
     
     summary.close();
