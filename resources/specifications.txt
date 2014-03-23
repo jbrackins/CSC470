@@ -1,0 +1,45 @@
+#Copypasta from Jon's Product Specifications Meeting with Dr. Logar
+
+Hey guys,
+
+Here's the stuff from the meeting on Friday.
+
+As far as I can tell, the purpose of the program will be to grade a student's file, comparing it 
+to multiple test case files. It'll be called like this:
+
+ grade <filename>
+
+It will grade the file, looking through the current directory for any *.tst files, which 
+will contain the test cases. We must compile the program, which is in c++. 
+
+It is understood that all inputs will be valid (no error checking, program won't crash, etc..)
+The program will be tested on numeric computations.
+If it uses files, they'll be input.txt and output.txt.
+
+<filename>.log will contain the results of each test case.
+
+The idea is to grab the test case, copy it to input.txt, run the program, compare outputs, and 
+put results into the log file.
+
+*.tst files will have a test case followed by a blank line, followed by expected results.
+
+Use system calls, and list that under vulnerabilities in documentation
+
+Timeline: FEBRUARY 16
+
+Programs to be tested are guaranteed to compile on linux lab machines. Test programs and test 
+cases will be provided.
+
+Make sure to keep track of time spent.
+
+It may be helpful to create a python/linux script and convert it to c++.
+
+Focus on testing the tester, not the programs.
+
+SECTION FIVE OF DOCUMENTATION IS IMPORTANT
+
+Use SVN or GIT, and ask Logar for help setting these up.
+
+User Guide should be made 1 page, so keep it simple.
+
+We can ask Logar any questions we have.

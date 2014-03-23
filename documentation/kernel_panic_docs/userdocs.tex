@@ -1,0 +1,23 @@
+% !TEX root = SystemTemplate.tex
+
+\chapter{User Documentation}
+
+%\newpage   %% 
+%%  The user guide can be an external document which is included here if necessary ...
+%%  a single source is the way to go.
+
+\section{User Guide}
+The intent of this program is to compile and execute c++ source code found in a directory. Test cases are found by this program, test cases should have .tst as the file extension. Answer files will also need to be availible and should have the .ans extension. The program is executed and the test and answer cases are compared in order to grade a Computer Science student. 
+
+The end user will need to have Linux installed on their machine. In Linux the user will also need the g++ compiler. The user will need to have valid c++ source code file names, .tst file names, and .ans file names. A valid directory is needed so that the program will produce results. 
+
+
+%% \newpage  %%  if needed ...
+\section{Installation Guide}
+To run this program the user needs to compile the source code in the Linux Terminal. 
+
+The program should be compiled via:
+	g++ grade.cpp -o progname 
+
+If the -o switch is not specified a.out will be created as an executable and may cause conflict when running the program. 
+

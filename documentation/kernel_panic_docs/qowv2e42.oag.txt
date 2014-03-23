@@ -1,0 +1,40 @@
+﻿Merge branch 'master' of https://github.com/bonnebonne/softEng1
+
+Conflicts:
+	DesignTemplate/design.tex
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 1 different commit each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# All conflicts fixed but you are still merging.
+#   (use "git commit" to conclude merge)
+#
+# Changes to be committed:
+#
+#	deleted:    DesignTemplate/SystemTemplate.aux
+#	deleted:    DesignTemplate/SystemTemplate.blg
+#	deleted:    DesignTemplate/SystemTemplate.loa
+#	deleted:    DesignTemplate/SystemTemplate.lof
+#	deleted:    DesignTemplate/SystemTemplate.log
+#	deleted:    DesignTemplate/SystemTemplate.lot
+#	deleted:    DesignTemplate/SystemTemplate.out
+#	modified:   DesignTemplate/SystemTemplate.pdf
+#	modified:   DesignTemplate/SystemTemplate.synctex.gz
+#	deleted:    DesignTemplate/SystemTemplate.toc
+#	modified:   DesignTemplate/design.tex
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	DesignTemplate/Thumbs.db
+
