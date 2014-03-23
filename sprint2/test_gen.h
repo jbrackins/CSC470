@@ -34,45 +34,41 @@ void genTstCases()
    cout << ":         TEST CASE GENERATION PHASE           :" << endl;
    cout << "::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
    
-   //while( likeToGen != 'y' && likeToGen != 'n' )
-   //{
-      cout << "Would you like to generate test cases? (y/n): ";
+
+   cout << "Would you like to generate test cases? (y/n): ";
+   cin >> likeToGen;
+   
+   cin.clear();
+   cin.ignore( 500, '\n' );
+   
+   
+   likeToGen = tolower( likeToGen );
+   
+   while( likeToGen != 'y' && likeToGen != 'n' )
+   {
+      cout << "*** Please enter a valid response. (y/n): ";
       cin >> likeToGen;
-      
-      cin.clear();
-      cin.ignore( 500, '\n' );
-      
-      
-      likeToGen = tolower( likeToGen );
-      
-      while( likeToGen != 'y' && likeToGen != 'n' )
-      {
-         cout << "*** Please enter a valid response. (y/n): ";
-         cin >> likeToGen;
-      }
-   //}
+   }
 
    if( likeToGen == 'n' )
       return;   
          
          
+   cout << "Would you like to generate ints or floats? (i/f): ";
+   cin >> typeToGen;
+   
+   cin.clear();
+   cin.ignore( 500, '\n' );
+   
+   
+   typeToGen = tolower( typeToGen );
+   
    while( typeToGen != 'i' && typeToGen != 'f' )
    {
-      cout << "Would you like to generate ints or floats? (i/f): ";
+      cout << "*** Please enter a valid response. (i/f): " << endl;
       cin >> typeToGen;
-      
-      cin.clear();
-      cin.ignore( 500, '\n' );
-      
-      
-      typeToGen = tolower( typeToGen );
-      
-      if( typeToGen != 'i' && typeToGen != 'f' )
-      {
-         cout << "*** Please enter a valid response. (i/f)" << endl;
-      }
    }
-   
+
           
    while( !validfilesToGen )
    {
