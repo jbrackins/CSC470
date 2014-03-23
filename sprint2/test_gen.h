@@ -114,6 +114,17 @@ void genTstCases()
       }
    }  
    
+   
+   //First, it is important to create these in the 'tests' subdirectory
+   if( !system("mkdir tests") )
+      cout << "\"tests\" directory created!" << endl;
+   else
+      cout << "\"tests\" directory exists!" << endl;
+      
+   chdir( "tests" );
+   
+   
+   
    for( int i = 1; i <= filesToGen; i++ )
    {
       stringstream temp;
@@ -133,5 +144,7 @@ void genTstCases()
       
       fout.close();
    }
+   
+   chdir( ".." );
 }
 #endif
