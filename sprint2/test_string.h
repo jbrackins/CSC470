@@ -287,6 +287,23 @@ string log_filename(string cpp_file)
  * @author Julian Brackins
  *
  * @par Description:
+ * A function that creates a string containing the summary file name with the
+ * appropriate timestamp extension.
+ *
+ * @param[in] cpp_file - file name
+ *
+ * @returns log_str += "_" + timestamp() + ".log" - .log file with timestamp
+ *
+ *****************************************************************************/
+string summary_filename() 
+{
+    return "Summary_" + timestamp() + ".log";
+}
+
+/**************************************************************************//**
+ * @author Julian Brackins
+ *
+ * @par Description:
  * A small function to calculate the percentage of test cases passed.
  *
  * @param[in] right - number of test cases passed
