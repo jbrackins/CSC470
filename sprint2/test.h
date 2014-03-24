@@ -126,6 +126,7 @@ void gradeSolution(vector<string> tst, char arg[100])
         total = 0;
         test_cases_total = 0;
         string log_name(log_filename(remove_extension(cppLocations[i])));
+        string student_name(get_student_name(remove_extension(cppLocations[i]))); 
         logFile[i].open(log_name.c_str());
         for(int j = 0; j < (int)tst.size(); j++)
         {
@@ -144,28 +145,44 @@ void gradeSolution(vector<string> tst, char arg[100])
             }
             else
             {
+
+                logFile[i] << "FAILED\n";
                 /*CHECK IF tst[i] IS A CRIT TEST
                   if It is, then set crit_fail to 1*/
-                if( isCritTest( tst[ i ] ) )
+                if( !isCritTest( tst[ i ] ) )
                     crit_fail = 1;
-                logFile[i] << "FAILED\n";
             }
             test_cases_total++;
 
         }     
    
-    //output grade to log file
+    //output grade to log file, then close log file
     logFile[i] << "\n" << total << "/" << test_cases_total << " test cases passed\n";
     double grade = grade_percent(total, test_cases_total);
     logFile[i] << "percentage: " << grade << "%\n";
-    logFile[i] << "     grade: " << grade_letter(grade) << "\n";
     if( crit_fail > 0 )
-	    sumFile << log_name << "\t" << "FAILED" << endl;
+        logFile[i] << "     grade: FAILED\n";
     else
-    	sumFile << log_name << "\t" << grade << "%" << endl;
+        logFile[i] << "     grade: " << grade_letter(grade) << "\n";
+    logFile[i].close();
+    
+    
+    /*SPECIAL CASE for the "golden cpp, you don't want that
+      result to appear in the summary file....*/
+    size_t found = cppLocations[i].find( find_goldencpp( ) );
+	if(found == string::npos )
+    {
+        /*write student's score to summary file*/
+        if( crit_fail > 0 )
+            sumFile << student_name << "\t" << "FAILED" << endl;
+        else
+        	sumFile << student_name << "\t" << grade << "%" << endl;
+    }
+
+    //Reset critical failure flag
     crit_fail = 0;
     }
-    
+    //close summary file
     sumFile.close();
 }
 
@@ -296,25 +313,6 @@ bool testOutput(string solution)
     if(!strcmp(result, "\0"))
         return true;
     return false;
-}
-
-/**************************************************************************//**
- * @author Hafiza Farzami
- *
- * @par Description: The following function detects whether a given test file is
- * critical or not. 
- * 
- * @param[ in ] 	test_case - the given test case's name 
- * 
- * @returns 	true - if critical test
- * @returns 	false - otherwise
- *****************************************************************************/
-bool isCritTest( string test_case )
-{
-	if( test_case.find( "_crit" ) != string::npos )
-		return true;
-
-	return false;
 }
 
 #endif
