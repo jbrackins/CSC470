@@ -30,29 +30,116 @@
 \subsection{Technologies  Used}
 The dirent.h library is used for traversing subdirectories.
 
-\subsection{Design Details}
+\subsection{Design Details - Adding Test Cases to a Vector}
 
 \begin{lstlisting}
 
-bool change_dir(string dir_name)
+void drct_recur (char * buffer)
 {
-    string path;
-    if(chdir(dir_name.c_str()) == 0) 
-    {
-        path = get_pathname();
-        return true;
-    }
-    return false;
+    get_folders ( buffer );
+    get_files (  buffer );
 }
 
-bool is_dir(string dir)
+void get_folders( char * buffer )
 {
-    struct stat file_info;
-    stat(dir.c_str(), &file_info);
-    if ( S_ISDIR(file_info.st_mode) ) 
-        return true;
-    else 
-        return false;
+    DIR *a_folder;
+    struct dirent *dir_handle;
+    vector<string> paths;
+    bool subdir = false;
+    int attrib;
+    char path[ PATH_MAX ] = "";
+    strcat( path, "~" );
+    strcat( path, buffer );
+    a_folder = opendir( buffer );
+    if ( a_folder == NULL ) // call directory
+    {
+        return;
+    }
+
+    dir_handle = readdir( a_folder );
+    if ( dir_handle == NULL )
+    {
+        return;
+    }
+    strcpy( path, buffer );
+    // search for and step into folders
+    do
+    {
+        attrib = ( int )dir_handle->d_type;
+        if ( attrib == 4 && strcmp( dir_handle->d_name, "." ) != 0
+             && strcmp( dir_handle->d_name, ".." ) != 0)
+        {
+            // set to true when we find and step into a folder
+            subdir = true;
+            char name[ PATH_MAX ];
+            strcpy( name, dir_handle->d_name );
+            strcat( path, "/" );
+            strcat( path, dir_handle->d_name );
+            paths.push_back( path );
+        }
+        if ( subdir )
+        {
+            strcat( path, "/.." );
+            getcwd( path, sizeof( path ));
+        }
+        // reset test variable that determines 
+        // if we found and processed a folder
+        subdir = false;
+        // reset path
+        strcpy( path, buffer );
+    } while ( ( dir_handle = readdir( a_folder ) )!= NULL );
+
+    while( !paths.empty() )
+    {   
+        string temp =  paths.back();
+        paths.pop_back();
+        char pth[ PATH_MAX ];
+        strcpy( pth, temp.c_str() );
+        drct_recur( pth );
+    }
+
+    closedir( a_folder );
+}
+
+void get_files( char * buffer )
+{
+    DIR *a_file;
+    struct dirent *dir_handle;
+    a_file = opendir( buffer );
+    dir_handle = readdir( a_file );
+    string ext = dir_handle->d_name;
+    string path;
+    string name = dir_handle->d_name;
+
+    if ( dir_handle != NULL )
+    {
+        do // search for files with "tst" extension
+        {
+            path = buffer;
+            name = dir_handle->d_name;
+            /*Check to see if the file has an extension BUT special case
+              so that test.cpp file is not added to the compiled file stack.*/
+            if( name.find_last_of( "." ) != string::npos && name != "test.cpp" )
+                ext = name.substr( name.find_last_of( "." ) );
+            else 
+                ext = "";
+            if ( 8 == ( int )dir_handle->d_type 
+                && ( ext == ".tst"  || ext == ".ans" || ext == ".cpp" ) )
+            {
+                path += ( "/" + name );
+                if( ext == ".tst" )
+	                tstLocations.push_back( path );
+                else if( ext == ".ans" )
+		        ansLocations.push_back( path );
+                else if(ext == ".cpp")
+		        cppLocations.push_back( path );
+            }
+
+        }
+        while ( ( dir_handle = readdir( a_file ) ) != NULL );
+    }
+
+    closedir( a_file );
 }
 \end{lstlisting}
 
@@ -63,28 +150,55 @@ The software was designed in the Linux Environment provided to the group by the 
 
 
 
-\subsection{Design Details}
+\subsection{Design Details - Running Files and Comparing to Test Case}
 
 
 \begin{lstlisting}
 int run_file(string cpp_file, string test_case) //case_num
 {
-    //create .out file name
     string case_out(case_name(test_case, "out"));
-
     //set up piping buffers
     string buffer1("");
     string buffer2(" &>/dev/null < ");
     string buffer3(" > ");
 
-    // "try using | "
-    //construct run command, then send to system
-    //./<filename> &> /dev/null  < case_x.tst > case_x.out
-    buffer1 += cpp_file + buffer2 + test_case + buffer3 + case_out;
+    buffer1 += remove_extension(cpp_file);
+    buffer1 += buffer2;
+    buffer1 += test_case;
+    buffer1 += buffer3;
+    buffer1 += case_out;
+
     system(buffer1.c_str());
 
     //0 = Fail, 1 = Pass
     return result_compare(test_case);
+}
+
+int result_compare(string test_file)
+{
+    int length;
+    ifstream fin;
+
+    string case_out(case_name(test_file, "out"));
+    string case_ans(case_name(test_file, "ans"));
+    string case_tmp(case_name(test_file, "tmp"));   //create temp file
+    
+    //perform diff command
+    string buffer("diff ");
+    buffer += case_out + " " + case_ans + " > " + case_tmp;
+    system(buffer.c_str());    
+    fin.open(case_tmp.c_str(), ios::binary);    //open file
+    fin.seekg(0, ios::end);                     //cursor at EOF
+    length = fin.tellg();                       //find cursor position
+    fin.close();
+    buffer = "rm " + case_tmp;
+    system(buffer.c_str());
+    buffer = "rm " + case_out;
+    system(buffer.c_str());
+    if ( length == 0 ) //File is empty, no diff between .ans and .tmp
+        return 1;
+    else
+        return 0;
 }
 \end{lstlisting}
 
