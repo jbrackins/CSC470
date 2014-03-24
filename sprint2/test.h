@@ -14,15 +14,15 @@
 ////                       FUNCTION PROTOTYPES
 ///////////////////////////////////////////////////////////////////////////////
 
-int compile_file(string cpp_file);
-int delete_file(string cpp_file);
+int compile_file( string cpp_file );
+int delete_file( string cpp_file );
 
 bool isCritTest( string test_case );
-bool testOutput(string solution);
-void gradeSolution(vector<string> tst, char arg[]);
+bool testOutput( string solution );
+void gradeSolution( vector<string> tst, char arg[] );
 
-int run_file(string cpp_file, string test_case);
-int result_compare(string test_file);
+int run_file( string cpp_file, string test_case );
+int result_compare( string test_file );
 
 /**************************************************************************//**
  * @author Julian Brackins
@@ -41,11 +41,11 @@ int result_compare(string test_file);
  * @returns system(buffer.c_str()) - 0 if compile worked, 1024 if failed
  *
  *****************************************************************************/
-int compile_file(string cpp_file)
+int compile_file( string cpp_file )
 {
     string buffer("g++ -o");
     buffer += " " + remove_extension(cpp_file) + " " + cpp_file;
-    return system(buffer.c_str());
+    return system( buffer.c_str() );
 }
 
 /**************************************************************************//**
@@ -60,11 +60,11 @@ int compile_file(string cpp_file)
  * @returns system(buffer.c_str()) - 0 if compile worked, 1024 if failed
  *
  *****************************************************************************/
-int delete_file(string cpp_file)
+int delete_file( string cpp_file )
 {
-    string buffer("rm -f");
-    buffer += " " + remove_extension(cpp_file);
-    return system(buffer.c_str());
+    string buffer( "rm -f" );
+    buffer += " " + remove_extension( cpp_file );
+    return system( buffer.c_str() );
 }
 
 /**************************************************************************//**
@@ -97,7 +97,7 @@ int delete_file(string cpp_file)
  *
  *
  *****************************************************************************/
-void gradeSolution(vector<string> tst, char arg[100])
+void gradeSolution( vector<string> tst, char arg[ 100 ] )
 {
     //string source = "";
     //string cp;
@@ -111,8 +111,8 @@ void gradeSolution(vector<string> tst, char arg[100])
     string logStr = ".log";
     string cppStr = ".cpp";
 
-    char buffer[20] = "";
-    ofstream logFile[256];
+    char buffer[ 20 ] = "";
+    ofstream logFile[ 256 ];
     ofstream sumFile( summary_filename().c_str() );
 
     int pass = 0, fail = 0;
@@ -121,60 +121,59 @@ void gradeSolution(vector<string> tst, char arg[100])
     /*Data type for critical failure maybe?*/
     int crit_fail = 0;
 
-    for(int i = 0; i < (int)cppLocations.size(); i++)
+    for( int i = 0; i < ( int )cppLocations.size(); i++ )
     {
         total = 0;
         test_cases_total = 0;
-        string log_name(log_filename(remove_extension(cppLocations[i])));
-        string student_name(get_student_name(remove_extension(cppLocations[i]))); 
-        logFile[i].open(log_name.c_str());
-        for(int j = 0; j < (int)tst.size(); j++)
+        string log_name( log_filename( remove_extension( cppLocations[ i ] ) ) );
+        string student_name( get_student_name( remove_extension( cppLocations[ i ] ) ) ); 
+        logFile[ i ].open( log_name.c_str() );
+        for( int j = 0; j < ( int )tst.size(); j++ )
         {
-
-
             /*Check to see if cpp file passed the current
               test in the list. If successful, tally the
               success.*/
-            pass_fail = run_file(cppLocations[i], tst[j]);
+            pass_fail = run_file( cppLocations[ i ], tst[ j ] );
 
-            logFile[i] << tst[j] << ": ";
-            if(pass_fail == 1)
+            logFile[ i ] << tst[ j ] << ": ";
+            if( pass_fail == 1 )
             {
                 total += 1;
-                logFile[i] << "PASSED\n";
+                logFile[ i ] << "PASSED\n";
             }
             else
             {
 
-                logFile[i] << "FAILED";
+                logFile[ i ] << "FAILED";
                 /*CHECK IF tst[i] IS A CRIT TEST
                   if It is, then set crit_fail to 1*/
-                if( isCritTest( tst[j] ) )
+                if( isCritTest( tst[ j ] ) )
                 {
                     crit_fail = 1;
-                    logFile[i] << " CRITICAL TEST";
+                    logFile[ i ] << " CRITICAL TEST";
                 }
-                logFile[i] << "\n";
+                logFile[ i ] << "\n";
             }
             test_cases_total++;
 
         }     
    
         //output grade to log file, then close log file
-        logFile[i] << "\n" << total << "/" << test_cases_total << " test cases passed\n";
-        double grade = grade_percent(total, test_cases_total);
-        logFile[i] << "percentage: " << grade << "%\n";
-        if( crit_fail > 0 )
-            logFile[i] << "     grade: FAILED\n";
-        else
-            logFile[i] << "     grade: " << grade_letter(grade) << "\n";
-        logFile[i].close();
+        logFile[ i ] << "\n" << total << "/" << test_cases_total << " test cases passed\n";
+        double grade = grade_percent( total, test_cases_total );
+        logFile[ i ] << "percentage: " << grade << "%\n";
         
+        if( crit_fail > 0 )
+            logFile[ i ] << "     grade: FAILED\n";
+        else
+            logFile[i] << "     grade: " << grade_letter( grade ) << "\n";
+        logFile[ i ].close();
         
         /*SPECIAL CASE for the "golden cpp, you don't want that
           result to appear in the summary file....*/
-        size_t found = cppLocations[i].find( find_goldencpp( ) );
-	    if(found == string::npos )
+        size_t found = cppLocations[ i ].find( find_goldencpp( ) );
+        
+	if( found == string::npos )
         {
             /*write student's score to summary file*/
             if( crit_fail > 0 )
@@ -211,29 +210,29 @@ void gradeSolution(vector<string> tst, char arg[100])
  * @returns result_compare(test_case) - 0 if test fails, 1 if test succeeds
  *
  *****************************************************************************/
-int run_file(string cpp_file, string test_case) //case_num
+int run_file( string cpp_file, string test_case ) //case_num
 {
     //create .out file name
-    string case_out(case_name(test_case, "out"));
+    string case_out( case_name( test_case, "out" ) );
 
     //set up piping buffers
-    string buffer1("");
-    string buffer2(" &>/dev/null < ");
-    string buffer3(" > ");
+    string buffer1( "" );
+    string buffer2( " &>/dev/null < " );
+    string buffer3( " > " );
 
     // "try using | "
     //construct run command, then send to system
     //./<filename> &> /dev/null  < case_x.tst > case_x.out
-    buffer1 += remove_extension(cpp_file);
+    buffer1 += remove_extension( cpp_file );
     buffer1 += buffer2;
     buffer1 += test_case;
     buffer1 += buffer3;
     buffer1 += case_out;
     //cout << "BUFFER1: " << buffer1 << endl;
-    system(buffer1.c_str());
+    system( buffer1.c_str() );
 
     //0 = Fail, 1 = Pass
-    return result_compare(test_case);
+    return result_compare( test_case );
 }
 
 /**************************************************************************//**
@@ -262,33 +261,32 @@ int run_file(string cpp_file, string test_case) //case_num
  * @returns 0 - diff command yielded results, test failed.
  *
  *****************************************************************************/
-int result_compare(string test_file)
+int result_compare( string test_file )
 {
     int length;
     ifstream fin;
 
-    string case_out(case_name(test_file, "out"));
-    string case_ans(case_name(test_file, "ans"));
-    string case_tmp(case_name(test_file, "tmp"));   //create temp file
+    string case_out( case_name( test_file, "out" ) );
+    string case_ans( case_name( test_file, "ans" ) );
+    string case_tmp( case_name( test_file, "tmp" ) );   //create temp file
     
     //perform diff command
-    string buffer("diff ");
+    string buffer( "diff " );
     buffer += case_out + " " + case_ans + " > " + case_tmp;
-    system(buffer.c_str());    
+    system( buffer.c_str() );    
     
-    fin.open(case_tmp.c_str(), ios::binary);    //open file
-    fin.seekg(0, ios::end);                     //cursor at EOF
+    fin.open( case_tmp.c_str(), ios::binary );    //open file
+    fin.seekg( 0, ios::end );                     //cursor at EOF
     length = fin.tellg();                       //find cursor position
     fin.close();
 
     //remove tmp file
     buffer = "rm " + case_tmp;
-    system(buffer.c_str());
+    system( buffer.c_str() );
 
     //remove out file
     buffer = "rm " + case_out;
-    system(buffer.c_str());
-
+    system( buffer.c_str() );
 
     if ( length == 0 ) //File is empty, no diff between .ans and .tmp
         return 1;
@@ -306,18 +304,18 @@ int result_compare(string test_file)
  * @returns true - solution is correct
  * @returns false - solution is incorrect
  *****************************************************************************/
-bool testOutput(string solution)
+bool testOutput( string solution )
 {
-    string temp = "diff " + solution + " " + case_name(solution, "out");
-    char result[100] = "";
-    strcpy(result, "");
+    string temp = "diff " + solution + " " + case_name( solution, "out" );
+    char result[ 100 ] = "";
+    strcpy( result, "" );
 
-    FILE *f    = popen(temp.c_str(), "r");
-    fgets(result, 100, f);
+    FILE *f    = popen( temp.c_str(), "r" );
+    fgets( result, 100, f );
 
     //cout << result << endl;
-    pclose(f);
-    if(!strcmp(result, "\0"))
+    pclose( f );
+    if( !strcmp( result, "\0" ) )
         return true;
     return false;
 }
