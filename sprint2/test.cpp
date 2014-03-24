@@ -51,14 +51,14 @@
  *
  * @returns 0 Program successfully executed.
  *****************************************************************************/
-int main (int argc, char* argv[])
+int main( int argc, char* argv[] )
 {
     genTstCases();
     getTstCases();
 
-    for(int i = 0; i < (int)cppLocations.size(); i++)
-       compile_file(cppLocations[i]);
-    gradeSolution(tstLocations, argv[argc -1]);
+    for( int i = 0; i < ( int )cppLocations.size(); i++ )
+       compile_file( cppLocations[ i ] );
+    gradeSolution(tstLocations, argv[ argc - 1 ]);
 
     cout << "Testing Complete" << endl;
     return 0;
