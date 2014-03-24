@@ -4,12 +4,12 @@
 #include "header.h"
 #include "test.h"
 
-void drct_recur ( char * buffer);
-void get_folders (char * buffer);
-void get_files (char * buffer);
+void drct_recur( char * buffer );
+void get_folders( char * buffer );
+void get_files( char * buffer );
 void getTstCases();
-void getCppFiles ();
-bool compareFileNames(string a, string b);
+void getCppFiles();
+bool compareFileNames( string a, string b );
 
 /**************************************************************************//**
  * @author Benjamin Sherman
@@ -24,8 +24,8 @@ bool compareFileNames(string a, string b);
  *****************************************************************************/
 void drct_recur (char * buffer)
 {
-    get_folders ( buffer);
-    get_files (  buffer);
+    get_folders ( buffer );
+    get_files (  buffer );
 }
 
 /**************************************************************************//**
@@ -40,65 +40,66 @@ void drct_recur (char * buffer)
  *
  * @param[in] buffer - contains a file/folder directory path.
  *****************************************************************************/
-void get_folders (char * buffer)
+void get_folders( char * buffer )
 {
     DIR *a_folder;
     struct dirent *dir_handle;
     vector<string> paths;
     bool subdir = false;
     int attrib;
-    char path[PATH_MAX] = "";
-    strcat(path, "~");
-    strcat(path, buffer);
-    a_folder = opendir(buffer);
+    char path[ PATH_MAX ] = "";
+    strcat( path, "~" );
+    strcat( path, buffer );
+    a_folder = opendir( buffer );
     if ( a_folder == NULL ) // call directory
     {
         return;
     }
 
-    dir_handle = readdir(a_folder);
+    dir_handle = readdir( a_folder );
     if ( dir_handle == NULL )
     {
         return;
     }
-    strcpy(path, buffer);
+    strcpy( path, buffer );
     // search for and step into folders
     do
     {
-        attrib = (int)dir_handle->d_type;
+        attrib = ( int )dir_handle->d_type;
         if ( attrib == 4 && strcmp( dir_handle->d_name, "." ) != 0
-             && strcmp(dir_handle->d_name, "..") != 0)
+             && strcmp( dir_handle->d_name, ".." ) != 0)
         {
             // set to true when we find and step into a folder
             subdir = true;
-            char name[PATH_MAX];
-            strcpy(name, dir_handle->d_name);
-            strcat(path, "/");
-            strcat(path, dir_handle->d_name);
-            paths.push_back(path);
+            char name[ PATH_MAX ];
+            strcpy( name, dir_handle->d_name );
+            strcat( path, "/" );
+            strcat( path, dir_handle->d_name );
+            paths.push_back( path );
         }
 
-        if (subdir)
+        if ( subdir )
         {
-            strcat(path, "/..");
-            getcwd(path, sizeof(path));
+            strcat( path, "/.." );
+            getcwd( path, sizeof( path ));
         }
         // reset test variable that determines 
         // if we found and processed a folder
         subdir = false;
         // reset path
-        strcpy(path, buffer);
-    } while ( (dir_handle = readdir(a_folder))!= NULL );
+        strcpy( path, buffer );
+    } while ( ( dir_handle = readdir( a_folder ) )!= NULL );
 
-    while(!paths.empty())
-    {   string temp =  paths.back();
+    while( !paths.empty() )
+    {   
+    	string temp =  paths.back();
         paths.pop_back();
-        char pth[PATH_MAX];
-        strcpy(pth, temp.c_str());
-        drct_recur(pth);
+        char pth[ PATH_MAX ];
+        strcpy( pth, temp.c_str() );
+        drct_recur( pth );
     }
 
-    closedir(a_folder);
+    closedir( a_folder );
 }
 
 /**************************************************************************//**
@@ -113,13 +114,13 @@ void get_folders (char * buffer)
  *
  * @param[in] buffer - contains a file/folder directory path.
  *****************************************************************************/
-void get_files (char * buffer)
+void get_files( char * buffer )
 {
     DIR *a_file;
     struct dirent *dir_handle;
 
-    a_file = opendir(buffer);
-    dir_handle = readdir(a_file);
+    a_file = opendir( buffer );
+    dir_handle = readdir( a_file );
     string ext = dir_handle->d_name;
     string path;
     string name = dir_handle->d_name;
@@ -132,27 +133,27 @@ void get_files (char * buffer)
             name = dir_handle->d_name;
             /*Check to see if the file has an extension BUT special case
               so that test.cpp file is not added to the compiled file stack.*/
-            if(name.find_last_of(".") != string::npos && name != "test.cpp")
-                ext = name.substr(name.find_last_of(".") );
+            if( name.find_last_of( "." ) != string::npos && name != "test.cpp" )
+                ext = name.substr( name.find_last_of( "." ) );
             else 
                 ext = "";
-            if ( 8 == (int)dir_handle->d_type 
-                && (ext == ".tst"  || ext == ".ans" || ext == ".cpp"))
+            if ( 8 == ( int )dir_handle->d_type 
+                && ( ext == ".tst"  || ext == ".ans" || ext == ".cpp" ) )
             {
-                path += ("/" + name);
-                if(ext == ".tst")
-	            	tstLocations.push_back(path);
-                else if(ext == ".ans")
-					ansLocations.push_back(path);
+                path += ( "/" + name );
+                if( ext == ".tst" )
+	            	tstLocations.push_back( path );
+                else if( ext == ".ans" )
+			ansLocations.push_back( path );
                 else if(ext == ".cpp")
-					cppLocations.push_back(path);
+			cppLocations.push_back( path );
             }
 
         }
-        while ( (dir_handle = readdir(a_file)) != NULL);
+        while ( ( dir_handle = readdir( a_file ) ) != NULL );
     }
 
-    closedir(a_file);
+    closedir( a_file );
 }
 
 /**************************************************************************//**
@@ -164,35 +165,35 @@ void get_files (char * buffer)
  *
  * @returns 0 Program successfully executed.
  *****************************************************************************/
-void getTstCases ()
+void getTstCases()
 {
-    char path[PATH_MAX] = "";
-	bool ansFound;
-	string tst, ans;
-    getcwd(path, sizeof(path));
+    char path[ PATH_MAX ] = "";
+    bool ansFound;
+    string tst, ans;
+    getcwd( path, sizeof( path ) );
 
-    drct_recur ( path);
+    drct_recur( path );
 
     // check that a tst file has a matching ans file
-    for(int i = 0; i < (int)tstLocations.size(); i++)
+    for( int i = 0; i < ( int )tstLocations.size(); i++ )
     {
-		ansFound = false;
-		tst = tstLocations[i].substr(0, tstLocations[i].find_last_of("."));
-        tst = tst.substr(tst.find_last_of("/") + 1);
-    	for(int j = 0; j < (int)ansLocations.size(); j++)
-		{
-            ans = ansLocations[j].substr(0, ansLocations[j].find_last_of("."));
-            ans = ans.substr(ans.find_last_of("/") + 1);
-            if(tst == ans)
+	ansFound = false;
+	tst = tstLocations[ i ].substr( 0, tstLocations[ i ].find_last_of( "." ) );
+        tst = tst.substr( tst.find_last_of( "/" ) + 1 );
+    	for( int j = 0; j < ( int )ansLocations.size(); j++ )
+	{
+            ans = ansLocations[ j ].substr( 0, ansLocations[ j ].find_last_of( "." ) );
+            ans = ans.substr( ans.find_last_of( "/" ) + 1 );
+            if( tst == ans )
                 ansFound = true;
-		}
+	}
         // discard tst file if no matching ans file found
-        if(!ansFound)
-            tstLocations.erase(tstLocations.begin() + i);
+        if( !ansFound )
+            tstLocations.erase( tstLocations.begin() + i );
     }
 
-    sort (tstLocations.begin(), tstLocations.end(), compareFileNames);
-    sort (ansLocations.begin(), ansLocations.end(), compareFileNames);
+    sort( tstLocations.begin(), tstLocations.end(), compareFileNames );
+    sort( ansLocations.begin(), ansLocations.end(), compareFileNames );
 
 
 }
@@ -206,47 +207,46 @@ void getTstCases ()
  *
  * @returns 0 Program successfully executed.
  *****************************************************************************/
-void getCppFiles ()
+void getCppFiles()
 {
-    char path[PATH_MAX] = "";
-	bool ansFound;
-	string tst, ans;
-    getcwd(path, sizeof(path));
+    char path[ PATH_MAX ] = "";
+    bool ansFound;
+    string tst, ans;
+    getcwd( path, sizeof( path ) );
 
-    drct_recur ( path);
+    drct_recur( path );
 
     // check that a tst file has a matching ans file
-    for(int i = 0; i < (int)tstLocations.size(); i++)
+    for( int i = 0; i < ( int )tstLocations.size(); i++ )
     {
-		ansFound = false;
-		tst = tstLocations[i].substr(0, tstLocations[i].find_last_of("."));
-        tst = tst.substr(tst.find_last_of("/") + 1);
-    	for(int j = 0; j < (int)ansLocations.size(); j++)
-		{
-            ans = ansLocations[j].substr(0, ansLocations[j].find_last_of("."));
-            ans = ans.substr(ans.find_last_of("/") + 1);
-            if(tst == ans)
+	ansFound = false;
+	tst = tstLocations[ i ].substr( 0, tstLocations[ i ].find_last_of( "." ) );
+        tst = tst.substr( tst.find_last_of( "/" ) + 1 );
+    	for( int j = 0; j < ( int )ansLocations.size(); j++ )
+	{
+            ans = ansLocations[ j ].substr( 0, ansLocations[ j ].find_last_of( "." ) );
+            ans = ans.substr( ans.find_last_of( "/" ) + 1 );
+            if( tst == ans )
                 ansFound = true;
-		}
+	}
         // discard tst file if no matching ans file found
-        if(!ansFound)
-            tstLocations.erase(tstLocations.begin() + i);
+        if( !ansFound )
+            tstLocations.erase( tstLocations.begin() + i );
     }
 
-    sort (tstLocations.begin(), tstLocations.end(), compareFileNames);
-    sort (ansLocations.begin(), ansLocations.end(), compareFileNames);
-
+    sort( tstLocations.begin(), tstLocations.end(), compareFileNames );
+    sort( ansLocations.begin(), ansLocations.end(), compareFileNames );
 
 }
 
 //Needs header
 
 ///////////////
-bool compareFileNames(string a, string b)
+bool compareFileNames( string a, string b )
 {
-    string fileA = a.substr(a.find_last_of('/') + 1);
-    string fileB = b.substr(b.find_last_of('/') + 1);
-    if(fileA > fileB)
+    string fileA = a.substr( a.find_last_of( '/' ) + 1 );
+    string fileB = b.substr( b.find_last_of( '/' ) + 1 );
+    if( fileA > fileB )
         return true;
     else
         return false;
