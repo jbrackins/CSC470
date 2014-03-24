@@ -1,5 +1,5 @@
-\contentsline {chapter}{Mission}{iv}{chapter*.3}
-\contentsline {chapter}{Document Preparation and Updates}{v}{chapter*.4}
+\contentsline {chapter}{Mission}{v}{chapter*.3}
+\contentsline {chapter}{Document Preparation and Updates}{vi}{chapter*.4}
 \contentsline {chapter}{\numberline {1}Overview and concept of operations}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Scope}{1}{section.1.1}
 \contentsline {section}{\numberline {1.2}Purpose}{1}{section.1.2}
@@ -55,6 +55,4 @@
 \contentsline {section}{\numberline {8.1}User Guide}{12}{section.8.1}
 \contentsline {chapter}{Supporting Materials}{13}{chapter*.5}
 \contentsline {chapter}{Sprint Reports}{14}{chapter*.6}
-\contentsline {section}{\numberline {8.1}Sprint Report \#1}{14}{section.8.1}
-\contentsline {section}{\numberline {8.2}Sprint Report \#2}{14}{section.8.2}
-\contentsline {section}{\numberline {8.3}Sprint Report \#3}{14}{section.8.3}
+\contentsline {section}{\numberline {8.1}Sprint Report}{14}{section.8.1}
