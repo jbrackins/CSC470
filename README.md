@@ -14,5 +14,5 @@ type "make" to compile the source code located in the "sprint2" directory.
 The test executable should be run in the same folder as the golden.cpp file in order
 for the program to run properly!
 
-Our documentation pdf can be located in the "resources" directory.
+Our documentation pdf is sprint2.pdf and can be located in the "resources" directory.
 
