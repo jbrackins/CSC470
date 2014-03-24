@@ -19,7 +19,7 @@ bool isCritTest( string test_case )
     cout << test_case << endl;
     size_t found = test_case.find( "_crit" );
 
-	if(found!= string::npos )
+	if( found!= string::npos )
 	    return true;
     else
         return false;
@@ -37,7 +37,7 @@ bool isCritTest( string test_case )
 ******************************************************************************/
 string find_goldencpp( )
 {
-   char buffer[PATH_MAX];
+   char buffer[ PATH_MAX ];
    DIR *a_file;
    struct dirent *dir_handle;
    string ext;
@@ -46,7 +46,7 @@ string find_goldencpp( )
    string command;
    
    //get cwd into a character buffer
-   getcwd( buffer, sizeof(buffer) );
+   getcwd( buffer, sizeof( buffer ) );
    a_file = opendir( buffer );
    dir_handle = readdir( a_file );
    ext = dir_handle->d_name;
@@ -62,13 +62,13 @@ string find_goldencpp( )
          name = dir_handle->d_name;
          
          //here, we exclude test.cpp, because we don't want to compile our own code
-         if( name.find_last_of(".") != string::npos && name != "test.cpp" )
-            ext = name.substr( name.find_last_of(".") );
+         if( name.find_last_of( "." ) != string::npos && name != "test.cpp" )
+            ext = name.substr( name.find_last_of( "." ) );
          else
             ext = "";
          
          //make sure we're looking at a cpp file
-         if( 8 == (int)dir_handle->d_type && ext == ".cpp" )
+         if( 8 == ( int )dir_handle->d_type && ext == ".cpp" )
          {
             //finish constructing the path
             path += ( "/" + name );
