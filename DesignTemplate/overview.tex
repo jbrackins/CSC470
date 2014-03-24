@@ -14,10 +14,13 @@ The purpose of this program is to run an entire directory of {\tt .cpp} files wi
 
 
 \subsection{Traversing Subdirectories}
-Traversing subdirectories is one of the main components of this system. The program runs a {\tt .cpp} file using test files, and the test files are stored in the same directory as the {\tt .cpp} files.  
+Traversing subdirectories is one of the main components of this system. The program runs a {\tt .cpp} file using test files, and the test files are stored in the same directory as student subdirectories.  
 
 \subsection{Running the Program Using Test Cases}
 The software was designed in the Linux environment provided to the group by the university. 
+
+\subsection{Generating Test Cases}
+The software is capable of generating test cases if the user provides the constraints. 
  
 \section{Systems Goals}
 The goal of this system is to make grading a less of a tedious task. This product grades an entire directory of {\tt .cpp} files just by running the root directory. The product is built to test the {\tt .cpp} file with all the given {\tt .tst} test files in the current directory, and compare the results to the corresponding {\tt .ans} files.  
@@ -25,20 +28,11 @@ The goal of this system is to make grading a less of a tedious task. This produc
 \section{System Overview and Diagram}
 Here is a flow diagram showing the implementation process:
 
-%\usepackage{pdfpages}
-%\includepdf{sprint2Algorithm.pdf}
-
-%\begin{figure}[tbh]
-%\begin{center}
-%\includegraphics[width=0.75\textwidth]{./sprint2Algorithm}
-%\end{center}
-%\caption{System Diagram \label{systemdiagram}}
-%\end{figure}
 
 \begin{figure}[h]
 \centering \includegraphics[width=7cm]{sprint2Algorithm}
 \end{figure}
 
-%\let\cleardoublepage\clearpage
+\let\cleardoublepage\clearpage
 
 

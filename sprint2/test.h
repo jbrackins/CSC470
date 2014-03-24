@@ -1,3 +1,15 @@
+/**************************************************************************//**
+* @file test.h
+*
+* @brief This file contains the majority of the files needed to run the testing
+* suite. compile_file is used to compile the students' files, run_file is used
+* to run the .cpp files, result_compare is used in tandem with run_file to 
+* test whether a cpp file fails or passes a test, and gradeSolution is the
+* actual test suite's algorithm where the cpp files are queued up, run against
+* the tests, and are recorded into log files and summary files.
+*
+* @authors Julian Brackins, Jonathan Dixon, Hafiza Farzami
+******************************************************************************/
 #ifndef __TEST_H_INCLUDED__
 #define __TEST_H_INCLUDED__
 
@@ -8,21 +20,16 @@
 #include "test_gen.h"
 #include "test_string.h"
 
-
-
 ///////////////////////////////////////////////////////////////////////////////
 ////                       FUNCTION PROTOTYPES
 ///////////////////////////////////////////////////////////////////////////////
 
 int compile_file(string cpp_file);
 int delete_file(string cpp_file);
-
-bool isCritTest( string test_case );
-bool testOutput(string solution);
-void gradeSolution(vector<string> tst, char arg[]);
-
 int run_file(string cpp_file, string test_case);
 int result_compare(string test_file);
+void gradeSolution(vector<string> tst);
+void gradeSolution( vector<string> tst, char arg[] );
 
 /**************************************************************************//**
  * @author Julian Brackins
@@ -41,11 +48,11 @@ int result_compare(string test_file);
  * @returns system(buffer.c_str()) - 0 if compile worked, 1024 if failed
  *
  *****************************************************************************/
-int compile_file(string cpp_file)
+int compile_file( string cpp_file )
 {
     string buffer("g++ -o");
     buffer += " " + remove_extension(cpp_file) + " " + cpp_file;
-    return system(buffer.c_str());
+    return system( buffer.c_str() );
 }
 
 /**************************************************************************//**
@@ -60,130 +67,11 @@ int compile_file(string cpp_file)
  * @returns system(buffer.c_str()) - 0 if compile worked, 1024 if failed
  *
  *****************************************************************************/
-int delete_file(string cpp_file)
+int delete_file( string cpp_file )
 {
-    string buffer("rm -f");
-    buffer += " " + remove_extension(cpp_file);
-    return system(buffer.c_str());
-}
-
-/**************************************************************************//**
- * @authors Julian Brackins, Hafiza Farzami, Benjamin Sherman, Anthony Morast, 
- * James Tillma
- *
- * @par Description: This function is the compilation of some of the code
- * James and Anthony pushed to github on 2/9/14. It uses popen to process
- * all the system commands so that we can get the system command output
- * and ignore the system command output in the terminal.
- * SPRINT 2 UPDATE:
- * Julian Brackins: I've modified this solution algorithm heavily, changing
- * Kernel Panic's system of appending the log files to one big file to instead
- * log individual files.
- *
- * New Solution Algorithm: 
- * >For Loop based on all .cpp files in directory:
- *     >Create Log File for current student
- *     >For Loop based on elements in tst file vector:
- *         >Run File using current .tst file
- *         >If File Passed:
- *             >Indicate that student passed test case
- *             >Increment Number of Successes
- *         >If File Failed:
- *             >If .tst file was a critical test                      
- *                 >Indicate Critical Failure                         
- *             >Indicate that student failed test case
- *     >Output Summary of Student's results to their log file
- *     >Output Student's name and score to Summary File               
- *
- *
- *****************************************************************************/
-void gradeSolution(vector<string> tst, char arg[100])
-{
-    //string source = "";
-    //string cp;
-
-    int total, test_cases_total;
-    string tab = "\t";
-    string passStr = "\t\npass ";
-    string failStr = "\t\nfail ";
-    string input, result, sol, caseName, cppFile, clear;
-    string logFileContents = "";
-    string logStr = ".log";
-    string cppStr = ".cpp";
-
-    char buffer[20] = "";
-    ofstream logFile[256];
-    ofstream sumFile( summary_filename().c_str() );
-
-    int pass = 0, fail = 0;
-
-    int pass_fail = 0;
-    /*Data type for critical failure maybe?*/
-    int crit_fail = 0;
-
-    for(int i = 0; i < (int)cppLocations.size(); i++)
-    {
-        total = 0;
-        test_cases_total = 0;
-        string log_name(log_filename(remove_extension(cppLocations[i])));
-        string student_name(get_student_name(remove_extension(cppLocations[i]))); 
-        logFile[i].open(log_name.c_str());
-        for(int j = 0; j < (int)tst.size(); j++)
-        {
-
-
-            /*Check to see if cpp file passed the current
-              test in the list. If successful, tally the
-              success.*/
-            pass_fail = run_file(cppLocations[i], tst[j]);
-
-            logFile[i] << tst[j] << ": ";
-            if(pass_fail == 1)
-            {
-                total += 1;
-                logFile[i] << "PASSED\n";
-            }
-            else
-            {
-
-                logFile[i] << "FAILED\n";
-                /*CHECK IF tst[i] IS A CRIT TEST
-                  if It is, then set crit_fail to 1*/
-                if( !isCritTest( tst[ i ] ) )
-                    crit_fail = 1;
-            }
-            test_cases_total++;
-
-        }     
-   
-    //output grade to log file, then close log file
-    logFile[i] << "\n" << total << "/" << test_cases_total << " test cases passed\n";
-    double grade = grade_percent(total, test_cases_total);
-    logFile[i] << "percentage: " << grade << "%\n";
-    if( crit_fail > 0 )
-        logFile[i] << "     grade: FAILED\n";
-    else
-        logFile[i] << "     grade: " << grade_letter(grade) << "\n";
-    logFile[i].close();
-    
-    
-    /*SPECIAL CASE for the "golden cpp, you don't want that
-      result to appear in the summary file....*/
-    size_t found = cppLocations[i].find( find_goldencpp( ) );
-	if(found == string::npos )
-    {
-        /*write student's score to summary file*/
-        if( crit_fail > 0 )
-            sumFile << student_name << "\t" << "FAILED" << endl;
-        else
-        	sumFile << student_name << "\t" << grade << "%" << endl;
-    }
-
-    //Reset critical failure flag
-    crit_fail = 0;
-    }
-    //close summary file
-    sumFile.close();
+    string buffer( "rm -f" );
+    buffer += " " + remove_extension( cpp_file );
+    return system( buffer.c_str() );
 }
 
 /**************************************************************************//**
@@ -281,6 +169,9 @@ int result_compare(string test_file)
     buffer = "rm " + case_tmp;
     system(buffer.c_str());
 
+    //remove out file
+    buffer = "rm " + case_out;
+    system(buffer.c_str());
 
 
     if ( length == 0 ) //File is empty, no diff between .ans and .tmp
@@ -290,29 +181,125 @@ int result_compare(string test_file)
 }
 
 /**************************************************************************//**
- * @author Benjamin Sherman
+ * @authors Julian Brackins, Hafiza Farzami, Benjamin Sherman, Anthony Morast, 
+ * James Tillma
  *
- * @par Description: This function calls the diff function, if there is
- * no output from the diff function, the solution is correct and it returns
- * true
+ * @par Description: This function is the compilation of some of the code
+ * James and Anthony pushed to github on 2/9/14. It uses popen to process
+ * all the system commands so that we can get the system command output
+ * and ignore the system command output in the terminal.
+ * SPRINT 2 UPDATE:
+ * Julian Brackins: I've modified this solution algorithm heavily, changing
+ * Kernel Panic's system of appending the log files to one big file to instead
+ * log individual files.
  *
- * @returns true - solution is correct
- * @returns false - solution is incorrect
+ * New Solution Algorithm: 
+ * >For Loop based on all .cpp files in directory:
+ *     >Create Log File for current student
+ *     >For Loop based on elements in tst file vector:
+ *         >Run File using current .tst file
+ *         >If File Passed:
+ *             >Indicate that student passed test case
+ *             >Increment Number of Successes
+ *         >If File Failed:
+ *             >If .tst file was a critical test                      
+ *                 >Indicate Critical Failure                         
+ *             >Indicate that student failed test case
+ *     >Output Summary of Student's results to their log file
+ *     >Output Student's name and score to Summary File               
+ *
+ *
  *****************************************************************************/
-bool testOutput(string solution)
+void gradeSolution(vector<string> tst)
 {
-    string temp = "diff " + solution + " " + case_name(solution, "out");
-    char result[100] = "";
-    strcpy(result, "");
+    //string source = "";
+    //string cp;
 
-    FILE *f    = popen(temp.c_str(), "r");
-    fgets(result, 100, f);
+    int total, test_cases_total;
+    string tab = "\t";
+    string passStr = "\t\npass ";
+    string failStr = "\t\nfail ";
+    string input, result, sol, caseName, cppFile, clear;
+    string logFileContents = "";
+    string logStr = ".log";
+    string cppStr = ".cpp";
 
-    //cout << result << endl;
-    pclose(f);
-    if(!strcmp(result, "\0"))
-        return true;
-    return false;
+    char buffer[ 20 ] = "";
+    ofstream logFile[ 256 ];
+    ofstream sumFile( summary_filename().c_str() );
+
+    int pass = 0, fail = 0;
+
+    int pass_fail = 0;
+    /*Data type for critical failure maybe?*/
+    int crit_fail = 0;
+
+    for( int i = 0; i < ( int )cppLocations.size(); i++ )
+    {
+        total = 0;
+        test_cases_total = 0;
+        string log_name( log_filename( remove_extension( cppLocations[ i ] ) ) );
+        string student_name( get_student_name( remove_extension( cppLocations[ i ] ) ) ); 
+        logFile[ i ].open( log_name.c_str() );
+        for( int j = 0; j < ( int )tst.size(); j++ )
+        {
+            /*Check to see if cpp file passed the current
+              test in the list. If successful, tally the
+              success.*/
+            pass_fail = run_file( cppLocations[ i ], tst[ j ] );
+
+            logFile[ i ] << tst[ j ] << ": ";
+            if( pass_fail == 1 )
+            {
+                total += 1;
+                logFile[ i ] << "PASSED\n";
+            }
+            else
+            {
+
+                logFile[ i ] << "FAILED";
+                /*CHECK IF tst[i] IS A CRIT TEST
+                  if It is, then set crit_fail to 1*/
+                if( isCritTest( tst[ j ] ) )
+                {
+                    crit_fail = 1;
+                    logFile[ i ] << " CRITICAL TEST";
+                }
+                logFile[ i ] << "\n";
+            }
+            test_cases_total++;
+
+        }     
+   
+        //output grade to log file, then close log file
+        logFile[ i ] << "\n" << total << "/" << test_cases_total << " test cases passed\n";
+        double grade = grade_percent( total, test_cases_total );
+        logFile[ i ] << "percentage: " << grade << "%\n";
+        
+        if( crit_fail > 0 )
+            logFile[ i ] << "     grade: FAILED\n";
+        else
+            logFile[i] << "     grade: " << grade_letter( grade ) << "\n";
+        logFile[ i ].close();
+        
+        /*SPECIAL CASE for the "golden cpp, you don't want that
+          result to appear in the summary file....*/
+        size_t found = cppLocations[ i ].find( find_goldencpp( ) );
+        
+	if( found == string::npos )
+        {
+            /*write student's score to summary file*/
+            if( crit_fail > 0 )
+                sumFile << student_name << "\t" << "FAILED" << endl;
+            else
+                sumFile << student_name << "\t" << grade << "%" << endl;
+        }
+
+        //Reset critical failure flag
+        crit_fail = 0;
+    }
+    //close summary file
+    sumFile.close();
 }
 
 #endif

@@ -16,8 +16,8 @@ test: test.o
 	${CPP} -lm ${OBJS} ${HEAD} -o test
 test.o: test.cpp
 clean:
-	rm -f *.o test
+	rm -f *.o test *~
 realclean:
-	rm -f *.o test *~ *.swp
+	rm -f *.o test *~ *.swp *.log */*.log
 edit:
 	gedit *.h *.cpp &

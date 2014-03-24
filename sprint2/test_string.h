@@ -1,23 +1,34 @@
+/**************************************************************************//**
+* @file test_string.h
+*
+* @brief An extensize suite of string manipulation functions needed for file
+* names, logfile generation, extension handling, and various other operations.
+*
+* @authors Julian Brackins, Jonathan Dixon, Hafiza Farzami
+******************************************************************************/
 #ifndef __TEST_STRING_H_INCLUDED__
 #define __TEST_STRING_H_INCLUDED__
 
 #include "header.h"
 
-string getDateTime();
-string getFileStream(string file);
+///////////////////////////////////////////////////////////////////////////////
+////                       FUNCTION PROTOTYPES
+///////////////////////////////////////////////////////////////////////////////
 
-string add_extension(string input);
-string remove_extension(string input);
-string get_extension(string input);
-string get_filepath(string input);
+string getDateTime();
+string getFileStream( string file );
+string add_extension( string input );
+string remove_extension( string input );
+string get_extension( string input );
+string get_filepath( string input );
 string get_pathname();
-string case_name(string test_case, string ext);
+string case_name( string test_case, string ext );
 string timestamp();
-string str_replace(string str, char a, char b);
-string log_filename(string cpp_file);
-double grade_percent(int right, int total);
-string grade_letter(double grade_percent);
-string get_student_name(string cpp_file);
+string str_replace( string str, char a, char b );
+string log_filename( string cpp_file );
+double grade_percent( int right, int total );
+string grade_letter( double grade_percent );
+string get_student_name( string cpp_file );
 
 /**************************************************************************//**
  * @author Benjamin Sherman
@@ -29,21 +40,21 @@ string get_student_name(string cpp_file);
  *
  * @returns strStream - string that represents the contents of a file.
  *****************************************************************************/
-string getFileStream(string file)
+string getFileStream( string file )
 {
     ifstream fin;
     string strStream = "";
-    fin.open(file.c_str());
-    if(!fin)
+    fin.open( file.c_str() );
+    if( !fin )
         return "";
-    char stream[3000] = "", temp[3000] = "";
-    strcpy(stream, "\0");
-    fin.getline(temp, 512, '\n');
-    while(!fin.eof())
+    char stream[ 3000 ] = "", temp[ 3000 ] = "";
+    strcpy( stream, "\0" );
+    fin.getline( temp, 512, '\n' );
+    while( !fin.eof() )
     {
-        strcat(stream, "\n\t\t");
-        strcat(stream, temp);
-        fin.getline(temp, 512, '\n');
+        strcat( stream, "\n\t\t" );
+        strcat( stream, temp );
+        fin.getline( temp, 512, '\n' );
     }
     fin.close();
     strStream = stream;
@@ -59,21 +70,21 @@ string getFileStream(string file)
  *****************************************************************************/
 string getDateTime()
 {
-    char buffer[256] = "";
+    char buffer[ 256 ] = "";
     string dateTime;
-    char hrMnSec[9] = "";
+    char hrMnSec[ 9 ] = "";
     string m, d, y;
-    time_t curTime = time(NULL);
-    struct tm *curDate = localtime(&curTime);
-    sprintf(buffer, "%d", curDate->tm_mon + 1);
+    time_t curTime = time( NULL );
+    struct tm *curDate = localtime( &curTime );
+    sprintf( buffer, "%d", curDate->tm_mon + 1 );
     m = buffer;
-    sprintf(buffer, "%d", curDate->tm_mday);
+    sprintf( buffer, "%d", curDate->tm_mday );
     d = buffer;
-    sprintf(buffer, "%d", curDate->tm_year - 100);
+    sprintf( buffer, "%d", curDate->tm_year - 100 );
     y = buffer;
     dateTime = m + "/" + d + "/" + y;
-    strftime(hrMnSec, 9, "%H:%M:%S", localtime(&curTime));
-    dateTime += "  " + (string)hrMnSec;
+    strftime( hrMnSec, 9, "%H:%M:%S", localtime(&curTime) );
+    dateTime += "  " + ( string )hrMnSec;
 
     return dateTime;
 }
@@ -92,9 +103,9 @@ string getDateTime()
  * @returns newstring - string similar to parameter input with .cpp extension
  *
  *****************************************************************************/
-string add_extension(string input)
+string add_extension( string input )
 {
-    input.append(".cpp");  
+    input.append( ".cpp" );  
     return input;
 }
 
@@ -112,10 +123,10 @@ string add_extension(string input)
  * @returns newstring - string similar to parameter input with .cpp extension
  *
  *****************************************************************************/
-string remove_extension(string input)
+string remove_extension( string input )
 {
-    unsigned found = input.find_last_of(".");
-    string extension( input.substr(0,found) );
+    unsigned found = input.find_last_of( "." );
+    string extension( input.substr( 0, found ) );
     return extension;
 }
 
@@ -133,10 +144,10 @@ string remove_extension(string input)
  * @returns extension - file extension
  *
  *****************************************************************************/
-string get_extension(string input)
+string get_extension( string input )
 {
-    unsigned found = input.find_last_of(".");
-    string extension( input.substr(found+1) );
+    unsigned found = input.find_last_of( "." );
+    string extension( input.substr( found + 1 ) );
     return extension;
 }
 
@@ -152,10 +163,10 @@ string get_extension(string input)
  * @returns extension - file extension
  *
  *****************************************************************************/
-string get_filepath(string input)
+string get_filepath( string input )
 {
-    unsigned found = input.find_last_of("/");
-    string extension( input.substr(0,found+1) );
+    unsigned found = input.find_last_of( "/" );
+    string extension( input.substr( 0, found + 1 ) );
     return extension;
 }
 
@@ -173,10 +184,10 @@ string get_filepath(string input)
  *****************************************************************************/
 string get_pathname()
 {
-    char buffer[1024];
+    char buffer[ 1024 ];
     string path;
 
-    getcwd(buffer, sizeof(buffer));
+    getcwd( buffer, sizeof( buffer ) );
     //printf("In %s\n", buffer);
     path = buffer;
 
@@ -196,22 +207,22 @@ string get_pathname()
  * @returns temp - new string with extension the same as the ext param.
  *
  *****************************************************************************/
-string case_name(string test_case, string ext)
+string case_name( string test_case, string ext )
 {
-    char buffer [20];
+    char buffer[ 20 ];
     int n;
-    string temp(test_case.begin(), test_case.end()-4);
+    string temp( test_case.begin(), test_case.end() - 4 );
 
     //get a new extension (brought in by second parameter)
-    if ( ext.compare("tst") == 0)
+    if ( ext.compare( "tst" ) == 0 )
         temp += ".tst";
-    else if ( ext.compare("ans") == 0)
+    else if ( ext.compare( "ans" ) == 0 )
         temp += ".ans";
-    else if ( ext.compare("out") == 0)
+    else if ( ext.compare( "out" ) == 0 )
         temp += ".out";
-    else if ( ext.compare("tmp") == 0)
+    else if ( ext.compare( "tmp" ) == 0 )
         temp += ".tmp";
-    else if ( ext.compare("log") == 0)
+    else if ( ext.compare( "log" ) == 0 )
         {
             //HANDLE TIMESTAMP
             temp += ".log";
@@ -232,14 +243,14 @@ string case_name(string test_case, string ext)
  *****************************************************************************/
 string timestamp() 
 {
-    time_t now = time(0);
+    time_t now = time( 0 );
     struct tm tstruct;
-    char buffer[80];
-    tstruct = *localtime(&now);
+    char buffer[ 80 ];
+    tstruct = *localtime( &now );
     
-    strftime(buffer, sizeof(buffer), "%Y_%m_%d_%X", &tstruct);
+    strftime( buffer, sizeof( buffer ), "%Y_%m_%d_%X", &tstruct );
     
-    string ymdt( str_replace(buffer, ':', '_') );
+    string ymdt( str_replace( buffer, ':', '_' ) );
     return ymdt;
 }
 
@@ -256,12 +267,12 @@ string timestamp()
  * @returns str - new string with replaced characters
  *
  *****************************************************************************/
-string str_replace(string str, char a, char b) 
+string str_replace( string str, char a, char b ) 
 {
-    for (int i = 0; i < str.length(); ++i) 
+    for( int i = 0; i < str.length(); ++i ) 
     {
-        if (str[i] == a)
-        str[i] = b;
+        if( str[ i ] == a )
+        str[ i ] = b;
     }
     return str;
 }
@@ -278,9 +289,9 @@ string str_replace(string str, char a, char b)
  * @returns log_str += "_" + timestamp() + ".log" - .log file with timestamp
  *
  *****************************************************************************/
-string log_filename(string cpp_file) 
+string log_filename( string cpp_file ) 
 {
-    string log_str(cpp_file);
+    string log_str( cpp_file );
     return log_str += "_" + timestamp() + ".log";
 }
 
@@ -315,7 +326,7 @@ string summary_filename()
  *****************************************************************************/
 double grade_percent(int right, int total) 
 {
-    return float( ( float(right) / float(total) ) * 100 );
+    return float( ( float( right ) / float( total ) ) * 100 );
 }
 
 /**************************************************************************//**
@@ -334,13 +345,13 @@ string grade_letter(double grade_percent)
 {
     string letter;
 
-    if(grade_percent >= 90.0)
+    if( grade_percent >= 90.0 )
         letter = "A"; 
-    else if(grade_percent >= 80.0)
+    else if( grade_percent >= 80.0 )
         letter = "B";  
-    else if(grade_percent >= 70.0)
+    else if( grade_percent >= 70.0 )
         letter = "C"; 
-    else if(grade_percent >= 60.0)
+    else if( grade_percent >= 60.0 )
         letter = "D"; 
     else
         letter = "F";     
@@ -361,14 +372,14 @@ string grade_letter(double grade_percent)
  * @returns name - string containing student's name
  *
  *****************************************************************************/
-string get_student_name(string cpp_file) 
+string get_student_name( string cpp_file ) 
 {
-    unsigned found = cpp_file.find_last_of("/");
-    string name( cpp_file.substr(found+1) );
+    unsigned found = cpp_file.find_last_of( "/" );
+    string name( cpp_file.substr( found + 1 ) );
     replace( name.begin(), name.end(), '_', ' ');
-    name[0] = toupper(name[0]);
-    found = name.find_first_of(" ");
-    name[(int)found+1] = toupper(name[(int)found+1]);
+    name[ 0 ] = toupper( name[ 0 ] );
+    found = name.find_first_of( " " );
+    name[ ( int )found + 1 ] = toupper( name[ ( int )found + 1 ] );
 
     return name;
 }
