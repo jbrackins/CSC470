@@ -103,7 +103,7 @@ void get_folders( char * buffer )
 }
 
 /**************************************************************************//**
- * @author Benjamin Sherman
+ * @author Julian Brackins, Benjamin Sherman
  *
  * @par Description:
  * This function will loop through the folders and files
@@ -142,11 +142,11 @@ void get_files( char * buffer )
             {
                 path += ( "/" + name );
                 if( ext == ".tst" )
-	            	tstLocations.push_back( path );
+	                tstLocations.push_back( path );
                 else if( ext == ".ans" )
-			ansLocations.push_back( path );
+		        ansLocations.push_back( path );
                 else if(ext == ".cpp")
-			cppLocations.push_back( path );
+		        cppLocations.push_back( path );
             }
 
         }
