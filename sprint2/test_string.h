@@ -17,6 +17,7 @@ string str_replace(string str, char a, char b);
 string log_filename(string cpp_file);
 double grade_percent(int right, int total);
 string grade_letter(double grade_percent);
+string get_student_name(string cpp_file);
 
 /**************************************************************************//**
  * @author Benjamin Sherman
@@ -344,5 +345,31 @@ string grade_letter(double grade_percent)
     else
         letter = "F";     
     return letter;
+}
+
+/**************************************************************************//**
+ * @author Julian Brackins
+ *
+ * @par Description:
+ * Construct a string with the student's name. It even capitalizes the first
+ * and last name of the student. The name is generated based on the cpp_file
+ * brought into this function, as it is understood the name of the student
+ * will be the cpp file name.
+ *
+ * @param[in] cpp_file - file name
+ *
+ * @returns name - string containing student's name
+ *
+ *****************************************************************************/
+string get_student_name(string cpp_file) 
+{
+    unsigned found = cpp_file.find_last_of("/");
+    string name( cpp_file.substr(found+1) );
+    replace( name.begin(), name.end(), '_', ' ');
+    name[0] = toupper(name[0]);
+    found = name.find_first_of(" ");
+    name[(int)found+1] = toupper(name[(int)found+1]);
+
+    return name;
 }
 #endif

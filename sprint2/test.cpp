@@ -1,4 +1,3 @@
-// Doxygen Header:
 /**************************************************************************//**
 * @file grade.cpp
 *
@@ -54,47 +53,13 @@
  *****************************************************************************/
 int main (int argc, char* argv[])
 {
-    string directory;
-    /*if(argc != 2)
-    {
-        cout << "Usage: ./grade <directory_containing_cpp_file>" << endl;
-        return -1;
-    }
-    ifstream fin;
-    fin.open(argv[argc-1]);
-    if(!fin)
-    {
-        cout << "Usage: ./grade <directory_containing_cpp_file>" << endl;
-        cout << "Student source code does not exist or is inaccessible" << endl;
-        return -1;
-    }*/
-    //directory = argv[argc-1];
-    //directory = directory.substr(0, directory.find_first_of('/'));
-    //chdir(directory.c_str());
-
     genTstCases();
     getTstCases();
 
-    cout << "TEST CASES\n";
-    for(int i = 0; i < (int)tstLocations.size(); i++)
-    {
-       cout << tstLocations[i] << endl;
-    }
-    cout << "\nCPP FILES\n";
     for(int i = 0; i < (int)cppLocations.size(); i++)
-    {
-       cout << cppLocations[i] << endl;
        compile_file(cppLocations[i]);
-       //delete_file(cppLocations[i]);
-    }
-    //exit(0);
     gradeSolution(tstLocations, argv[argc -1]);
-    for(int i = 0; i < (int)cppLocations.size(); i++)
-    {
-       //cout << cppLocations[i] << endl;
-       //compile_file(cppLocations[i]);
-       delete_file(cppLocations[i]);
-    }
-    cout << endl;
+
+    cout << "Testing Complete" << endl;
     return 0;
 }

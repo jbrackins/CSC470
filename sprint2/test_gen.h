@@ -14,7 +14,6 @@
 #define __TEST_GEN_H_INCLUDED__
 
 #include "header.h"
-#include "test.h"
 /****************************************************
  *
  *              test_gen.h
@@ -36,6 +35,7 @@ using namespace std;
 
 
 void make_ans( int filesToGen );
+string find_goldencpp( );
 
 /**************************************************************************//**
 * @author Jonathan Dixon
@@ -250,7 +250,7 @@ void make_ans( int filesToGen )
          {
             //finish constructing the path
             path += ( "/" + name );
-            
+
             //assemble the command to compile the .cpp
             command = "g++ ";
             command += path;
