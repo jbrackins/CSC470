@@ -1,11 +1,23 @@
+/**************************************************************************//**
+* @file test_string.h
+*
+* @brief An extensize suite of string manipulation functions needed for file
+* names, logfile generation, extension handling, and various other operations.
+*
+* @authors Julian Brackins, Jonathan Dixon, Hafiza Farzami
+******************************************************************************/
+
 #ifndef __TEST_STRING_H_INCLUDED__
 #define __TEST_STRING_H_INCLUDED__
 
 #include "header.h"
 
+///////////////////////////////////////////////////////////////////////////////
+////                       FUNCTION PROTOTYPES
+///////////////////////////////////////////////////////////////////////////////
+
 string getDateTime();
 string getFileStream(string file);
-
 string add_extension(string input);
 string remove_extension(string input);
 string get_extension(string input);

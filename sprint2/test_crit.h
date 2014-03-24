@@ -1,7 +1,29 @@
+/**************************************************************************//**
+* @file test_crit.h
+*
+* @brief This file contains lines of code used for identifying the critical
+* test cases. The isCritTest function was authored by Hafiza Farzami and is
+* used to identify whether the current .tst file contains the substring "_crit"
+* in it, indicating critical test status. The find_goldencpp function was
+* authored by Julian Brackins but borrows heavily from the make_ans function
+* created by Jonathan Dixon. This function returns the string containing the
+* "golden" cpp file. When generating the Summary file for the class, it should
+* be noted that the golden cpp's results should be ommitted from this file.
+* The golden cpp will always be correct on 100% of the test cases.
+*
+* @author Hafiza Farzami, Julian Brackins
+******************************************************************************/
 #ifndef __TEST_CRIT_H_INCLUDED__
 #define __TEST_CRIT_H_INCLUDED__
 
 #include "header.h"
+
+///////////////////////////////////////////////////////////////////////////////
+////                       FUNCTION PROTOTYPES
+///////////////////////////////////////////////////////////////////////////////
+
+bool isCritTest( string test_case );
+string find_goldencpp();
 
 /**************************************************************************//**
  * @author Hafiza Farzami

@@ -28,9 +28,12 @@
 *
 * @section Program Program 2 Information
 *
-* @bugs On line
-* @usage This program is designed to run on a linux system with g++.
-* It is run as such: ./grade <student_source_code>.cpp
+* @bugs
+* @usage make will invoke the Makefile. please ensure that the test executable
+* file is in the testing directories root directory. This is the same folder
+* that contains the test directory's "golden" cpp. It is recommended to use
+* the mv command to move the test executable into this directory if it is not
+* the directory in which the user has compiled the executable to begin with.
 ******************************************************************************/
 
 #include "test.h"
@@ -42,8 +45,11 @@
 /**************************************************************************//**
  * @authors Julian Brackins, Benjamin Sherman, Anthony Morast, James Tillma
  *
- * @par Description: This is the main function. It calls the function that
- * gets all the test cases and the function that grades a students program.
+ * @par Description: The Main function calls genTstCases to promt the user if
+ * they would like to create any test cases, genTstCases to put all test
+ * cases into a vector and to put all .cpp files into a separate vector, 
+ * compile_file loop to go through to each .cpp file in the cpp file vector
+ * to compile each one, and gradeSolution to run the testing suite.  
  *
  * @param[in] argc - number of commandline arguments.
  * @param[in] argv - an array of strings, each string is a commandline
@@ -53,13 +59,20 @@
  *****************************************************************************/
 int main( int argc, char* argv[] )
 {
+    /*Prompt for test case generation*/
     genTstCases();
+    /*getTstCases() will put each .tst file in a vector
+      AND put each .cpp file (except for test.cpp) into a separate vector*/
     getTstCases();
 
+    /*compile all the .cpp files*/
     for( int i = 0; i < ( int )cppLocations.size(); i++ )
        compile_file( cppLocations[ i ] );
-    gradeSolution(tstLocations, argv[ argc - 1 ]);
+
+    /*run the test suite!*/
+    gradeSolution(tstLocations);
 
     cout << "Testing Complete" << endl;
+
     return 0;
 }
