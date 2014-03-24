@@ -4,24 +4,40 @@
 
 
 \begin{itemize}
-  \item Create a queue of every subdirectory in program folder
-  \item Change to directory where program is located
-  \item Compile program
-  \item While subdirectory queue is not empty:
-  \item Dequeue first subdirectory in queue
-  \item Change into that subdirectory
-  \item Create a queue of every .tst file in current directory
-  \item While test case queue is not empty:
-  \item Dequeue first test case in queue
-  \item Run program using that test case
-  \item Count whether the program passed or failed test case
-  \item Change back to home directory (where program is located)
-  \item Create a queue of every .tst file in home directory
-  \item While test case queue is not empty:
-  \item Dequeue first test case in queue
-  \item Run program using that test case
-  \item Count whether the program passed or failed test case
-  \item Write log file containing percentage of tests passed and final grade
+  \item Ask if the user if the program needs to generate test cases
+  \item If the user's answer is yes: 
+	 \begin{itemize}
+		\item Get the requirements for test cases
+ 	 	\item Generate {\tt.tst} files and corresponding {\tt .ans} files using {\tt golden.cpp}
+	\end{itemize}
+  \item (If no) get all the {\tt .tst} files and add them to a vector 
+  \item Get all {\tt .cpp} files and compile them into executable files
+  \item Create summary file
+  \item For each {\tt .cpp} files in the directory: 
+ 	\begin{itemize}
+ 		\item Create {\tt .log} file for current student
+		\item For all {\tt .tst} file in the vector:
+		\begin{itemize}
+			 \item Run student file using current test case
+ 			\item If pass the increment the number of passed tests, and output the score to student's {\tt .log} file
+			 \item If fail, check if it is a critical test, if so, the student has failed, else output the score to the {\tt .log} file
+		\end{itemize}
+	\end{itemize}
+  \item Check if the user wants more cases
+  \item If yes, then restart from the beginning
+  \item If no:
+	\begin{itemize}
+  		\item Output student's overall grade to summary file
+  		\item Close current student's {\tt .log} file	
+	\end{itemize}
+  
+\item Check if there are more {\tt .cpp} files to be processed
+  \item If yes, then repeat the previous steps
+  \item If no:
+	\begin{itemize}
+ 		\item Close summary file
+ 		\item End test program
+	\end{itemize}
 \end{itemize}
 
 
@@ -88,4 +104,9 @@ int run_file(string cpp_file, string test_case) //case_num
 }
 \end{lstlisting}
 
+\section{Generating Test Cases}
+
+\subsection{Technologies  Used}
+
+\subsection{Design Details}
 
