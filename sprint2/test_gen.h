@@ -269,6 +269,7 @@ void make_ans( int filesToGen )
       
       system( runcommand.str().c_str() );
    }
+   system("rm -f key");
    
 }
 #endif

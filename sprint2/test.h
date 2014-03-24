@@ -146,41 +146,45 @@ void gradeSolution(vector<string> tst, char arg[100])
             else
             {
 
-                logFile[i] << "FAILED\n";
+                logFile[i] << "FAILED";
                 /*CHECK IF tst[i] IS A CRIT TEST
                   if It is, then set crit_fail to 1*/
-                if( !isCritTest( tst[ i ] ) )
+                if( isCritTest( tst[j] ) )
+                {
                     crit_fail = 1;
+                    logFile[i] << " CRITICAL TEST";
+                }
+                logFile[i] << "\n";
             }
             test_cases_total++;
 
         }     
    
-    //output grade to log file, then close log file
-    logFile[i] << "\n" << total << "/" << test_cases_total << " test cases passed\n";
-    double grade = grade_percent(total, test_cases_total);
-    logFile[i] << "percentage: " << grade << "%\n";
-    if( crit_fail > 0 )
-        logFile[i] << "     grade: FAILED\n";
-    else
-        logFile[i] << "     grade: " << grade_letter(grade) << "\n";
-    logFile[i].close();
-    
-    
-    /*SPECIAL CASE for the "golden cpp, you don't want that
-      result to appear in the summary file....*/
-    size_t found = cppLocations[i].find( find_goldencpp( ) );
-	if(found == string::npos )
-    {
-        /*write student's score to summary file*/
+        //output grade to log file, then close log file
+        logFile[i] << "\n" << total << "/" << test_cases_total << " test cases passed\n";
+        double grade = grade_percent(total, test_cases_total);
+        logFile[i] << "percentage: " << grade << "%\n";
         if( crit_fail > 0 )
-            sumFile << student_name << "\t" << "FAILED" << endl;
+            logFile[i] << "     grade: FAILED\n";
         else
-        	sumFile << student_name << "\t" << grade << "%" << endl;
-    }
+            logFile[i] << "     grade: " << grade_letter(grade) << "\n";
+        logFile[i].close();
+        
+        
+        /*SPECIAL CASE for the "golden cpp, you don't want that
+          result to appear in the summary file....*/
+        size_t found = cppLocations[i].find( find_goldencpp( ) );
+	    if(found == string::npos )
+        {
+            /*write student's score to summary file*/
+            if( crit_fail > 0 )
+                sumFile << student_name << "\t" << "FAILED" << endl;
+            else
+                sumFile << student_name << "\t" << grade << "%" << endl;
+        }
 
-    //Reset critical failure flag
-    crit_fail = 0;
+        //Reset critical failure flag
+        crit_fail = 0;
     }
     //close summary file
     sumFile.close();
@@ -281,6 +285,9 @@ int result_compare(string test_file)
     buffer = "rm " + case_tmp;
     system(buffer.c_str());
 
+    //remove out file
+    buffer = "rm " + case_out;
+    system(buffer.c_str());
 
 
     if ( length == 0 ) //File is empty, no diff between .ans and .tmp

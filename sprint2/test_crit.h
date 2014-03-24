@@ -16,11 +16,12 @@
  *****************************************************************************/
 bool isCritTest( string test_case )
 {
+    cout << test_case << endl;
     size_t found = test_case.find( "_crit" );
 
 	if(found!= string::npos )
-		return true;
-	else
+	    return true;
+    else
         return false;
 }
 
