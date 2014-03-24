@@ -24,23 +24,12 @@
 ////                       FUNCTION PROTOTYPES
 ///////////////////////////////////////////////////////////////////////////////
 
-<<<<<<< HEAD
 int compile_file(string cpp_file);
 int delete_file(string cpp_file);
 int run_file(string cpp_file, string test_case);
 int result_compare(string test_file);
 void gradeSolution(vector<string> tst);
-=======
-int compile_file( string cpp_file );
-int delete_file( string cpp_file );
-
-bool isCritTest( string test_case );
-bool testOutput( string solution );
 void gradeSolution( vector<string> tst, char arg[] );
-
-int run_file( string cpp_file, string test_case );
-int result_compare( string test_file );
->>>>>>> fbf3194dbcb6fcf46295a641d12055d8a7f5cbbf
 
 /**************************************************************************//**
  * @author Julian Brackins
@@ -221,11 +210,7 @@ int result_compare(string test_file)
  *
  *
  *****************************************************************************/
-<<<<<<< HEAD
 void gradeSolution(vector<string> tst)
-=======
-void gradeSolution( vector<string> tst, char arg[ 100 ] )
->>>>>>> fbf3194dbcb6fcf46295a641d12055d8a7f5cbbf
 {
     //string source = "";
     //string cp;
@@ -317,138 +302,4 @@ void gradeSolution( vector<string> tst, char arg[ 100 ] )
     sumFile.close();
 }
 
-<<<<<<< HEAD
-=======
-/**************************************************************************//**
- * @author Julian Brackins
- *
- * @par Description:
- * Using C++ String manipulation, a command is sent to the terminal in 
- * order to run the file brought in by the argument cpp_file
- * String buffers are used to handle piping both for inputting
- * An integer value is returned from this function.
- * A 0 indicates the program failed the test case.
- * A 1 indicates the program has identical results to the test case.
- *
- * The run line sent to system() is as follows
- * run_file(example, case_x.tst);
- * <full_path>/./example < case_x.tst > case_x.out 
- *
- * @param[in] cpp_file - name of program file to be run
- * @param[in] test_case - string with test case file name
- *
- * @returns result_compare(test_case) - 0 if test fails, 1 if test succeeds
- *
- *****************************************************************************/
-int run_file( string cpp_file, string test_case ) //case_num
-{
-    //create .out file name
-    string case_out( case_name( test_case, "out" ) );
-
-    //set up piping buffers
-    string buffer1( "" );
-    string buffer2( " &>/dev/null < " );
-    string buffer3( " > " );
-
-    // "try using | "
-    //construct run command, then send to system
-    //./<filename> &> /dev/null  < case_x.tst > case_x.out
-    buffer1 += remove_extension( cpp_file );
-    buffer1 += buffer2;
-    buffer1 += test_case;
-    buffer1 += buffer3;
-    buffer1 += case_out;
-    //cout << "BUFFER1: " << buffer1 << endl;
-    system( buffer1.c_str() );
-
-    //0 = Fail, 1 = Pass
-    return result_compare( test_case );
-}
-
-/**************************************************************************//**
- * @author Julian Brackins
- *
- * @par Description:
- * The result_compare() function is designed to determine whether or not the
- * program passes or fails a test case. in the run_file() command, the results
- * of the test are piped into a .out file with the same name as the .tst file
- * used for testing input. A file with the same name but a .ans extension will
- * contain the expected result from the given test case.
- * By this logic, a successful test case run will result in a .out file that is
- * identical to the .ans file. This function runs the diff command on the two
- * files to determine if the files are identical. If the two files match, the
- * program passed the test case, and a 1 is returned. If the files do not match,
- * a 0 is returned.
- * The results of the diff command are actually piped into a .tmp file. This
- * temporary file will be empty if the files are identical, and will contain
- * the differences between the two files if they are not identical. The file
- * is opened to determine if it has any contents, and if not, the .out and .ans
- * files can be confirmed to be identical.
- *
- * @param[in] test_file - test file name
- *
- * @returns 1 - Empty .tmp file, test passed.
- * @returns 0 - diff command yielded results, test failed.
- *
- *****************************************************************************/
-int result_compare( string test_file )
-{
-    int length;
-    ifstream fin;
-
-    string case_out( case_name( test_file, "out" ) );
-    string case_ans( case_name( test_file, "ans" ) );
-    string case_tmp( case_name( test_file, "tmp" ) );   //create temp file
-    
-    //perform diff command
-    string buffer( "diff " );
-    buffer += case_out + " " + case_ans + " > " + case_tmp;
-    system( buffer.c_str() );    
-    
-    fin.open( case_tmp.c_str(), ios::binary );    //open file
-    fin.seekg( 0, ios::end );                     //cursor at EOF
-    length = fin.tellg();                       //find cursor position
-    fin.close();
-
-    //remove tmp file
-    buffer = "rm " + case_tmp;
-    system( buffer.c_str() );
-
-    //remove out file
-    buffer = "rm " + case_out;
-    system( buffer.c_str() );
-
-    if ( length == 0 ) //File is empty, no diff between .ans and .tmp
-        return 1;
-    else
-        return 0;
-}
-
-/**************************************************************************//**
- * @author Benjamin Sherman
- *
- * @par Description: This function calls the diff function, if there is
- * no output from the diff function, the solution is correct and it returns
- * true
- *
- * @returns true - solution is correct
- * @returns false - solution is incorrect
- *****************************************************************************/
-bool testOutput( string solution )
-{
-    string temp = "diff " + solution + " " + case_name( solution, "out" );
-    char result[ 100 ] = "";
-    strcpy( result, "" );
-
-    FILE *f    = popen( temp.c_str(), "r" );
-    fgets( result, 100, f );
-
-    //cout << result << endl;
-    pclose( f );
-    if( !strcmp( result, "\0" ) )
-        return true;
-    return false;
-}
-
->>>>>>> fbf3194dbcb6fcf46295a641d12055d8a7f5cbbf
 #endif
