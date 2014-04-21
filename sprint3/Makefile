@@ -1,0 +1,30 @@
+# Use the GNU C/C++ compiler:
+CC = gcc
+CPP = g++
+
+# COMPILER OPTIONS:
+
+CFLAGS = -c
+
+#OBJECT FILES
+OBJS = main.o test_dir.o test_gen.o test_log.o test_run.o
+
+#HEADER FILES
+HEAD = main.hpp test_dir.hpp test_gen.hpp test_log.hpp test_run.hpp
+
+test: ${OBJS}
+	${CPP} -lm ${OBJS} ${HEAD} -o test
+main.o: main.cpp
+test_dir.o: test_dir.cpp
+test_gen.o: test_gen.cpp
+test_log.o: test_log.cpp
+test_run.o: test_run.cpp
+
+clean:
+	rm -f *.o test *~
+realclean:
+	rm -f *.o test *~ *.swp *.log */*.log
+edit:
+	gedit *.hpp *.cpp &
+sublime:
+	sublime *.hpp *.cpp Makefile &
