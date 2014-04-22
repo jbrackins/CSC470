@@ -24,7 +24,7 @@ int runtests(string prog, string specifictestcase)
   // compile each
   string prog_cpp = prog;
   string progname = prog_cpp.substr(0,prog_cpp.find("."));
-  string progcomp = "g++ -o " + progname  + " " + prog_cpp;
+  string progcomp = "g++ -fprofile-arcs -ftest-coverage -o " + progname  + " " + prog_cpp;
   size_t found = prog_cpp.find_last_of("/\\");
 
   // QQQ!!! Alex : to save time, only compile if needed.
@@ -60,6 +60,15 @@ int runtests(string prog, string specifictestcase)
   
   //running the program
   system(progrun.c_str());
+  
+  string nodir = progname;
+  
+  nodir.erase(0, nodir.find_last_of("/") + 1);
+  string gcovrun = "gcov " + nodir + ".gcno" + " > " + nodir + ".covs";
+  system(gcovrun.c_str());
+  
+  //gcovrun = "rm " + nodir + ".cpp.gcov " + nodir + ".gcda " + nodir + ".gcno -f";
+  //system(gcovrun.c_str());
   
   //building string for the .ans file name to compare against
   string testcaseans = specifictestcase;
@@ -175,4 +184,6 @@ void cleanup()
   system(location.c_str());
   STUDENTVECTOR.erase(STUDENTVECTOR.begin(), STUDENTVECTOR.end());
   TESTCASES.erase(TESTCASES.begin(), TESTCASES.end());  
+  
+  system( "rm *.gcno *.gcov *.gcda -f" );
 }

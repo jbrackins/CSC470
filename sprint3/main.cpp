@@ -236,6 +236,7 @@ int main(int argc, char* argv[])
     // QQQ!!! Alex : get report on this program
     currentProg = Generate_Performance_Report(STUDENTVECTOR[h], score, TESTCASES.size());
     finaloutfilecontents.push_back(currentProg);
+
   }
 
   //writing all of the results to the .out file
