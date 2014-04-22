@@ -64,7 +64,7 @@ int runtests(string prog, string specifictestcase)
   string nodir = progname;
   
   nodir.erase(0, nodir.find_last_of("/") + 1);
-  string gcovrun = "gcov " + nodir + ".gcno" + " > " + nodir + ".covs";
+  string gcovrun = "gcov " + nodir + ".gcno" + " > " + nodir + ".cpp.covs";
   system(gcovrun.c_str());
   
   //gcovrun = "rm " + nodir + ".cpp.gcov " + nodir + ".gcda " + nodir + ".gcno -f";
@@ -185,5 +185,5 @@ void cleanup()
   STUDENTVECTOR.erase(STUDENTVECTOR.begin(), STUDENTVECTOR.end());
   TESTCASES.erase(TESTCASES.begin(), TESTCASES.end());  
   
-  system( "rm *.gcno *.gcov *.gcda -f" );
+  system( "rm *.gcno *.gcov *.gcda *.covs -f" );
 }
