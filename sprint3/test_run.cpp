@@ -171,6 +171,29 @@ int filesequal(string file1name, string file2name)  // QQQ!!! Alex: used as bool
 }
 /******************************* END filesequal *******************************/
 
+
+/**************************************************************************//**
+ * @author Julian Brackins
+ *
+ * @par Description:
+ * This function is needed to handle the addition of the .cpp extension on file
+ * names. This is important, for example, when compiling the file, as you need
+ * the full name of the file (example.cpp) as well as the name of the file sans
+ * extension (example)
+ *
+ * @param[in] input - string containing file name
+ *
+ * @returns newstring - string similar to parameter input with .cpp extension
+ *
+ *****************************************************************************/
+string remove_extension( string input )
+{
+    unsigned found = input.find_last_of( "." );
+    string extension( input.substr( 0, found ) );
+    return extension;
+}
+
+
 /***********************************cleanup**********************************/
 // QQQ!!! Alex : cleans up the globals
 /****************************************************************************/
@@ -180,10 +203,20 @@ void cleanup()
   char buffer[1024];
   getcwd(buffer,sizeof(buffer));
   string location (buffer);
+  string remove;
+  
   location =  "rm " + location + "/temp.txt";
   system(location.c_str());
+  
+  for( int i = 0; i < STUDENTVECTOR.size(); i++ )
+  {
+      remove = "rm " + remove_extension( STUDENTVECTOR[i] ) + " -f";
+      system( remove.c_str() );
+  }
   STUDENTVECTOR.erase(STUDENTVECTOR.begin(), STUDENTVECTOR.end());
   TESTCASES.erase(TESTCASES.begin(), TESTCASES.end());  
   
   system( "rm *.gcno *.gcov *.gcda *.covs -f" );
 }
+
+
