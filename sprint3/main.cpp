@@ -243,8 +243,6 @@ int main(int argc, char* argv[])
   writefinaloutfile(finaloutfilecontents);//QQQ!!! Alex : progname, finaloutfilecontents);  
   
   // clean up globals
-  int lol;
-  cin >> lol;
   cleanup();
   //deleting the temp file
   //remove("temp.txt");
