@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
     }
     
     if ( argc > 1 )
-        int runtime = atoi(argv[1]);
+        runtime = atoi(argv[1]);
     if ( argc > 2 )
         kill_pid = atoi(argv[2]);
     if ( argc > 3 )

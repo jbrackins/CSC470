@@ -25,7 +25,7 @@ test_string.o: test_string.cpp
 clean:
 	rm -f *.o test *~ progbar
 realclean:
-	rm -f *.o test *~ *.swp *.log */*.log progbar
+	rm -f *.o test *~ *.swp *.log */*.log progbar *.covs *.gcno
 edit:
 	gedit *.hpp *.cpp &
 sublime:
