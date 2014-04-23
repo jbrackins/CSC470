@@ -172,28 +172,6 @@ int filesequal(string file1name, string file2name)  // QQQ!!! Alex: used as bool
 /******************************* END filesequal *******************************/
 
 
-/**************************************************************************//**
- * @author Julian Brackins
- *
- * @par Description:
- * This function is needed to handle the addition of the .cpp extension on file
- * names. This is important, for example, when compiling the file, as you need
- * the full name of the file (example.cpp) as well as the name of the file sans
- * extension (example)
- *
- * @param[in] input - string containing file name
- *
- * @returns newstring - string similar to parameter input with .cpp extension
- *
- *****************************************************************************/
-string remove_extension( string input )
-{
-    unsigned found = input.find_last_of( "." );
-    string extension( input.substr( 0, found ) );
-    return extension;
-}
-
-
 /***********************************cleanup**********************************/
 // QQQ!!! Alex : cleans up the globals
 /****************************************************************************/

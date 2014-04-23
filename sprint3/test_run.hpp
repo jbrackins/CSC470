@@ -22,7 +22,6 @@
 #include <string.h>
 int runtests(std::string  prog, std::string specifictestcase);
 int filesequal(std::string  file1name, std::string file2name);
-std::string remove_extension( std::string input );
 void cleanup();
 
 
