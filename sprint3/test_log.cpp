@@ -1,5 +1,3 @@
-
-
 #include "test_log.hpp"
 using namespace std;
 

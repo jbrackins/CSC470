@@ -88,6 +88,7 @@
 #include "test_gen.hpp"
 #include "test_log.hpp"
 #include "test_run.hpp"
+#include "test_string.hpp"
 
 #include <iostream>
 #include <iomanip>
