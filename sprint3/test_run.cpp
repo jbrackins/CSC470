@@ -9,6 +9,147 @@ extern string GOLDCPP;
 extern int TOTALPASSED;
 /****************************************************************************/
 
+/**************************************************************************//**
+ * @author Julian Brackins
+ *
+ * @par Description:
+ * Redirect Implementation. This function handles both redirecting the output
+ * of a Unix command to a file, and redirecting the contents of a file as the
+ * input of a Unix command. The function identifies whether the redirect is an
+ * output (>) or an input (<) to the command and tokenizes the command line. 
+ * A child process is forked and redirects the i/o to the appropriate location.
+ *
+ * This function has been imported from my dsh.c program in Operating Systems!
+ * Why rewrite a redirect function if ya already got one, am I right?
+ *
+ * Keeping this in mind, there have been some heavy modifications to this so
+ * that it accomodates the needs for this sprint 3 testing suite.
+ *
+ * @param[in] commandline - input line containing command and redirection file
+ *
+ * @returns 0 - successfully exit program.
+ *
+ *****************************************************************************/
+void Event_REDIRECT(const char *commandline)
+{
+    int   num_args;
+    char *args[100];
+
+    int   num_pbar;
+    char *pbar[100];
+
+     
+    int   childpid1, childpid2;
+    char  childpid1_buff[10];
+    char  * childpid1_str;
+    int temp_pid;
+
+    int run_time = 6;
+    char  time_buff[10];
+    char  * time_str;
+    int temp_time;
+
+    int   status = 0; 
+
+    char* temp;
+
+    int fptout, fptin;
+    int   wait_pid;
+
+    char  line[512];
+    char progname[512];
+    
+    /*Tokenize command*/
+    num_args = 0;
+    args[num_args] = strtok((char*)commandline, " <>\n");
+
+    while (args[num_args] != NULL) 
+    { 
+        num_args++; 
+        args[num_args] = strtok(NULL, " <>\n"); 
+    }   
+
+    childpid1 = fork();
+    if (childpid1 == 0)
+    {
+        /*Handle input redirection*/
+        if ((fptin = open(args[1], O_RDONLY)) == -1)
+        {
+            printf("Unable to open %s for reading.\n", args[2]);
+            exit(-1);
+        }
+        close(0);       /*supress stdin*/ 
+        dup(fptin);      /*redirect input*/ 
+        close(fptin);    /*supress file descriptor*/
+
+        /*Handle output redirection*/
+
+        if ((fptout = creat(args[2], 0644)) == -1)
+        {
+            printf("Unable to open %s for writing.\n", args[1]);
+            exit(-1);
+        }
+
+        close(1);       /*supress stdout*/
+        dup(fptout);   /*redirect output*/
+        close(fptout);    /*supress file descriptor*/
+
+        //execvp(args[0],args);
+        execl(args[0], args[0], 0);
+        perror("Exec failed: "); 
+        exit(5); 
+    }
+    //printf("program is %d\n",childpid1);
+    
+
+    temp_pid = snprintf(childpid1_buff, sizeof(childpid1_buff), "%ld", childpid1);
+    childpid1_str = childpid1_buff;
+
+    temp_time = snprintf(time_buff, sizeof(time_buff), "%ld", run_time);
+    time_str = time_buff;
+
+    strcpy(progname, args[0]);
+    strcpy(line,"./progbar ");
+    strcat(line, time_str); 
+    strcat(line, " ");
+    strcat(line, childpid1_str);  
+    strcat(line, " ");  
+    strcat(line, progname);
+
+    num_pbar = 0;
+    pbar[num_pbar] = strtok(line, " ");
+    while (pbar[num_pbar] != NULL)
+    {
+        num_pbar++;
+        pbar[num_pbar] = strtok(NULL, " ");
+    }
+    num_pbar--;
+
+    childpid2 = fork();
+    if (childpid2 == 0)
+    {
+        execvp(pbar[0], pbar);
+        perror("Exec failed:");
+        exit(5);
+    }
+    //printf("progbar is %d\n",childpid2);
+
+    wait_pid = waitpid(childpid1, NULL, 0);
+    printf("\n\n"); //Just space things out a bit
+    //printf("\n\n\n\nwait = %d\n",wait_pid);
+    pid_t result = waitpid(childpid2, &status, WNOHANG);
+
+    if(result == 0)
+    {
+        kill(childpid2, 9); //Kill the progress bar wherever it's at
+    }
+    else if (wait_pid == childpid1)
+    {
+        printf("%s failed to complete in %d seconds...\n", progname, run_time); 
+        
+    }
+}
+
 /********************************** runtests **********************************/
 // Runs all of the .tst test cases against the program one at a time
 //  and returns the results of that particlar test, stored in a string
@@ -59,8 +200,9 @@ int runtests(string prog, string specifictestcase)
   string progrun = progname+" < "+specifictestcase+" > "+tempfile;
   
   //running the program
-  system(progrun.c_str());
-  
+  //system(progrun.c_str());
+  Event_REDIRECT(progrun.c_str());
+
   string nodir = progname;
   
   nodir.erase(0, nodir.find_last_of("/") + 1);
@@ -171,29 +313,6 @@ int filesequal(string file1name, string file2name)  // QQQ!!! Alex: used as bool
 }
 /******************************* END filesequal *******************************/
 
-
-/**************************************************************************//**
- * @author Julian Brackins
- *
- * @par Description:
- * This function is needed to handle the addition of the .cpp extension on file
- * names. This is important, for example, when compiling the file, as you need
- * the full name of the file (example.cpp) as well as the name of the file sans
- * extension (example)
- *
- * @param[in] input - string containing file name
- *
- * @returns newstring - string similar to parameter input with .cpp extension
- *
- *****************************************************************************/
-string remove_extension( string input )
-{
-    unsigned found = input.find_last_of( "." );
-    string extension( input.substr( 0, found ) );
-    return extension;
-}
-
-
 /***********************************cleanup**********************************/
 // QQQ!!! Alex : cleans up the globals
 /****************************************************************************/
@@ -203,20 +322,10 @@ void cleanup()
   char buffer[1024];
   getcwd(buffer,sizeof(buffer));
   string location (buffer);
-  string remove;
-  
   location =  "rm " + location + "/temp.txt";
   system(location.c_str());
-  
-  for( int i = 0; i < STUDENTVECTOR.size(); i++ )
-  {
-      remove = "rm " + remove_extension( STUDENTVECTOR[i] ) + " -f";
-      system( remove.c_str() );
-  }
   STUDENTVECTOR.erase(STUDENTVECTOR.begin(), STUDENTVECTOR.end());
   TESTCASES.erase(TESTCASES.begin(), TESTCASES.end());  
   
   system( "rm *.gcno *.gcov *.gcda *.covs -f" );
 }
-
-

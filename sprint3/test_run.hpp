@@ -20,6 +20,12 @@
 #include <dirent.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include <signal.h>
+#include <sys/wait.h>
+#include <fcntl.h>
+
+void Event_REDIRECT(const char *commandline);
 int runtests(std::string  prog, std::string specifictestcase);
 int filesequal(std::string  file1name, std::string file2name);
 std::string remove_extension( std::string input );
