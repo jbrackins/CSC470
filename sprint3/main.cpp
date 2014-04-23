@@ -227,6 +227,12 @@ int main(int argc, char* argv[])
         writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result);
         break; // stop tests
       }
+      if (result == -999 )  //infinite loop
+      {
+        score = -1;
+        writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result);
+        break; //stop tests
+      }
       if (result == 1)
       {
         score += 1;

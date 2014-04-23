@@ -101,9 +101,13 @@ void writeindividualreport(string program, string testcase, int success)
   {
     fout << "passed: " << testcase << endl;
   }
-  else
+  else if (success == -1)
   {
     fout << "failed: " << testcase << endl;
+  }
+  else if (success == -999)
+  {
+    fout << "infinite loop: " << testcase << endl;
   }
   fout.close();
 }

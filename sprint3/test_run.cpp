@@ -31,7 +31,7 @@ extern int TOTALPASSED;
  * @returns 0 - successfully exit program.
  *
  *****************************************************************************/
-void Event_REDIRECT(const char *commandline)
+int Event_REDIRECT(const char *commandline)
 {
     int   num_args;
     char *args[100];
@@ -147,8 +147,9 @@ void Event_REDIRECT(const char *commandline)
     else if (wait_pid == childpid1)
     {
         printf("%s failed to complete in %d seconds...\n", progname, run_time); 
-        
+        return -999;
     }
+    return 1;
 }
 
 /********************************** runtests **********************************/
@@ -202,8 +203,12 @@ int runtests(string prog, string specifictestcase)
   
   //running the program
   //system(progrun.c_str());
-  Event_REDIRECT(progrun.c_str());
+  int infinite_loop = Event_REDIRECT(progrun.c_str());
 
+  if(infinite_loop < 0)
+  {
+    return infinite_loop;
+  }
   string nodir = progname;
   
   nodir.erase(0, nodir.find_last_of("/") + 1);
