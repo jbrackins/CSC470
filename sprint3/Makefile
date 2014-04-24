@@ -14,7 +14,6 @@ HEAD = main.hpp test_dir.hpp test_gen.hpp test_log.hpp test_run.hpp test_string.
 
 test: ${OBJS}
 	${CPP} -lm ${OBJS} ${HEAD} -o test
-	${CPP} progressbar.cpp -o progbar
 main.o: main.cpp
 test_dir.o: test_dir.cpp
 test_gen.o: test_gen.cpp
@@ -23,9 +22,9 @@ test_run.o: test_run.cpp
 test_string.o: test_string.cpp
 
 clean:
-	rm -f *.o test *~ progbar
+	rm -f *.o test *~
 realclean:
-	rm -f *.o test *~ *.swp *.log */*.log progbar *.covs *.gcno
+	rm -f *.o test *~ *.swp *.log */*.log  *.covs *.gcno
 edit:
 	gedit *.hpp *.cpp &
 sublime:

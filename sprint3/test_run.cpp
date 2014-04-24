@@ -40,18 +40,7 @@ int Event_REDIRECT(const char *commandline)
 
      
     int   childpid1, childpid2;
-    char  childpid1_buff[10];
-    char  * childpid1_str;
-    int temp_pid;
-
-    int run_time = 6;
-    char  time_buff[10];
-    char  * time_str;
-    int temp_time;
-
     int   status = 0; 
-
-    char* temp;
 
     int fptout, fptin;
     int   wait_pid;
@@ -99,37 +88,14 @@ int Event_REDIRECT(const char *commandline)
         perror("Exec failed: "); 
         exit(5); 
     }
-    //printf("program is %d\n",childpid1);
-    
-
-    temp_pid = snprintf(childpid1_buff, sizeof(childpid1_buff), "%ld", childpid1);
-    childpid1_str = childpid1_buff;
-
-    temp_time = snprintf(time_buff, sizeof(time_buff), "%ld", run_time);
-    time_str = time_buff;
 
     strcpy(progname, args[0]);
-    strcpy(line,"./progbar ");
-    strcat(line, time_str); 
-    strcat(line, " ");
-    strcat(line, childpid1_str);  
-    strcat(line, " ");  
-    strcat(line, progname);
 
-    num_pbar = 0;
-    pbar[num_pbar] = strtok(line, " ");
-    while (pbar[num_pbar] != NULL)
-    {
-        num_pbar++;
-        pbar[num_pbar] = strtok(NULL, " ");
-    }
-    num_pbar--;
 
     childpid2 = fork();
     if (childpid2 == 0)
     {
-        execvp(pbar[0], pbar);
-        perror("Exec failed:");
+        progbar(childpid1, 60, progname);
         exit(5);
     }
     //printf("progbar is %d\n",childpid2);
@@ -145,7 +111,7 @@ int Event_REDIRECT(const char *commandline)
     }
     else if (wait_pid == childpid1)
     {
-        printf("%s failed to complete in %d seconds...\n", progname, run_time); 
+        printf("%s failed to complete in %d seconds...\n", progname, 60); 
         return -999;
     }
     return 1;
@@ -333,4 +299,63 @@ void cleanup()
     TESTCASES.erase(TESTCASES.begin(), TESTCASES.end());  
 
     system( "rm *.gcno *.gcov *.gcda *.covs -f" );
+}
+
+void progbar(int kill_pid, int runtime, string progname)
+{
+
+    // //Initialize default parameters
+    // int runtime = 60;           //argv1
+    // int kill_pid = -123;        //argv2
+    // string progname("program"); //argv3
+
+    //Initializations
+    float next = 0.05;
+    int remaining = 0;
+    string progbar("");
+    int time = 0;
+
+    //set header
+    printf("\nTesting %s for %d seconds...\n", progname.c_str(), runtime);
+    printf("\n\n\n");
+
+    cout.flush();
+
+    while(time < runtime + 1)
+    {   
+        /*Return two spaces
+          Print Elapsed Time
+          Print Remaining Time
+          Flush to stdio
+          Update progress bar if needed
+          Sleep for 1 second*/
+        
+        remaining = runtime - time;
+        printf("\033[F\033[F");
+        printf("Elapsed   Time: %d       \n",time);
+        printf("Remaining Time: %d       \n",remaining);
+        cout.flush();
+        printf("[                    ]");
+        printf("\r[");
+        
+        //increment time
+        time++;
+        
+        //update progress bar based on %time remaining
+        while( ((float)time / (float)runtime) >= next && next <= 1.00)
+        {
+            progbar += "=";
+            next += 0.05;
+        }
+        cout << progbar;
+        cout.flush();
+        if (time < runtime + 1)
+            sleep(1);
+    }
+    cout << endl;
+    printf("\033[F[====================]         \n");
+
+    if( kill_pid > 0 )      //This will be < 0 if in standalone mode
+        kill(kill_pid, 9);
+
 }

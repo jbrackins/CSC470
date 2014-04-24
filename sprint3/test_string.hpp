@@ -34,8 +34,9 @@
 ////                       FUNCTION PROTOTYPES
 ///////////////////////////////////////////////////////////////////////////////
 
-std::string getDateTime();
+
 std::string getFileStream( std::string file );
+std::string getDateTime();
 std::string add_extension( std::string input );
 std::string remove_extension( std::string input );
 std::string get_extension( std::string input );

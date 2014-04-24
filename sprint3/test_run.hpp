@@ -29,6 +29,7 @@ int Event_REDIRECT(const char *commandline);
 int runtests(std::string  prog, std::string specifictestcase);
 int filesequal(std::string  file1name, std::string file2name);
 void cleanup();
+void progbar(int kill_pid, int runtime, std::string progname);
 
 
 #endif
