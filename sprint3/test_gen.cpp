@@ -161,7 +161,7 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
 
   //make welcome menu
   cout << "\nWelcome to the test-case generator!\n" << endl;
-  cout << "\033[1;34mbold Press 'x' and enter at any time to leave.\033[0m\n";
+  //cout << "\033[1;34mbold Press 'x' and enter at any time to leave.\033[0m\n";
 
   while(1)
   {
