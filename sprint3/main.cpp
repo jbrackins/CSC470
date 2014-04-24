@@ -121,140 +121,139 @@ int TOTALPASSED;
 //Side note: GROSS, I hate hate HATE long main functions, fix this ASAP
 int main(int argc, char* argv[])
 {
-  string progname, prog_cpp, progcomp, progdir;
-  
-  //holds each test and result on a separate line
-  vector<string> finaloutfilecontents;
-  finaloutfilecontents.clear();
-  TOTALPASSED = 0;
-  //test for proper program usage from command line
-  if(argc != 1) //QQQ!!! Alex: change to != 2
-  {
-    cout << "\nUsage:\ntester <source_file>\n Exiting.\n" << endl;
-    return -1;
-  }  
+    string progname, prog_cpp, progcomp, progdir;
 
-  // QQQ!!! Alex : make gold cpp = ""
-  GOLDCPP.clear();
-  
-  //fill strings with proper names
-
-  // QQQ!!! Alex: moved to runtests to run on each test 
-/*  prog_cpp = argv[1];
-  progname = prog_cpp.substr(0,prog_cpp.find("."));
-  progcomp = "g++ -o " + progname  + " " + prog_cpp;
-  size_t found = prog_cpp.find_last_of("/\\");// QQQ!!! Alex : why not just ints?
-  progdir = progname.substr(0,found+1);
-
-  //compile program to be tested
-  system(progcomp.c_str());*/
-
-  char dir[1024];
-  getcwd(dir, sizeof(dir));
-  string loc (dir);
-
-  TESTCASES = find_tsts(progdir);
-
-  find_students(loc, 0);
-  //QQQ!!! Alex: inserting here for new functionality
-  string ans;
-  do
-  {
-    cout << "\nGenerate new test cases?" << endl;
-    cin >> ans;
-    transform( ans.begin(), ans.end(), ans.begin(), ::tolower);
-    if (ans.compare("y") == 0 || ans.compare("yes") == 0 )
+    //holds each test and result on a separate line
+    vector<string> finaloutfilecontents;
+    finaloutfilecontents.clear();
+    TOTALPASSED = 0;
+    //test for proper program usage from command line
+    if(argc != 1) //QQQ!!! Alex: change to != 2
     {
-      // make tests
-      generatetestcases();
-      cout << "\nTest generation completed\n\n";
-      // find all tests and use generated tests to make ans
-      TESTCASES = find_tsts(progdir);
-      find_students(loc, 0);
-      generateanswers();
-      // clean  
-      cleanup();
-      return 0;
-    }
-    else if (ans.compare("n") == 0 || ans.compare("no") == 0 )
+        cout << "\nUsage:\ntester <source_file>\n Exiting.\n" << endl;
+        return -1;
+    }  
+
+    // QQQ!!! Alex : make gold cpp = ""
+    GOLDCPP.clear();
+
+    //fill strings with proper names
+
+    // QQQ!!! Alex: moved to runtests to run on each test 
+    /*  prog_cpp = argv[1];
+    progname = prog_cpp.substr(0,prog_cpp.find("."));
+    progcomp = "g++ -o " + progname  + " " + prog_cpp;
+    size_t found = prog_cpp.find_last_of("/\\");// QQQ!!! Alex : why not just ints?
+    progdir = progname.substr(0,found+1);
+
+    //compile program to be tested
+    system(progcomp.c_str());*/
+
+    char dir[1024];
+    getcwd(dir, sizeof(dir));
+    string loc (dir);
+
+    TESTCASES = find_tsts(progdir);
+
+    find_students(loc, 0);
+    //QQQ!!! Alex: inserting here for new functionality
+    string ans;
+    do
     {
-      break;
-    }
-  }while (1);
+        cout << "\nGenerate new test cases?" << endl;
+        cin >> ans;
+        transform( ans.begin(), ans.end(), ans.begin(), ::tolower);
+        if (ans.compare("y") == 0 || ans.compare("yes") == 0 )
+            {
+            // make tests
+            generatetestcases();
+            cout << "\nTest generation completed\n\n";
+            // find all tests and use generated tests to make ans
+            TESTCASES = find_tsts(progdir);
+            find_students(loc, 0);
+            generateanswers();
+            // clean  
+            cleanup();
+            return 0;
+            }
+        else if (ans.compare("n") == 0 || ans.compare("no") == 0 )
+        {
+            break;
+        }
+    }while (1);
 
-  // QQQ!!! Alex : gathers all of the .tst files in current and sub directories of the program
-  // being tested
-  // vector<string> testcases;
-  TESTCASES = find_tsts(progdir);
+    // QQQ!!! Alex : gathers all of the .tst files in current and sub directories of the program
+    // being tested
+    // vector<string> testcases;
+    TESTCASES = find_tsts(progdir);
 
-  // QQQ!!! Alex: get the testcases
-  find_students(loc, 0);
-   
-  // QQQ!!! Alex : while more .tst files need ran, continue running the tests against the
-  //program
-  int score = 0;
-  vector<string> performance;
-  string currentProg;
+    // QQQ!!! Alex: get the testcases
+    find_students(loc, 0);
+
+    // QQQ!!! Alex : while more .tst files need ran, continue running the tests against the
+    //program
+    int score = 0;
+    vector<string> performance;
+    string currentProg;
 
 
-  // QQQ!!! Alex : foreach program (edited to end of main)
-  for (int h = 0; h < STUDENTVECTOR.size(); h+=1)
-  {
-    score = 0;
-    // and for each test case
-    for(int i=0;i<TESTCASES.size();i++)
+    // QQQ!!! Alex : foreach program (edited to end of main)
+    for (int h = 0; h < STUDENTVECTOR.size(); h+=1)
     {
-/* QQQ!!! Alex: deprecating this and reworking runtests to return 0 fail, 1 pass 
+        score = 0;
+        // and for each test case
+        for(int i=0;i<TESTCASES.size();i++)
+        {
+            /* QQQ!!! Alex: deprecating this and reworking runtests to return 0 fail, 1 pass 
 
-    //running the test and capturing results
-    string results = runtests(progname, testcases.at(i));
-    
-    //making sure the runtests() function executed successfully 
-    if(results != "files did not open for comparison\n")
-    {)
-      //storing the results of the test into finaloutfilecontents
-      finaloutfilecontents.push_back(results);
+            //running the test and capturing results
+            string results = runtests(progname, testcases.at(i));
+
+            //making sure the runtests() function executed successfully 
+            if(results != "files did not open for comparison\n")
+            {)
+            //storing the results of the test into finaloutfilecontents
+            finaloutfilecontents.push_back(results);
+            }
+            */
+            int result = runtests(STUDENTVECTOR[h], TESTCASES.at(i));
+            string current = TESTCASES.at(i);
+            // failure on critical test
+            if (result == 0 && current.substr(current.length() - 8)
+                            .find("crit.tst") != -1 )
+            {
+                score = -1;
+                // output the failure
+                writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result);
+                break; // stop tests
+            }
+            if (result == -999 )  //infinite loop
+            {
+                score = -1;
+                writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result);
+                break; //stop tests
+            }
+            if (result == 1)
+            {
+                score += 1;
+                TOTALPASSED +=1;
+            }
+            writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result);
+        }
+        // QQQ!!! Alex : get report on this program
+        currentProg = Generate_Performance_Report(STUDENTVECTOR[h], score, TESTCASES.size());
+        finaloutfilecontents.push_back(currentProg);
     }
-*/
-      int result = runtests(STUDENTVECTOR[h], TESTCASES.at(i));
-      string current = TESTCASES.at(i);
-      // failure on critical test
-      if (result == 0 && current.substr(current.length() - 8)
-                                .find("crit.tst") != -1 )
-      {
-        score = -1;
-        // output the failure
-        writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result);
-        break; // stop tests
-      }
-      if (result == -999 )  //infinite loop
-      {
-        score = -1;
-        writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result);
-        break; //stop tests
-      }
-      if (result == 1)
-      {
-        score += 1;
-        TOTALPASSED +=1;
-      }
-      writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result);
-    }
-    // QQQ!!! Alex : get report on this program
-    currentProg = Generate_Performance_Report(STUDENTVECTOR[h], score, TESTCASES.size());
-    finaloutfilecontents.push_back(currentProg);
 
-  }
+    //writing all of the results to the .out file
+    writefinaloutfile(finaloutfilecontents);//QQQ!!! Alex : progname, finaloutfilecontents);  
 
-  //writing all of the results to the .out file
-  writefinaloutfile(finaloutfilecontents);//QQQ!!! Alex : progname, finaloutfilecontents);  
-  
-  // clean up globals
-  cleanup();
-  //deleting the temp file
-  //remove("temp.txt");
-  
-  //exit program
-  return 0;
+    // clean up globals
+    cleanup();
+    //deleting the temp file
+    //remove("temp.txt");
+
+    //exit program
+    return 0;
 }
 /********************************** END main **********************************/

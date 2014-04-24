@@ -8,7 +8,12 @@ int main()
     return 0;
 }
 
-
+/**************************************************************************//**
+* @author Julian Brackins
+*
+* @par Description:
+* This function reads the specification file, determines the number of 
+******************************************************************************/
 void read_spec_file()
 {
     struct menu_option option[25];
@@ -22,20 +27,29 @@ void read_spec_file()
 
     i = 0;
 
+    /*Go through each line to figure out how many
+      options exist in the spec file.*/
     while( getline( input, line[total_options] ) ) 
-    {
         total_options++;
-    }
 
 
     while( i < total_options ) 
     {
+
+        /*Associate each option structure's number variable
+         with an option number from the spec file*/
         option[i].number = strtok( (char*)line[i].c_str(), " ");
         loop = true;
 
+        /*Set iterator to 0*/
         j = 0;
         do
         {
+            /*Tokenize the data types that the option reads in
+              remember, there can be as many data types for each
+              option as the spec file indicates, or none at all!
+              this code should handle any situation, and keeps track
+              of how many arguments a given option has*/
             temp = strtok(NULL, " ");
             if(temp != NULL )
                 option[i].type[j] = temp;
@@ -99,7 +113,15 @@ void find_spec_file()
 
 }
 
-
+/**************************************************************************//**
+* @author Julian Brackins
+*
+* @par Description:
+* Returns either an integer value or double value, depending on what the
+* variable "kind" contains. Note that this function "technically" returns
+* doubles regardless, but if the kind variable is designated as "int", the
+* value returned is an integer, so there is no floating point involved.
+******************************************************************************/
 double random_generator(string kind)
 {
     double number = ((float)rand()/(float)(RAND_MAX)) * 2000;// / RAND_MAX;
