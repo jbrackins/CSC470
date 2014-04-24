@@ -1,4 +1,3 @@
-
 #include "test_gen.hpp"
 using namespace std;
 

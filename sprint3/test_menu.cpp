@@ -1,9 +1,11 @@
 #include "test_menu.hpp"
+#include "test_string.hpp"
 using namespace std;
 
 
 int main()
 {
+    //find_spec_file("my_prog.spec");
     read_spec_file();
     return 0;
 }
@@ -20,13 +22,22 @@ void read_spec_file()
     int i, j, k = 0;
 
     int total_options = 0;
-    ifstream input("my_prog.spec");
+    ifstream input;
     string line[25];
     char * temp;
     bool loop;
 
     i = 0;
+    string specfile;
+    cout << "Please enter name of the specifications file" << endl;
+    cin >> specfile;
 
+    input.open(specfile.c_str());
+    if(!input)
+    {
+        cout << "error opening " << specfile << endl;
+        exit(0);
+    }
     /*Go through each line to figure out how many
       options exist in the spec file.*/
     while( getline( input, line[total_options] ) ) 
@@ -90,6 +101,9 @@ void read_spec_file()
 
 void option_generator(int opt, struct menu_option option[], int arr_size)
 {
+    /*This function takes an array of menu options, matches the
+      option.number with the corresponding option number from the spec
+      file, and generates an appropriate test case according to that spec*/
     cout << opt << " ";
     for(int i = 0; i < arr_size; i++)
     {
@@ -107,11 +121,7 @@ void option_generator(int opt, struct menu_option option[], int arr_size)
 }
 
 
-void find_spec_file()
-{
 
-
-}
 
 /**************************************************************************//**
 * @author Julian Brackins

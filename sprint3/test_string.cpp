@@ -196,6 +196,8 @@ string case_name( string test_case, string ext )
         temp += ".out";
     else if ( ext.compare( "tmp" ) == 0 )
         temp += ".tmp";
+    else if ( ext.compare( "spec" ) == 0 )
+        temp += ".spec";
     else if ( ext.compare( "log" ) == 0 )
         {
             //HANDLE TIMESTAMP
