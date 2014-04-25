@@ -22,6 +22,7 @@
 #include <string.h>
 std::string Generate_Performance_Report(std::string  file, int score, int total);
 void writefinaloutfile(std::vector<std::string> finaloutfilecontents);
-void writeindividualreport(std::string  program, std::string  testcase, int success);
+void writeindividualreport(std::string  program, std::string  testcase, int success, int curr);
+void createReports();
 
 #endif

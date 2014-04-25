@@ -147,6 +147,10 @@ int runtests(string prog, string specifictestcase)
     {
         fileExists.close();
     }
+
+//    cout << "Compiling: " << progcomp << endl;
+//    system( progcomp.c_str() );
+
     //temporary file used to compare results
     string tempfile = "temp.txt";
 
@@ -177,7 +181,7 @@ int runtests(string prog, string specifictestcase)
     string nodir = progname;
 
     nodir.erase(0, nodir.find_last_of("/") + 1);
-    string gcovrun = "gcov " + nodir + ".gcno" + " > " + nodir + ".cpp.covs";
+    string gcovrun = "gcov " + nodir + ".gcno" + " > " + progname + ".cpp.covs";
     system(gcovrun.c_str());
 
     //gcovrun = "rm " + nodir + ".cpp.gcov " + nodir + ".gcda " + nodir + ".gcno -f";
@@ -298,7 +302,9 @@ void cleanup()
     STUDENTVECTOR.erase(STUDENTVECTOR.begin(), STUDENTVECTOR.end());
     TESTCASES.erase(TESTCASES.begin(), TESTCASES.end());  
 
+
     system( "rm *.gcno *.gcov *.gcda *.covs -f" );
+    system( "rm */*.covs");
 }
 
 void progbar(int kill_pid, int runtime, string progname)

@@ -1,8 +1,12 @@
 #include "test_dir.hpp"
+#include "main.hpp"
 using namespace std;
+
+
 
 /*********************************GLOBALS************************************/
 extern vector<string> STUDENTVECTOR;
+extern vector<report> INDIVIDUALREPORTS;
 extern vector<string> TESTCASES;
 extern string GOLDCPP;
 extern int TOTALPASSED;
@@ -14,6 +18,8 @@ extern int TOTALPASSED;
 /****************************************************************************/
 void find_students(string directory, int level)
 {
+    int i;
+    report tempreport;
     string temp(directory);
     DIR *dir = opendir(temp.c_str()); // open the current directory
     struct dirent *entry;
@@ -43,6 +49,10 @@ void find_students(string directory, int level)
                         && level != 0) // if not found
                     {
                         STUDENTVECTOR.push_back(insert);
+                        
+                        tempreport.filename = insert;
+                        INDIVIDUALREPORTS.push_back(tempreport);
+                        
                     }
                     else if (find(STUDENTVECTOR.begin(),
                         STUDENTVECTOR.end(),

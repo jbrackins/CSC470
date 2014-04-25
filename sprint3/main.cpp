@@ -84,6 +84,7 @@
 	   changes with a //QQQ!!! <editor> : <comments> format.
 *******************************************************************************/
 
+#include "main.hpp"
 #include "test_dir.hpp"
 #include "test_gen.hpp"
 #include "test_log.hpp"
@@ -110,8 +111,12 @@
 using namespace std;
 
 
+
+
+
 /*********************************GLOBALS************************************/
 vector<string> STUDENTVECTOR;
+vector<report> INDIVIDUALREPORTS;
 vector<string> TESTCASES;
 string GOLDCPP;
 int TOTALPASSED;
@@ -224,13 +229,13 @@ int main(int argc, char* argv[])
             {
                 score = -1;
                 // output the failure
-                writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result);
+                writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result, h);
                 break; // stop tests
             }
             if (result == -999 )  //infinite loop
             {
                 score = -1;
-                writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result);
+                writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result, h);
                 break; //stop tests
             }
             if (result == 1)
@@ -238,13 +243,15 @@ int main(int argc, char* argv[])
                 score += 1;
                 TOTALPASSED +=1;
             }
-            writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result);
+            writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result, h);
         }
         // QQQ!!! Alex : get report on this program
+
         currentProg = Generate_Performance_Report(STUDENTVECTOR[h], score, TESTCASES.size());
         finaloutfilecontents.push_back(currentProg);
     }
 
+    createReports();
     //writing all of the results to the .out file
     writefinaloutfile(finaloutfilecontents);//QQQ!!! Alex : progname, finaloutfilecontents);  
 

@@ -1,8 +1,10 @@
 #include "test_log.hpp"
+#include "main.hpp"
 using namespace std;
 
 /*********************************GLOBALS************************************/
 extern vector<string> STUDENTVECTOR;
+extern vector<report> INDIVIDUALREPORTS;
 extern vector<string> TESTCASES;
 extern string GOLDCPP;
 extern int TOTALPASSED;
@@ -15,7 +17,6 @@ extern int TOTALPASSED;
 /******************************************************************************/
 string Generate_Performance_Report(string file, int score, int total)
 {
-  fstream fin;
   string tempstr;
   int lastDir = file.rfind("/");
   string report = file.substr(lastDir + 1);
@@ -27,19 +28,9 @@ string Generate_Performance_Report(string file, int score, int total)
   stringstream temp("");
   double percent = ((double) score / total) * 100;
   temp << percent;
-  
-  tempstr = report + ".covs";
-  fin.open( tempstr.c_str() );
-  if( fin )
-  {
-    getline( fin, tempstr );
-    getline( fin, tempstr );
-  }
-  else
-    cout << "cannot open .covs file" << endl;
+
     
-  fin.close();
-  return report + ":  " + temp.str() + "%\n\t" + tempstr;
+  return report + ":  " + temp.str();
 }
 
 /***************************** writefinaloutfile ******************************/
@@ -93,21 +84,89 @@ void writefinaloutfile(vector<string> finaloutfilecontents)//QQQ!!! Alex : comme
 // given test
 /****************************************************************************/
 
-void writeindividualreport(string program, string testcase, int success)
+void writeindividualreport(string program, string testcase, int success, int curr)
 {
+  string temp;
   string file = program + ".log";
-  ofstream fout(file.c_str(), fstream ::app); // append
-  if (success > 0) // if passed
+  //ofstream fout(file.c_str(), fstream ::app); // append
+  if (success == 1) // if passed
   {
-    fout << "passed: " << testcase << endl;
+    temp = "passed: " + testcase;
+    INDIVIDUALREPORTS[curr].reports.push_back(temp);
+    //fout << "passed: " << testcase << endl;
   }
-  else if (success == -1)
+
+  else if (success == -1 || success == 0)
   {
-    fout << "failed: " << testcase << endl;
+    temp = "failed: " + testcase;
+    INDIVIDUALREPORTS[curr].reports.push_back(temp);
+    //fout << "failed: " << testcase << endl;
   }
   else if (success == -999)
   {
-    fout << "infinite loop: " << testcase << endl;
+    temp = "infinite loop: " + testcase;
+    INDIVIDUALREPORTS[curr].reports.push_back(temp);
+    //fout << "infinite loop: " << testcase << endl;
   }
-  fout.close();
+  //fout.close();
+}
+
+/*****************************createReports***********************************/
+// Jon: Writes the .log file for a specific student
+/*****************************************************************************/
+void createReports()
+{
+   string tempout, tempin, temp;
+   string linein;
+   string path;
+   ofstream fout;
+   ifstream fin;
+   int lastDir;
+
+   for( int i = 0; i < INDIVIDUALREPORTS.size(); i++ )
+   {
+      path = INDIVIDUALREPORTS[i].filename.substr(0, INDIVIDUALREPORTS[i].filename.rfind("/"));
+     
+      lastDir =  path.rfind("/");
+      path = path.substr(lastDir + 1);
+      
+      chdir(path.c_str());
+      
+      temp = INDIVIDUALREPORTS[i].filename;
+      lastDir = temp.rfind("/");
+      temp = temp.substr(lastDir + 1);
+      
+      tempout = temp + ".log";
+      fout.open(tempout.c_str());
+      
+      if(fout)
+      {
+         for( int j = 0; j < INDIVIDUALREPORTS[i].reports.size(); j++ )
+            fout << INDIVIDUALREPORTS[i].reports[j] << endl;
+            
+         tempin = temp + ".covs";
+         fin.open(tempin.c_str());
+         
+         if( fin )
+         {
+            getline( fin, linein );
+            getline( fin, linein );
+            
+            fout << linein << endl;
+         }
+         else
+            cout << "Could not open .covs file." << endl;
+      }
+      else
+      {
+         char temp[500];
+         cout << "Could not create .log file: " << temp << endl;
+      }
+      
+      path = "..";
+      chdir(path.c_str());
+      
+      fout.close();
+      fin.close();
+   }
 }
