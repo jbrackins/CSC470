@@ -1,18 +1,20 @@
 #include "test_ui.hpp"
+#include "test_gen.hpp"
+#include "test_run.hpp"
+#include "test_dir.hpp"
+#include "main.hpp"
+
 using namespace std;
 
 
-
-int main()
-{
-    loop_time = 60;
-
-    //dir_list();
-    main_menu();
-
-    return 0;
-}
-
+extern int loop_time;      //time tester will allow a program to run
+/*********************************GLOBALS************************************/
+extern vector<string> STUDENTVECTOR;
+extern vector<report> INDIVIDUALREPORTS;
+extern vector<string> TESTCASES;
+extern string GOLDCPP;
+extern int TOTALPASSED;
+/****************************************************************************/
 /***************************************************************************//**
  * @author Julian Brackins
  *
@@ -54,15 +56,29 @@ void test_case_menu()
         choice = get_choice( );
         if ( choice == 1 )
         {
+            generatetestcases();
+            cin.ignore(10000, '\n');
+            cout << "\nTest generation completed\n\n";
+            string progname, prog_cpp, progcomp, progdir;
+            char dir[1024];
+            getcwd(dir, sizeof(dir));
+            string loc (dir);
 
+            // find all tests and use generated tests to make ans
+            TESTCASES = find_tsts(progdir);
+            find_students(loc, 0);
+            generateanswers();
+            // clean  
+            cleanup();
+            main_menu();
         }
         else if ( choice == 2 )
         {
-
+            //strings
         }
         else if ( choice == 3 )
         {
-
+            //menu based
         }
         else if ( choice == 4 )
             main_menu();
@@ -119,7 +135,7 @@ void set_max_menu( )
             loop_time = choice;
             cout << "Maximum Test Time is ";
             cout << loop_time << "." << endl;
-            cin.clear();
+            cin.ignore(10000, '\n');
             break;
         }
     }  

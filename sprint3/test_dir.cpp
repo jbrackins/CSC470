@@ -18,6 +18,7 @@ extern int TOTALPASSED;
 /****************************************************************************/
 void find_students(string directory, int level)
 {
+    int length;
     int i;
     report tempreport;
     string temp(directory);
@@ -36,7 +37,7 @@ void find_students(string directory, int level)
         {
             if ( temp[temp.size() - 1] != '~' )
             {
-                int length = temp.length();
+                length = temp.length();
                 if ( (length > 4 && (temp.substr(length-4) == ".cpp") 
                     || temp.substr(length-2) == ".C")
                     && level > 0 )
@@ -65,7 +66,7 @@ void find_students(string directory, int level)
                 }
                 else
                 {
-                    if (GOLDCPP.empty()
+                    if (length > 4 && GOLDCPP.empty()
                         && ((temp.substr(length-4) == ".cpp")
                         || temp.substr(length-2) == ".C")
                         && level == 0)

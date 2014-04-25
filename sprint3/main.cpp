@@ -90,6 +90,7 @@
 #include "test_log.hpp"
 #include "test_run.hpp"
 #include "test_string.hpp"
+#include "test_ui.hpp"
 
 #include <iostream>
 #include <iomanip>
@@ -120,12 +121,14 @@ vector<report> INDIVIDUALREPORTS;
 vector<string> TESTCASES;
 string GOLDCPP;
 int TOTALPASSED;
+int loop_time;      //time tester will allow a program to run
 /****************************************************************************/
 
 
 //Side note: GROSS, I hate hate HATE long main functions, fix this ASAP
 int main(int argc, char* argv[])
 {
+    loop_time = 60;
     string progname, prog_cpp, progcomp, progdir;
 
     //holds each test and result on a separate line
@@ -163,6 +166,8 @@ int main(int argc, char* argv[])
     find_students(loc, 0);
     //QQQ!!! Alex: inserting here for new functionality
     string ans;
+
+    main_menu();
     do
     {
         cout << "\nGenerate new test cases?" << endl;
@@ -172,13 +177,7 @@ int main(int argc, char* argv[])
             {
             // make tests
             generatetestcases();
-            cout << "\nTest generation completed\n\n";
-            // find all tests and use generated tests to make ans
-            TESTCASES = find_tsts(progdir);
-            find_students(loc, 0);
-            generateanswers();
-            // clean  
-            cleanup();
+
             return 0;
             }
         else if (ans.compare("n") == 0 || ans.compare("no") == 0 )

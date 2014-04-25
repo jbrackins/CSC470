@@ -36,7 +36,7 @@
 
 #define MAX_OPTIONS 3
 
-int loop_time;      //time tester will allow a program to run
+
 
 ///////////////////////////////////////////////////////////////////////////////
 ////                       FUNCTION PROTOTYPES

@@ -3,12 +3,12 @@
 using namespace std;
 
 
-int main()
-{
-    //find_spec_file("my_prog.spec");
-    read_spec_file();
-    return 0;
-}
+// int main()
+// {
+//     //find_spec_file("my_prog.spec");
+//     read_spec_file();
+//     return 0;
+// }
 
 /**************************************************************************//**
 * @author Julian Brackins
