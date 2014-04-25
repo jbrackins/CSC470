@@ -182,7 +182,7 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
     // start by asking about type
     while(1)
     {
-        cout << "What type of data would you like?  Ints or Doubles?"  << endl;
+        cout << "What type of data would you like?  Ints or Doubles? (i/d)"  << endl;
         cin >> input;
         transform( input.begin(), input.end(), input.begin(), ::tolower); 
         if (!input.compare("int") || !input.compare("ints") || !input.compare("i"))
@@ -210,7 +210,7 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
     // count of test cases?
     while(1)
     {
-        cout << "How many test cases would you like?"  << endl;
+        cout << "How many test cases would you like? (Enter a numeric value)"  << endl;
         cin >> input;
         filesToMake = atoi(input.c_str());
         if (filesToMake >= 0)
@@ -260,7 +260,7 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
     {
         while(1)
         {
-            cout << "More or less than a specific value?"  << endl;
+            cout << "More or less than a specific value? (more/less)"  << endl;
             cin >> input;
             transform( input.begin(), input.end(), input.begin(), ::tolower);
             if (!input.compare("<") || !input.compare("less"))
@@ -288,7 +288,7 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
     // value of items in tests
     while(1)
     {
-        cout << "What value should I work with?"  << endl;
+        cout << "What value should I work with? (Enter a numeric value)"  << endl;
         cin >> input;
         amountToGenerate = atoi(input.c_str());
         if (amountToGenerate > 0)
@@ -309,7 +309,7 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
     //range
     do
     {
-        cout << "range of values?" << endl;
+        cout << "range of values? (y/n)" << endl;
         cin >> input;
         transform( input.begin(), input.end(), input.begin(), ::tolower);
         if (input.compare("n") == 0 || input.compare("no") == 0 )
@@ -332,7 +332,7 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
 
     if (range)
     {
-        cout << "What minimum value should I work with?"  << endl;
+        cout << "What minimum value should I work with? (Enter a numeric value)"  << endl;
         cin >> input;
         if (!input.compare("x") || !input.compare("X"))
         {
@@ -341,7 +341,7 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
         }
         min = atof(input.c_str());
 
-        cout << "What max value should I work with?"  << endl;
+        cout << "What max value should I work with? (Enter a numeric value)"  << endl;
         cin >> input;
         if (!input.compare("x") || !input.compare("X"))
         {

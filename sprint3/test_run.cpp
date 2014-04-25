@@ -1,5 +1,7 @@
 #include "test_run.hpp"
 #include "test_string.hpp"
+#include "test_log.hpp"
+#include "test_dir.hpp"
 using namespace std;
 
 /*********************************GLOBALS************************************/
@@ -297,8 +299,16 @@ void cleanup()
     char buffer[1024];
     getcwd(buffer,sizeof(buffer));
     string location (buffer);
+    string remover;
     location =  "rm " + location + "/temp.txt &>/dev/null";
     system(location.c_str());
+    int i =0;
+    for(i = 0; i < STUDENTVECTOR.size(); i++)
+    {
+        remover = "rm " + remove_extension( STUDENTVECTOR[i]) + " -f ";
+        //cout << "now we're deleting: " << remover << endl;
+        system(remover.c_str());
+    }
     STUDENTVECTOR.erase(STUDENTVECTOR.begin(), STUDENTVECTOR.end());
     TESTCASES.erase(TESTCASES.begin(), TESTCASES.end());  
 
@@ -364,4 +374,102 @@ void progbar(int kill_pid, int runtime, string progname)
     if( kill_pid > 0 )      //This will be < 0 if in standalone mode
         kill(kill_pid, 9);
 
+}
+
+void tester()
+{
+
+    string progname, prog_cpp, progcomp, progdir;
+
+    //holds each test and result on a separate line
+    vector<string> finaloutfilecontents;
+    finaloutfilecontents.clear();
+    TOTALPASSED = 0;
+    //test for proper program usage from command line
+    // QQQ!!! Alex : make gold cpp = ""
+    GOLDCPP.clear();
+
+    //fill strings with proper names
+
+    // QQQ!!! Alex: moved to runtests to run on each test 
+    /*  prog_cpp = argv[1];
+    progname = prog_cpp.substr(0,prog_cpp.find("."));
+    progcomp = "g++ -o " + progname  + " " + prog_cpp;
+    size_t found = prog_cpp.find_last_of("/\\");// QQQ!!! Alex : why not just ints?
+    progdir = progname.substr(0,found+1);
+
+    //compile program to be tested
+    system(progcomp.c_str());*/
+
+    char dir[1024];
+    getcwd(dir, sizeof(dir));
+    string loc (dir);
+
+    TESTCASES = find_tsts(progdir);
+
+    find_students(loc, 0);
+    //QQQ!!! Alex: inserting here for new functionality
+    string ans;
+    // QQQ!!! Alex : gathers all of the .tst files in current and sub directories of the program
+    // being tested
+    // vector<string> testcases;
+    TESTCASES = find_tsts(progdir);
+
+    // QQQ!!! Alex: get the testcases
+    find_students(loc, 0);
+
+    // QQQ!!! Alex : while more .tst files need ran, continue running the tests against the
+    //program
+    int score = 0;
+    vector<string> performance;
+    string currentProg;
+
+
+    // QQQ!!! Alex : foreach program (edited to end of main)
+    for (int h = 0; h < STUDENTVECTOR.size(); h+=1)
+    {
+        score = 0;
+        // and for each test case
+        for(int i=0;i<TESTCASES.size();i++)
+        {
+            int result = runtests(STUDENTVECTOR[h], TESTCASES.at(i));
+            string current = TESTCASES.at(i);
+            // failure on critical test
+            if (result == 0 && current.substr(current.length() - 8)
+                            .find("crit.tst") != -1 )
+            {
+                score = -1;
+                // output the failure
+                writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result, h);
+                break; // stop tests
+            }
+            if (result == -999 )  //infinite loop
+            {
+                score = -1;
+                writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result, h);
+                break; //stop tests
+            }
+            if (result == 1)
+            {
+                score += 1;
+                TOTALPASSED +=1;
+            }
+            writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result, h);
+        }
+        // QQQ!!! Alex : get report on this program
+
+        currentProg = Generate_Performance_Report(STUDENTVECTOR[h], score, TESTCASES.size());
+        finaloutfilecontents.push_back(currentProg);
+    }
+
+    createReports();
+    //writing all of the results to the .out file
+    writefinaloutfile(finaloutfilecontents);//QQQ!!! Alex : progname, finaloutfilecontents);  
+
+    // clean up globals
+    cleanup();
+    //deleting the temp file
+    //remove("temp.txt");
+
+    //exit program    
 }

@@ -33,7 +33,19 @@ void main_menu()
         menu_header();
         choice = get_choice( );
         if ( choice == 1 )
-            grade_program_menu();
+        {
+            string run(grade_program_menu());
+
+            if(run.compare("1") == 0)
+                main_menu();
+            else
+            {
+                chdir(run.c_str());
+                tester();
+                chdir("..");
+            }
+                
+        }
         else if ( choice == 2 )
         {
             test_case_menu();
