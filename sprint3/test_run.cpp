@@ -297,14 +297,14 @@ void cleanup()
     char buffer[1024];
     getcwd(buffer,sizeof(buffer));
     string location (buffer);
-    location =  "rm " + location + "/temp.txt";
+    location =  "rm " + location + "/temp.txt &>/dev/null";
     system(location.c_str());
     STUDENTVECTOR.erase(STUDENTVECTOR.begin(), STUDENTVECTOR.end());
     TESTCASES.erase(TESTCASES.begin(), TESTCASES.end());  
 
 
-    system( "rm *.gcno *.gcov *.gcda *.covs -f" );
-    system( "rm */*.covs");
+    system( "rm *.gcno *.gcov *.gcda *.covs -f &>/dev/null" );
+    system( "rm */*.covs &>/dev/null");
 }
 
 void progbar(int kill_pid, int runtime, string progname)
