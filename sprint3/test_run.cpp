@@ -95,7 +95,7 @@ int Event_REDIRECT(const char *commandline)
     childpid2 = fork();
     if (childpid2 == 0)
     {
-        progbar(childpid1, 60, progname);
+        progbar(childpid1, 2, progname);
         exit(5);
     }
     //printf("progbar is %d\n",childpid2);

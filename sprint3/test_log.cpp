@@ -15,31 +15,31 @@ extern int TOTALPASSED;
 /******************************************************************************/
 string Generate_Performance_Report(string file, int score, int total)
 {
-  fstream fin;
-  string tempstr;
-  int lastDir = file.rfind("/");
-  string report = file.substr(lastDir + 1);
-  if (score == -1)
-  {
-    return report + ":  FAILED";
-  }
-  
-  stringstream temp("");
-  double percent = ((double) score / total) * 100;
-  temp << percent;
-  
-  tempstr = report + ".covs";
-  fin.open( tempstr.c_str() );
-  if( fin )
-  {
-    getline( fin, tempstr );
-    getline( fin, tempstr );
-  }
-  else
-    cout << "cannot open .covs file" << endl;
-    
-  fin.close();
-  return report + ":  " + temp.str() + "%\n\t" + tempstr;
+    fstream fin;
+    string tempstr;
+    int lastDir = file.rfind("/");
+    string report = file.substr(lastDir + 1);
+    if (score == -1)
+    {
+        return report + ":  FAILED";
+    }
+
+    stringstream temp("");
+    double percent = ((double) score / total) * 100;
+    temp << percent;
+
+    tempstr = report + ".covs";
+    fin.open( tempstr.c_str() );
+    if( fin )
+    {
+        getline( fin, tempstr );
+        getline( fin, tempstr );
+    }
+    else
+        cout << "cannot open .covs file" << endl;
+
+    fin.close();
+    return report + ":  " + temp.str() + "%\n\t" + tempstr;
 }
 
 /***************************** writefinaloutfile ******************************/
