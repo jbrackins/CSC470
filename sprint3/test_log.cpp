@@ -17,6 +17,7 @@ extern int TOTALPASSED;
 /******************************************************************************/
 string Generate_Performance_Report(string file, int score, int total)
 {
+
   string tempstr;
   int lastDir = file.rfind("/");
   string report = file.substr(lastDir + 1);
@@ -31,6 +32,7 @@ string Generate_Performance_Report(string file, int score, int total)
 
     
   return report + ":  " + temp.str();
+
 }
 
 /***************************** writefinaloutfile ******************************/
