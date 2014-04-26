@@ -4,6 +4,7 @@
 #include "test_dir.hpp"
 #include "test_ui.hpp"
 #include "test_gen.hpp"
+#include "test_run.hpp"
 using namespace std;
 
 
@@ -38,11 +39,13 @@ void read_spec_file()
 
     int amountToGenerate, filesToMake;
     ofstream fout;
-
+    
+    string progdir;
     char dir[1024];
     getcwd(dir, sizeof(dir));
     string loc (dir);
     string file;
+
 
     SPECFILE = "";
 
@@ -139,6 +142,17 @@ void read_spec_file()
         option_generator(total_options, option, total_options, fout);
         fout.close();
     }
+
+    set_goldencpp();
+    // find all tests and use generated tests to make ans
+    TESTCASES = find_tsts(progdir);
+    
+    find_students(loc, 0);
+    generateanswers();
+    // clean  
+    cleanup();
+
+    cout << "\nTest generation completed. Press enter to continue.\n\n";
 
 }
 

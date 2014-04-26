@@ -1,4 +1,4 @@
-1 int double
-2 int int double int
-3 double int double double
+1 int int
+2 int int int int
+3 double double double double
 4

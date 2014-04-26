@@ -695,7 +695,6 @@ void generateanswers()
         + " " 
         + GOLDCPP 
         + " &>/dev/null";
-        //cout << " ::: " << cmd << " ::: " << endl;
     system(cmd.c_str());
     //string //programName = GOLDCPP.substr(GOLDCPP.rfind("/") + 1);
     string programName = GOLDCPP.substr(0,GOLDCPP.find(".cpp"));
@@ -707,9 +706,9 @@ void generateanswers()
         if (TESTCASES[i].find("GeneratedTestCase") != -1)
         {
             cmd = programName 
-                + " < " + TESTCASES[i].substr(2) + " > " 
+                + " &>/dev/null < " + TESTCASES[i].substr(2) + " > " 
                 + " " + TESTCASES[i].substr(2,TESTCASES[i].rfind(".tst") -2)
-                + ".ans &>/dev/null";
+                + ".ans";
             system(cmd.c_str());
         }
     }

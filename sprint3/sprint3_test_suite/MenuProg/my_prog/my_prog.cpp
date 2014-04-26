@@ -29,10 +29,10 @@ int main ()
     int choice = 0, numterms = 0;
     double x = 0.0, ans = 0.0, actual = 0.0;
     // starting message indicating purpose of program
-    cout << "This program will approximate values for e^x, sin(x), and cos(x)";
-    cout << " then compare these values to known values\n";
+    cerr << "This program will approximate values for e^x, sin(x), and cos(x)";
+    cerr << " then compare these values to known values\n";
     // do while loop to display message until user chooses to quit program
-    cout << fixed << setprecision(4);
+    cerr << fixed << setprecision(4);
     do
     {
         // run getMenuChocie function to get choice
@@ -80,8 +80,8 @@ int getMenuChoice( )
     // intitializing variable
     int choice = 0;
     // output menu
-    cout << "What would you like to work with\n1) avg of two ints\n2) max of 4 ints\n3) min of 3 doubles\n";
-    cout << "4) Quit Program\n";
+    cerr << "What would you like to work with\n1) avg of two ints\n2) max of 4 ints\n3) min of 3 doubles\n";
+    cerr << "4) Quit Program\n";
     // input the user's choice
     cin >> choice;
     return choice;
@@ -91,9 +91,9 @@ int average()
 {
     int i1, i2;
 
-    cout << "Enter 1st int: ";
+    cerr << "Enter 1st int: ";
     cin >> i1;
-    cout << "Enter 2nt int: ";
+    cerr << "Enter 2nt int: ";
     cin >> i2;
 
     int avg = (i1 + i2) / 2;
@@ -106,13 +106,13 @@ int average()
 int max()
 {
     int i1, i2, i3, i4;
-    cout << "Enter 1st int: ";
+    cerr << "Enter 1st int: ";
     cin >> i1;
-    cout << "Enter 2nt int: ";
+    cerr << "Enter 2nt int: ";
     cin >> i2;
-    cout << "Enter 3rd int: ";
+    cerr << "Enter 3rd int: ";
     cin >> i3;
-    cout << "Enter 4th int: ";
+    cerr << "Enter 4th int: ";
     cin >> i4;
 
     int max = i1;
@@ -131,13 +131,13 @@ int max()
 double min()
 {
     double d1, d2, d3, d4;
-    cout << "Enter 1st num: ";
+    cerr << "Enter 1st num: ";
     cin >> d1;
-    cout << "Enter 2nt num: ";
+    cerr << "Enter 2nt num: ";
     cin >> d2;
-    cout << "Enter 3rd num: ";
+    cerr << "Enter 3rd num: ";
     cin >> d3;
-    cout << "Enter 4th num: ";
+    cerr << "Enter 4th num: ";
     cin >> d4;
 
     double min = d1;
