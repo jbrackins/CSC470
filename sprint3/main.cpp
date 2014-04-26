@@ -120,6 +120,8 @@ vector<string> STUDENTVECTOR;
 vector<report> INDIVIDUALREPORTS;
 vector<string> TESTCASES;
 string GOLDCPP;
+string SPECFILE;
+string TEMPSPEC;
 string TEMPGCPP;
 string HOME_DIR;
 int TOTALPASSED;
@@ -127,7 +129,6 @@ int loop_time;      //time tester will allow a program to run
 /****************************************************************************/
 
 
-//Side note: GROSS, I hate hate HATE long main functions, fix this ASAP
 int main(int argc, char* argv[])
 {
     loop_time = 60;

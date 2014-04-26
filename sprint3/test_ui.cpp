@@ -2,6 +2,7 @@
 #include "test_gen.hpp"
 #include "test_run.hpp"
 #include "test_dir.hpp"
+#include "test_menu.hpp"
 #include "main.hpp"
 
 using namespace std;
@@ -130,7 +131,9 @@ void test_case_menu2()
         }
         else if ( choice == 3 )
         {
-            //menu based
+            read_spec_file();
+            chdir(HOME_DIR.c_str());
+            main_menu();
         }
         else if ( choice == 4 )
         {

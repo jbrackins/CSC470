@@ -9,6 +9,8 @@ extern vector<string> STUDENTVECTOR;
 extern vector<report> INDIVIDUALREPORTS;
 extern vector<string> TESTCASES;
 extern string GOLDCPP;
+extern string SPECFILE;
+extern string TEMPSPEC;
 extern string TEMPGCPP;
 extern int TOTALPASSED;
 /****************************************************************************/
@@ -126,3 +128,37 @@ vector<string> find_tsts(string progdir)
 }
 /******************************* END find_tsts ********************************/
 
+void find_spec_file(string directory, int level)
+{
+    int length;
+    int i;
+    report tempreport;
+    string temp(directory);
+    DIR *dir = opendir(temp.c_str()); // open the current directory
+    struct dirent *entry;
+    if (!dir)
+    {
+        // not a directory
+        return;
+    }
+    while (entry = readdir(dir)) // notice the single '='
+    {
+        temp = entry->d_name;
+        if ( temp != "." && temp != ".." )
+        {
+            if ( temp[temp.size() - 1] != '~' )
+            {
+                length = temp.length();
+                if ( temp == TEMPSPEC && length > 5 && temp.substr(length-5) == ".spec" )
+                {
+                    SPECFILE = directory + '/' + temp;
+                }
+                else
+                {
+                    find_spec_file(directory + '/' + temp, level + 1);
+                }
+            }
+        }
+    }
+    closedir(dir);
+}

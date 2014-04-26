@@ -22,6 +22,6 @@
 #include <string.h>
 void find_students(std::string directory, int level);
 std::vector<std::string> find_tsts(std::string progdir);
-
+void find_spec_file(std::string directory, int level);
 
 #endif

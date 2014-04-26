@@ -1,6 +1,7 @@
 #include "test_gen.hpp"
 #include "test_run.hpp"
 #include "test_dir.hpp"
+#include "main.hpp"
 using namespace std;
 
 
@@ -8,6 +9,8 @@ using namespace std;
 extern vector<string> STUDENTVECTOR;
 extern vector<string> TESTCASES;
 extern string GOLDCPP;
+extern string SPECFILE;
+extern string TEMPSPEC;
 extern string TEMPGCPP;
 extern int TOTALPASSED;
 /****************************************************************************/
@@ -550,6 +553,99 @@ void generatestringtestcasesmenu(int &stringsToGen, int &maxLen, int &filesToMak
     }
 }
 
+void generatemenutestcasesmenu(int &amountToGenerate, int &filesToMake)
+{
+    string input = "";
+    bool range;
+
+
+
+    //make welcome menu
+    cout << "\nWelcome to the test-case generator!\n" << endl;
+    //cout << "\033[1;34mbold Press 'x' and enter at any time to leave.\033[0m\n";
+
+    while(1)
+    {
+        // inquire about cleaning old tests or overwrite?
+        cout << "\nRemove old generated tests (y) or just overwrite as needed (n)?" << endl;
+        cin >> input;
+        transform( input.begin(), input.end(), input.begin(), ::tolower);
+        if (!input.compare("y") || !input.compare("yes"))
+        {
+            cout << "\n\tClearing..." << endl;
+            pregenerateclean();
+            break;
+        }
+        else if (!input.compare("n") || !input.compare("no"))
+        {
+            break;
+        }
+        cout << "I didn't understand.  Please try again." << endl;
+    }
+
+    // count of test cases?
+    while(1)
+    {
+        cout << "How many test cases would you like? (Enter a numeric value)"  << endl;
+        cin >> input;
+        filesToMake = atoi(input.c_str());
+        if (filesToMake >= 0)
+        { 
+            break;
+        }
+        else if (!input.compare("x"))
+        {
+            cout << "Exiting.  Please run again." << endl;
+            exit(0); // change of heart
+        }
+        else
+        {
+            cout << "\nPlease re-enter as a positive number or 'x' to cancel." << endl;
+        }
+    }
+
+    amountToGenerate = 0;
+    while(1)
+    {
+        // inquire about cleaning old tests or overwrite?
+        cout << "Choose Minimum inputs per test case or Manually set\n";
+        cout << "A) Minimum inputs (Tests every option once)\n";
+        cout << "B) Robust  inputs (Tests minimum + additional inputs)";
+        cin >> input;
+        transform( input.begin(), input.end(), input.begin(), ::tolower);
+        if (!input.compare("a") || !input.compare("minimum"))
+        {
+    // value of items in tests
+            while(1)
+            {
+                cout << "How many additional option inputs";
+                cout << "should there be?\n (Enter a numeric value)"  << endl;
+                cin >> input;
+                amountToGenerate = atoi(input.c_str());
+                if (amountToGenerate > 0)
+                {
+                    break;
+                }
+                else if (!input.compare("x") || !input.compare("X"))
+                {
+                    cout << "Exiting.  Please run again." << endl;
+                    exit(0); // change of heart
+                }
+                else
+                {
+                    cout << "\nPlease re-enter value greater than 0." << endl;
+                }
+            }
+            break;
+        }
+        else if (!input.compare("b") || !input.compare("robust"))
+        {
+            break;
+        }
+        cout << "I didn't understand.  Please try again." << endl;
+    }
+
+}
 /****************************pregenerateclean********************************/
 // QQQ!!! Alex : removes old generated test cases
 /****************************************************************************/

@@ -37,14 +37,13 @@ struct menu_option
   std::string type[123];
 } ;
 
-std::string spec_file;
+//std::string spec_file;
 
 ///////////////////////////////////////////////////////////////////////////////
 ////                       FUNCTION PROTOTYPES
 ///////////////////////////////////////////////////////////////////////////////
 
 void read_spec_file();
-void option_generator(int opt, struct menu_option option[],int arr_size);
+void option_generator(int opt, struct menu_option option[], int arr_size, std::ofstream &fout);
 double random_generator(std::string kind);
-std::string find_spec_file(std::string specfile);
 #endif
