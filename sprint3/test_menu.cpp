@@ -39,12 +39,14 @@ void read_spec_file()
 
     int amountToGenerate, filesToMake;
     ofstream fout;
-    
+
     string progdir;
     char dir[1024];
     getcwd(dir, sizeof(dir));
     string loc (dir);
     string file;
+
+    srand(time(NULL));
 
 
     SPECFILE = "";
@@ -119,7 +121,6 @@ void read_spec_file()
         fout.open(file.c_str());
 
         // populate 
-        srand(time(NULL));
         int x = 0;
         //Minimum generation
         for(x = 0; x < total_options+2; x++)
@@ -170,7 +171,7 @@ void option_generator(int opt, struct menu_option option[], int arr_size, ofstre
             {
                 double test_case_in = random_generator(option[i].type[j]);
                 fout << test_case_in << " ";
-                srand(test_case_in);
+                //srand(test_case_in);
             }    
         }
     }
@@ -191,6 +192,7 @@ void option_generator(int opt, struct menu_option option[], int arr_size, ofstre
 ******************************************************************************/
 double random_generator(string kind)
 {
+    //srand(time(NULL));
     double number = ((float)rand()/(float)(RAND_MAX)) * 2000;// / RAND_MAX;
     int inumber = rand() % 2000;
     if (kind == "int")
