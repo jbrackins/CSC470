@@ -1,0 +1,12 @@
+
+Test Summary:
+
+bad_student_1.cpp:  5.88235
+average.cpp:  41.1765
+student_4.cpp:  41.1765
+student_3.cpp:  41.1765
+loopy_student_5.cpp:  FAILED
+bad_student_2.cpp:  5.88235
+     Total # of tests ran:    102
+     Total # of tests passed: 23
+              Percent passed: 22.549%
