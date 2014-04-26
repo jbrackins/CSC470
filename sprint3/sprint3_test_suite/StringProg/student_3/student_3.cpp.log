@@ -1,0 +1,8 @@
+passed: ./test_float/short/case_3.tst
+passed: ./test_float/short/case_4.tst
+passed: ./test_float/short/case_5.tst
+passed: ./test_float/case_1.tst
+passed: ./test_float/long/case_12.tst
+passed: ./test_float/case_2.tst
+passed: ./test_int/case_0.tst
+Lines executed:100.00% of 11

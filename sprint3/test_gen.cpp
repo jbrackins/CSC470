@@ -548,7 +548,7 @@ void generatestringtestcasesmenu(int &stringsToGen, int &maxLen, int &filesToMak
     while(1)
     {
         cout << "\nHow many strings would you like\n"; 
-        cout << "to generate? (Enter a numeric value)"  << endl;
+        cout << "to generate per file? (Enter a numeric value)"  << endl;
         prompt(); 
         cin >> input;
         stringsToGen = atoi(input.c_str());
