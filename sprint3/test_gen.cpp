@@ -1,4 +1,6 @@
 #include "test_gen.hpp"
+#include "test_run.hpp"
+#include "test_dir.hpp"
 using namespace std;
 
 
@@ -6,6 +8,7 @@ using namespace std;
 extern vector<string> STUDENTVECTOR;
 extern vector<string> TESTCASES;
 extern string GOLDCPP;
+extern string TEMPGCPP;
 extern int TOTALPASSED;
 /****************************************************************************/
 /********************************Defines*************************************/
@@ -26,6 +29,14 @@ void generatetestcases()
     generatetestcasesmenu(doubles, lesserThanAmount, greaterThanAmount, min, max, amountToGenerate, filesToMake);
     double inValue;
     unsigned short drandSeed = 128;
+
+    string progname;
+    string prog_cpp;
+    string progcomp;
+    string progdir;
+    char dir[1024];
+    getcwd(dir, sizeof(dir));
+    string loc (dir);
 
     // if max and min are both max (none selected, use 0,1 as it leaves rand)
 
@@ -140,6 +151,94 @@ void generatetestcases()
 
     }
 
+    set_goldencpp();
+    // find all tests and use generated tests to make ans
+    TESTCASES = find_tsts(progdir);
+    
+    find_students(loc, 0);
+    generateanswers();
+    // clean  
+    cleanup();
+
+    cout << "\nTest generation completed. Press enter to continue.\n\n";
+
+
+}
+
+/******************************generatetestcases*****************************/
+//QQQ!!! Alex : testcase builder starts here
+/****************************************************************************/
+void generatestringtestcases()
+{
+    int filesToMake;
+   
+    string file;
+    stringstream temp;
+
+    char * str;
+    int length = 0, stringsToGen, maxLen;
+    ofstream rand_out;
+
+    string progname;
+    string prog_cpp;
+    string progcomp;
+    string progdir;
+    char dir[1024];
+    getcwd(dir, sizeof(dir));
+    string loc (dir);
+
+
+    generatestringtestcasesmenu(stringsToGen, maxLen, filesToMake);
+
+    // if max and min are both max (none selected, use 0,1 as it leaves rand)
+
+    // seed random
+    srand (time(NULL));
+
+
+    // make each file
+    for (int i = 0 ; i < filesToMake; i +=1)
+    {
+        // make string of file name
+        temp.str("");
+        temp << i;
+        file = "./tests/GeneratedTestCase" + temp.str() + ".tst";
+        rand_out.open(file.c_str());
+
+        for( long int j = 0; j < stringsToGen; j++ )
+        {
+            length = rand() % maxLen + 1;
+            //cout << length << endl;
+            gen_random(str, length);
+
+            rand_out << str << endl;
+            //length ++;
+        }
+
+        rand_out.close();
+    }
+
+    
+    set_goldencpp();
+    // find all tests and use generated tests to make ans
+    TESTCASES = find_tsts(progdir);
+    
+    find_students(loc, 0);
+    generateanswers();
+    // clean  
+    cleanup();
+    cout << "\nTest generation completed. Press enter to continue.\n\n";
+}
+
+void gen_random(char *s, const int len) 
+{
+    static const char alpha[] = "abcdefghijklmnopqrstuvwxyz1234567890";
+
+    for (int i = 0; i < len; ++i) {
+        s[i] = alpha[rand() % (sizeof(alpha) - 1)];
+    }
+
+    s[len] = 0;
 }
 
 /****************************generatetestcasemenu****************************/
@@ -353,12 +452,110 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
 
 }
 
+/****************************generatetestcasemenu****************************/
+//QQQ!!! Alex : testcase builder menu is here... long...
+/****************************************************************************/
+void generatestringtestcasesmenu(int &stringsToGen, int &maxLen, int &filesToMake)
+{
+    string input = "";
+    // defaults for min and max
+
+    //make welcome menu
+    cout << "\nWelcome to the test-case generator!\n" << endl;
+    //cout << "\033[1;34mbold Press 'x' and enter at any time to leave.\033[0m\n";
+
+
+    while(1)
+    {
+        // inquire about cleaning old tests or overwrite?
+        cout << "\nRemove old generated tests (y) or just overwrite as needed (n)?" << endl;
+        cin >> input;
+        transform( input.begin(), input.end(), input.begin(), ::tolower);
+        if (!input.compare("y") || !input.compare("yes"))
+        {
+            cout << "\n\tClearing..." << endl;
+            pregenerateclean();
+            break;
+        }
+        else if (!input.compare("n") || !input.compare("no"))
+        {
+            break;
+        }
+        cout << "I didn't understand.  Please try again." << endl;
+    }
+
+    // count of test cases?
+    while(1)
+    {
+        cout << "How many test cases would you like? (Enter a numeric value)"  << endl;
+        cin >> input;
+        filesToMake = atoi(input.c_str());
+        if (filesToMake >= 0)
+        { 
+            break;
+        }
+        else if (!input.compare("x"))
+        {
+            cout << "Exiting.  Please run again." << endl;
+            exit(0); // change of heart
+        }
+        else
+        {
+            cout << "\nPlease re-enter as a positive number or 'x' to cancel." << endl;
+        }
+    }
+
+    // value of items in tests
+    while(1)
+    {
+        cout << "How many strings would you like\n"; 
+        cout << "to generate? (Enter a numeric value)"  << endl;
+        cin >> input;
+        stringsToGen = atoi(input.c_str());
+        if (stringsToGen > 0)
+        {
+            break;
+        }
+        else if (!input.compare("x") || !input.compare("X"))
+        {
+            cout << "Exiting.  Please run again." << endl;
+            exit(0); // change of heart
+        }
+        else
+        {
+            cout << "\nPlease re-enter value greater than 0." << endl;
+        }
+    }
+
+    // max string length
+    while(1)
+    {
+        cout << "What is the max length for a string?\n"; 
+        cout << "(Enter a numeric value)"  << endl;
+        cin >> input;
+        maxLen = atoi(input.c_str());
+        if (maxLen > 0)
+        {
+            break;
+        }
+        else if (!input.compare("x") || !input.compare("X"))
+        {
+            cout << "Exiting.  Please run again." << endl;
+            exit(0); // change of heart
+        }
+        else
+        {
+            cout << "\nPlease re-enter value greater than 0." << endl;
+        }
+    }
+}
+
 /****************************pregenerateclean********************************/
 // QQQ!!! Alex : removes old generated test cases
 /****************************************************************************/
 void pregenerateclean()
 {
-    system("rm ./tests/GeneratedTestCase*");
+    system("rm ./tests/GeneratedTestCase* &>/dev/null");
 }
 
 /*******************************generateanswers******************************/
@@ -371,10 +568,12 @@ void generateanswers()
     string cmd = "g++ -o " 
         + GOLDCPP.substr(0,GOLDCPP.rfind(".cpp")) 
         + " " 
-        + GOLDCPP;
+        + GOLDCPP 
+        + " &>/dev/null";
+        //cout << " ::: " << cmd << " ::: " << endl;
     system(cmd.c_str());
-    string programName = GOLDCPP.substr(GOLDCPP.rfind("/") + 1);
-    programName = programName.substr(0,programName.find(".cpp"));
+    //string //programName = GOLDCPP.substr(GOLDCPP.rfind("/") + 1);
+    string programName = GOLDCPP.substr(0,GOLDCPP.find(".cpp"));
 
     // look at all test cases
     for (int i = 0 ; i < TESTCASES.size() ; i +=1)
@@ -382,11 +581,29 @@ void generateanswers()
         // if it's a generated test case
         if (TESTCASES[i].find("GeneratedTestCase") != -1)
         {
-            cmd = "./" + programName 
+            cmd = programName 
                 + " < " + TESTCASES[i].substr(2) + " > " 
                 + " " + TESTCASES[i].substr(2,TESTCASES[i].rfind(".tst") -2)
-                + ".ans";
+                + ".ans &>/dev/null";
             system(cmd.c_str());
         }
     }
+}
+
+void set_goldencpp()
+{
+    char buffer[100];
+    cin.ignore(10000, '\n');
+    cout << "Enter Golden cpp file name. This file is needed\n";
+    cout << "to properly generate ans files for the test cases\n";
+    cout << ">> ";
+    
+
+    //read in commands, break up arguments into tokens
+    fgets(buffer,100, stdin);
+
+    string temp1(buffer);
+    string temp2(temp1.begin(), temp1.end()-1);
+    TEMPGCPP = temp2;
+    //cin.ignore(10000, '\n');
 }

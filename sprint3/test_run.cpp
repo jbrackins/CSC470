@@ -332,6 +332,8 @@ void progbar(int kill_pid, int runtime, string progname)
     int time = 0;
 
     //set header
+    int len = progname.find_last_of("/");
+    progname = progname.substr(len+1, progname.length() - len-1);
     printf("\nTesting %s for %d seconds...\n", progname.c_str(), runtime);
     printf("\n\n\n");
 

@@ -47,8 +47,10 @@
 void main_menu();
 int get_choice( );
 void menu_header();
-void test_case_header();
-void test_case_menu();
+void test_case_header1();
+void test_case_header2();
+std::string test_case_menu1();
+void test_case_menu2();
 void set_max_menu( );
 std::string grade_program_menu();
 void grade_program_header();

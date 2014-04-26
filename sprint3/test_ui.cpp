@@ -13,6 +13,7 @@ extern vector<string> STUDENTVECTOR;
 extern vector<report> INDIVIDUALREPORTS;
 extern vector<string> TESTCASES;
 extern string GOLDCPP;
+extern string HOME_DIR;
 extern int TOTALPASSED;
 /****************************************************************************/
 /***************************************************************************//**
@@ -28,27 +29,41 @@ extern int TOTALPASSED;
 void main_menu()
 {
     int choice = 0;
+    string run;
     while(1)
     {
         menu_header();
         choice = get_choice( );
         if ( choice == 1 )
         {
-            string run(grade_program_menu());
+            run = grade_program_menu();
 
             if(run.compare("1") == 0)
                 main_menu();
             else
             {
-                chdir(run.c_str());
-                tester();
-                chdir("..");
+                if( chdir(run.c_str()) == 0 )
+                    tester();
+                else
+                    cout << run << " is not a directory...\n";
+                chdir(HOME_DIR.c_str());
             }
                 
         }
         else if ( choice == 2 )
         {
-            test_case_menu();
+            run = test_case_menu1();
+
+            if(run.compare("1") == 0)
+                main_menu();
+            else
+            {
+                if( chdir(run.c_str()) == 0 )
+                    test_case_menu2();
+                else
+                    cout << run << " is not a directory...\n";
+                chdir(HOME_DIR.c_str());
+            }
         }
         else if ( choice == 3 )
             set_max_menu( );
@@ -59,41 +74,69 @@ void main_menu()
     }
 }
 
-void test_case_menu()
+string test_case_menu1()
+{
+    string input;
+    string arg;
+    char* command;
+    char* filename;
+    char buffer[100];
+
+   
+    do
+    {
+        test_case_header1();
+        cout << ">> ";             //prompt
+
+        //read in commands, break up arguments into tokens
+        fgets(buffer,100, stdin);
+        command = strtok(buffer," \n");
+        filename = strtok(NULL, " \n");
+
+        input = command;
+        
+        if(input.compare("1") == 0)
+        {
+            chdir(HOME_DIR.c_str());
+            main_menu();
+        }
+            
+        else
+            return input;
+    }while(command != NULL);
+     //Check to see if NULL command was sent from console
+}
+
+void test_case_menu2()
 {
     int choice = 0;
     while(1)
     {
-        test_case_header();
+        test_case_header2();
         choice = get_choice( );
         if ( choice == 1 )
         {
             generatetestcases();
             cin.ignore(10000, '\n');
-            cout << "\nTest generation completed\n\n";
-            string progname, prog_cpp, progcomp, progdir;
-            char dir[1024];
-            getcwd(dir, sizeof(dir));
-            string loc (dir);
-
-            // find all tests and use generated tests to make ans
-            TESTCASES = find_tsts(progdir);
-            find_students(loc, 0);
-            generateanswers();
-            // clean  
-            cleanup();
+            chdir(HOME_DIR.c_str());
             main_menu();
         }
         else if ( choice == 2 )
         {
-            //strings
+            generatestringtestcases();
+            cin.ignore(10000, '\n');
+            chdir(HOME_DIR.c_str());
+            main_menu();
         }
         else if ( choice == 3 )
         {
             //menu based
         }
         else if ( choice == 4 )
+        {
+            chdir(HOME_DIR.c_str());
             main_menu();
+        }
         else
             cout << "Please enter a valid selection from the menu,\n";
     }
@@ -121,7 +164,11 @@ string grade_program_menu()
         input = command;
         
         if(input.compare("1") == 0)
+        {
+            chdir(HOME_DIR.c_str());
             main_menu();
+        }
+
         else
             return input;
     }while(command != NULL);
@@ -209,8 +256,22 @@ int get_choice( )
     return 0;
 }
 
+void test_case_header1()
+{
+    cout << "=====================AUTOMATED TESTING SUITE v.3=====================\n";
+    cout << "=                                                                   =\n";
+    cout << "=                                                                   =\n";
+    cout << "=   Please enter the name of the program you wish to generate       =\n";
+    cout << "=   test cases for:                                                 =\n";
+    cout << "=                                                                   =\n";
+    dir_list();
+    cout << "=   Enter '1' to go back to main menu                               =\n";
+    cout << "=                                                                   =\n";
+    cout << "=                                                                   =\n";
+    cout << "=====================================================================\n";
+}
 
-void test_case_header()
+void test_case_header2()
 {
     cout << "=========================GENERATE TEST CASES=========================\n";
     cout << "=                                                                   =\n";
@@ -242,6 +303,8 @@ void menu_header()
     cout << "=                                                                   =\n";
     cout << "=====================================================================\n";
 }
+
+
 
 void grade_program_header()
 {

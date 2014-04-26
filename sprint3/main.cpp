@@ -120,6 +120,8 @@ vector<string> STUDENTVECTOR;
 vector<report> INDIVIDUALREPORTS;
 vector<string> TESTCASES;
 string GOLDCPP;
+string TEMPGCPP;
+string HOME_DIR;
 int TOTALPASSED;
 int loop_time;      //time tester will allow a program to run
 /****************************************************************************/
@@ -130,7 +132,9 @@ int main(int argc, char* argv[])
 {
     loop_time = 60;
 
-
+    char dir[1024];
+    getcwd(dir, sizeof(dir));
+    HOME_DIR = dir;
     
 
     main_menu();

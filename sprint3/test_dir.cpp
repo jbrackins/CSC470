@@ -9,6 +9,7 @@ extern vector<string> STUDENTVECTOR;
 extern vector<report> INDIVIDUALREPORTS;
 extern vector<string> TESTCASES;
 extern string GOLDCPP;
+extern string TEMPGCPP;
 extern int TOTALPASSED;
 /****************************************************************************/
 
@@ -29,10 +30,13 @@ void find_students(string directory, int level)
         // not a directory
         return;
     }
-
     while (entry = readdir(dir)) // notice the single '='
     {
         temp = entry->d_name;
+        if (temp == TEMPGCPP)
+        {
+            GOLDCPP = directory + '/' + temp;
+        }
         if ( temp != "." && temp != ".." )
         {
             if ( temp[temp.size() - 1] != '~' )
@@ -59,19 +63,17 @@ void find_students(string directory, int level)
                         STUDENTVECTOR.end(),
                         insert) == STUDENTVECTOR.end() 
                         && GOLDCPP.empty() 
-                        && level == 0)
+                        && temp == TEMPGCPP)
                     {
                         GOLDCPP = directory + '/' + temp;
                     }
                 }
                 else
                 {
-                    if (length > 4 && GOLDCPP.empty()
-                        && ((temp.substr(length-4) == ".cpp")
-                        || temp.substr(length-2) == ".C")
-                        && level == 0)
+                    if (temp == TEMPGCPP)
                     {
                         GOLDCPP = directory + '/' + temp;
+                        // cout << "golden cpp is " << GOLDCPP << endl;
                     }
                     find_students(directory + '/' + temp, level + 1);
                 }
