@@ -1,5 +1,6 @@
 #include "test_log.hpp"
 #include "main.hpp"
+#include "test_string.hpp"
 using namespace std;
 
 /*********************************GLOBALS************************************/
@@ -49,15 +50,15 @@ void writefinaloutfile(vector<string> finaloutfilecontents)//QQQ!!! Alex : comme
   timeinfo = localtime (&rawtime);
   strftime (buffer,16,"%m_%d_%H:%M:%S",timeinfo);
   //string to hold the final output file name
-  string outfilename (buffer); //QQQ!!! Alex : just log and time //+ logprogname+"_"+buffer+".log";
+  //string outfilename (buffer); //QQQ!!! Alex : just log and time //+ logprogname+"_"+buffer+".log";
   
-  outfilename = "log " + outfilename;
+  string outfilename = log_filename("Summary.file");
 
   //opening final output file
   ofstream fout;
   fout.open(outfilename.c_str());
 
-  fout << "\nTest Summary:\n\n";
+  fout << "Test Summary:\nDate: " << timestamp() << endl;
 
   
   //writing the contents to the output file
@@ -138,7 +139,8 @@ void createReports()
       lastDir = temp.rfind("/");
       temp = temp.substr(lastDir + 1);
       
-      tempout = temp + ".log";
+      //tempout = temp + ".log";
+      tempout = log_filename( temp );
       fout.open(tempout.c_str());
       
       if(fout)
@@ -148,7 +150,7 @@ void createReports()
             
          tempin = temp + ".covs";
          fin.open(tempin.c_str());
-         
+         //cout << "attempting to open " << tempin << " file " << endl;
          if( fin )
          {
             getline( fin, linein );
@@ -156,13 +158,13 @@ void createReports()
             
             fout << linein << endl;
          }
-         else
-            cout << "Could not open .covs file." << endl;
+         //else
+          //cout << "Could not open .covs file." << endl;
       }
       else
       {
          char temp[500];
-         cout << "Could not create .log file: " << temp << endl;
+         //cout << "Could not create .log file: " << temp << endl;
       }
       
       path = "..";

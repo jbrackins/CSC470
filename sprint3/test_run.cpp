@@ -9,6 +9,7 @@ extern vector<string> STUDENTVECTOR;
 extern vector<string> TESTCASES;
 extern string GOLDCPP;
 extern int TOTALPASSED;
+extern int loop_time;      //time tester will allow a program to run
 /****************************************************************************/
 
 /**************************************************************************//**
@@ -97,7 +98,7 @@ int Event_REDIRECT(const char *commandline)
     childpid2 = fork();
     if (childpid2 == 0)
     {
-        progbar(childpid1, 2, progname);
+        progbar(childpid1, loop_time, progname);
         exit(5);
     }
     //printf("progbar is %d\n",childpid2);

@@ -267,6 +267,7 @@ string str_replace( string str, char a, char b )
  *****************************************************************************/
 string log_filename( string cpp_file ) 
 {
+    cpp_file = remove_extension( cpp_file );
     string log_str( cpp_file );
     return log_str += "_" + timestamp() + ".log";
 }
