@@ -13,6 +13,7 @@ extern string GOLDCPP;
 extern string SPECFILE;
 extern string TEMPSPEC;
 extern string TEMPGCPP;
+extern string HOME_DIR;
 extern int TOTALPASSED;
 /****************************************************************************/
 /********************************Defines*************************************/
@@ -160,6 +161,14 @@ void generatetestcases()
     TESTCASES = find_tsts(progdir);
     
     find_students(loc, 0);
+    if( GOLDCPP.length() < 1 )
+    {
+        cout << TEMPGCPP << " is not a valid golden .cpp file" << endl;
+        TEMPGCPP = "";
+        GOLDCPP = "";
+        chdir(HOME_DIR.c_str());
+        main_menu();
+    }
     generateanswers();
     // clean  
     cleanup();
@@ -228,6 +237,14 @@ void generatestringtestcases()
     TESTCASES = find_tsts(progdir);
     
     find_students(loc, 0);
+    if( GOLDCPP.length() < 1 )
+    {
+        cout << TEMPGCPP << " is not a valid golden .cpp file" << endl;
+        TEMPGCPP = "";
+        GOLDCPP = "";
+        chdir(HOME_DIR.c_str());
+        main_menu();
+    }
     generateanswers();
     // clean  
     cleanup();

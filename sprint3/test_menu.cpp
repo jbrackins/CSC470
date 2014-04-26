@@ -149,6 +149,14 @@ void read_spec_file()
     TESTCASES = find_tsts(progdir);
     
     find_students(loc, 0);
+    if( GOLDCPP.length() < 1 )
+    {
+        cout << TEMPGCPP << " is not a valid golden .cpp file" << endl;
+        TEMPGCPP = "";
+        GOLDCPP = "";
+        chdir(HOME_DIR.c_str());
+        main_menu();
+    }
     generateanswers();
     // clean  
     cleanup();
