@@ -3,9 +3,9 @@
 #include <fstream>
 #include <stdlib.h>
 #include <string>
+#include <sstream>
 #include <algorithm>
 #include <boost/algorithm/string.hpp>
-
 
 using namespace std;
 using namespace boost::algorithm;
@@ -18,8 +18,8 @@ struct subs
 };
 
 void compareFiles( ifstream &solution, ifstream &fin, ifstream &difference );
-bool compareStringsOne( string s1, string s2 );
-bool compareStringsTwo( string s1, string s2 );
+bool compStrs1( string s1, string s2 );
+bool compStrs2( string s1, string s2 );
 //int prezErrorCount( fstream file1, fstream file2) 
 subs subStrings( string s, char delim );
 bool roundNums( string s1, string s2 );
@@ -34,13 +34,41 @@ int main()
 	
 	string line;
 	subs dif;
-
-
+	int errors = 0;
+	
 	while( getline( difference, line ) )
 	{
+		int i = 1;
+		string word1, word2;
 		dif = subStrings( line, '|' ); 
+		istringstream first( dif.first );
+ 	        istringstream last( dif.last );
+		while( first >> word1 && last >> word2 )
+		{
+			if( word1 != word2 )
+			{
+				if( i % 2 != 0 )
+				{
+					if ( ( compStrs1( word1, word2 ) || compStrs2( word1, word2 ) ) != 0 )
+						errors++;
+				}
+				else
+				{
+					if( roundNums( word1, word2 ) != 0 )
+						errors++;
+				}
+			}
+				
+			cout << "Word1: " << word1 << endl;
+			cout << "Word2: " << word2 << endl;
+
+			i++;
+		}
+	
+
 	}
 	
+	cout << "Errors: " << errors << endl;
 	difference.close();
 	return 0;
 }
@@ -57,7 +85,7 @@ subs subStrings( string s, char delim )
 	return substrings;
 }
 
-bool compareStringsOne( string s1, string s2 )
+bool compStrs1( string s1, string s2 )
 {
 	auto x = s1.size();
 	auto y = s2.size();
@@ -65,7 +93,7 @@ bool compareStringsOne( string s1, string s2 )
 	return (( x != y ) || ( s1[0] != s2[0] ) || ( s1[x - 1] != s2[y - 1] ));	
 }
 
-bool compareStringsTwo( string s1, string s2 )
+bool compStrs2( string s1, string s2 )
 {
 	sort( s1.begin(), s1.end() );
 	sort( s2.begin(), s2.end() );
@@ -86,12 +114,10 @@ bool roundNums( string s1, string s2 )
 		subs solution = subStrings( s1, '.' ); 
 		subs diff = subStrings( s2, '.' ); 
 		auto x = diff.last.size();
-		
+		cout << diff.first << " " << diff.last << endl;
 		while( x != solution.last.size() )
 		{
 			int y = ( diff.last[ x - 1 ] - '0' );
-			cout << "Y: " << y << endl;
-		
 
 			if( y > 4 && ( diff.last[ x - 2 ] - '0' ) < 9 )
 				diff.last[ x - 2 ] += 1;
@@ -99,9 +125,9 @@ bool roundNums( string s1, string s2 )
 			diff.last.pop_back();
 			x--;
 		}
-
-		return ( ( solution.first == diff.first ) && ( solution.last == diff.last ) );
-
+		if(( solution.first != diff.first ) || ( solution.last != diff.last ))
+			return false;
+		return true;
 	}
 }
 
