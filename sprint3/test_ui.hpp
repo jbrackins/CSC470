@@ -58,4 +58,5 @@ void set_max_header();
 void print_max_time();
 void dir_list();
 bool is_dir(std::string dir);
+void prompt();
 #endif

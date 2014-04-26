@@ -87,7 +87,7 @@ string test_case_menu1()
     do
     {
         test_case_header1();
-        cout << ">> ";             //prompt
+        prompt();             //prompt
 
         //read in commands, break up arguments into tokens
         fgets(buffer,100, stdin);
@@ -132,6 +132,7 @@ void test_case_menu2()
         else if ( choice == 3 )
         {
             read_spec_file();
+            cin.ignore(10000, '\n');
             chdir(HOME_DIR.c_str());
             main_menu();
         }
@@ -157,7 +158,7 @@ string grade_program_menu()
     do
     {
         grade_program_header();
-        cout << ">> ";             //prompt
+        prompt();             //prompt
 
         //read in commands, break up arguments into tokens
         fgets(buffer,100, stdin);
@@ -187,8 +188,7 @@ void set_max_menu( )
 
     while(1)
     {
-        cout << ">> ";
-        // input the user's choice
+        prompt();         // input the user's choice
         cin >> choice;
         if(choice <= 0)
             cout << "Maximum Test Time must be greater than 0" << endl;
@@ -227,7 +227,7 @@ int get_choice( )
     char* filename;
     char buffer[100];
 
-    cout << ">> ";             //prompt
+    prompt();              //prompt
 
     //read in commands, break up arguments into tokens
     fgets(buffer,100, stdin);
@@ -427,3 +427,4 @@ bool is_dir(string dir)
         return false;
 }
 
+void prompt() {cout << ">> ";}

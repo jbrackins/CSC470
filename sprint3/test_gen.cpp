@@ -2,6 +2,7 @@
 #include "test_run.hpp"
 #include "test_dir.hpp"
 #include "main.hpp"
+#include "test_ui.hpp"
 using namespace std;
 
 
@@ -258,19 +259,23 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
     min = 0;
     max = 1;
 
+    //Make sure directory exists. redirect to dev/null so terminal
+    //doesn't notify you that it already exists (should usually exist)...
+    system("mkdir ./tests/ &>/dev/null");
     //make welcome menu
-    cout << "\nWelcome to the test-case generator!\n" << endl;
+    cout << "\nGenerating numeric test cases.\n" << endl;
     //cout << "\033[1;34mbold Press 'x' and enter at any time to leave.\033[0m\n";
 
     while(1)
     {
         // inquire about cleaning old tests or overwrite?
         cout << "\nRemove old generated tests (y) or just overwrite as needed (n)?" << endl;
+        prompt(); 
         cin >> input;
         transform( input.begin(), input.end(), input.begin(), ::tolower);
         if (!input.compare("y") || !input.compare("yes"))
         {
-            cout << "\n\tClearing..." << endl;
+            cout << "\nClearing..." << endl;
             pregenerateclean();
             break;
         }
@@ -284,7 +289,8 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
     // start by asking about type
     while(1)
     {
-        cout << "What type of data would you like?  Ints or Doubles? (i/d)"  << endl;
+        cout << "\nWhat type of data would you like?  Ints or Doubles? (i/d)"  << endl;
+        prompt(); 
         cin >> input;
         transform( input.begin(), input.end(), input.begin(), ::tolower); 
         if (!input.compare("int") || !input.compare("ints") || !input.compare("i"))
@@ -312,7 +318,8 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
     // count of test cases?
     while(1)
     {
-        cout << "How many test cases would you like? (Enter a numeric value)"  << endl;
+        cout << "\nHow many test cases would you like? (Enter a numeric value)"  << endl;
+        prompt(); 
         cin >> input;
         filesToMake = atoi(input.c_str());
         if (filesToMake >= 0)
@@ -333,7 +340,8 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
     // specific amount to work with?
     while(1)
     {
-        cout << "Would you like a specific amount of items to test? (y/n)"  << endl;
+        cout << "\nWould you like a specific amount of items to test? (y/n)"  << endl;
+        prompt(); 
         cin >> input;
         transform( input.begin(), input.end(), input.begin(), ::tolower);
         if (!input.compare("y") || !input.compare("yes"))
@@ -362,7 +370,8 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
     {
         while(1)
         {
-            cout << "More or less than a specific value? (more/less)"  << endl;
+            cout << "\nMore or less than a specific value? (more/less)"  << endl;
+            prompt(); 
             cin >> input;
             transform( input.begin(), input.end(), input.begin(), ::tolower);
             if (!input.compare("<") || !input.compare("less"))
@@ -390,7 +399,8 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
     // value of items in tests
     while(1)
     {
-        cout << "What value should I work with? (Enter a numeric value)"  << endl;
+        cout << "\nWhat value should I work with? (Enter a numeric value)"  << endl;
+        prompt(); 
         cin >> input;
         amountToGenerate = atoi(input.c_str());
         if (amountToGenerate > 0)
@@ -411,7 +421,8 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
     //range
     do
     {
-        cout << "range of values? (y/n)" << endl;
+        cout << "\nManually set Range of values? (y/n)" << endl;
+        prompt(); 
         cin >> input;
         transform( input.begin(), input.end(), input.begin(), ::tolower);
         if (input.compare("n") == 0 || input.compare("no") == 0 )
@@ -434,7 +445,8 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
 
     if (range)
     {
-        cout << "What minimum value should I work with? (Enter a numeric value)"  << endl;
+        cout << "\nSet minimum value. (Enter a numeric value)"  << endl;
+        prompt(); 
         cin >> input;
         if (!input.compare("x") || !input.compare("X"))
         {
@@ -443,7 +455,8 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
         }
         min = atof(input.c_str());
 
-        cout << "What max value should I work with? (Enter a numeric value)"  << endl;
+        cout << "\nSet maximum value. (Enter a numeric value)"  << endl;
+        prompt(); 
         cin >> input;
         if (!input.compare("x") || !input.compare("X"))
         {
@@ -463,8 +476,12 @@ void generatestringtestcasesmenu(int &stringsToGen, int &maxLen, int &filesToMak
     string input = "";
     // defaults for min and max
 
+    //Make sure directory exists. redirect to dev/null so terminal
+    //doesn't notify you that it already exists (should usually exist)...
+    system("mkdir ./tests/ &>/dev/null");
+
     //make welcome menu
-    cout << "\nWelcome to the test-case generator!\n" << endl;
+    cout << "\nGenerating Alpha-numeric String test cases.\n" << endl;
     //cout << "\033[1;34mbold Press 'x' and enter at any time to leave.\033[0m\n";
 
 
@@ -472,11 +489,12 @@ void generatestringtestcasesmenu(int &stringsToGen, int &maxLen, int &filesToMak
     {
         // inquire about cleaning old tests or overwrite?
         cout << "\nRemove old generated tests (y) or just overwrite as needed (n)?" << endl;
+        prompt(); 
         cin >> input;
         transform( input.begin(), input.end(), input.begin(), ::tolower);
         if (!input.compare("y") || !input.compare("yes"))
         {
-            cout << "\n\tClearing..." << endl;
+            cout << "\nClearing..." << endl;
             pregenerateclean();
             break;
         }
@@ -490,7 +508,8 @@ void generatestringtestcasesmenu(int &stringsToGen, int &maxLen, int &filesToMak
     // count of test cases?
     while(1)
     {
-        cout << "How many test cases would you like? (Enter a numeric value)"  << endl;
+        cout << "\nHow many test cases would you like? (Enter a numeric value)"  << endl;
+        prompt(); 
         cin >> input;
         filesToMake = atoi(input.c_str());
         if (filesToMake >= 0)
@@ -511,8 +530,9 @@ void generatestringtestcasesmenu(int &stringsToGen, int &maxLen, int &filesToMak
     // value of items in tests
     while(1)
     {
-        cout << "How many strings would you like\n"; 
+        cout << "\nHow many strings would you like\n"; 
         cout << "to generate? (Enter a numeric value)"  << endl;
+        prompt(); 
         cin >> input;
         stringsToGen = atoi(input.c_str());
         if (stringsToGen > 0)
@@ -533,8 +553,9 @@ void generatestringtestcasesmenu(int &stringsToGen, int &maxLen, int &filesToMak
     // max string length
     while(1)
     {
-        cout << "What is the max length for a string?\n"; 
+        cout << "\nWhat is the max length for a string?\n"; 
         cout << "(Enter a numeric value)"  << endl;
+        prompt(); 
         cin >> input;
         maxLen = atoi(input.c_str());
         if (maxLen > 0)
@@ -558,21 +579,26 @@ void generatemenutestcasesmenu(int &amountToGenerate, int &filesToMake)
     string input = "";
     bool range;
 
+    //Make sure directory exists. redirect to dev/null so terminal
+    //doesn't notify you that it already exists (should usually exist)...
+    system("mkdir ./tests/ &>/dev/null");
 
 
     //make welcome menu
-    cout << "\nWelcome to the test-case generator!\n" << endl;
+    cout << "\nGenerating menu-based test cases using the specfile:\n";
+    cout << SPECFILE << endl;
     //cout << "\033[1;34mbold Press 'x' and enter at any time to leave.\033[0m\n";
 
     while(1)
     {
         // inquire about cleaning old tests or overwrite?
         cout << "\nRemove old generated tests (y) or just overwrite as needed (n)?" << endl;
+        prompt(); 
         cin >> input;
         transform( input.begin(), input.end(), input.begin(), ::tolower);
         if (!input.compare("y") || !input.compare("yes"))
         {
-            cout << "\n\tClearing..." << endl;
+            cout << "\nClearing..." << endl;
             pregenerateclean();
             break;
         }
@@ -586,7 +612,8 @@ void generatemenutestcasesmenu(int &amountToGenerate, int &filesToMake)
     // count of test cases?
     while(1)
     {
-        cout << "How many test cases would you like? (Enter a numeric value)"  << endl;
+        cout << "\nHow many test cases would you like? (Enter a numeric value)"  << endl;
+        prompt();
         cin >> input;
         filesToMake = atoi(input.c_str());
         if (filesToMake >= 0)
@@ -608,18 +635,24 @@ void generatemenutestcasesmenu(int &amountToGenerate, int &filesToMake)
     while(1)
     {
         // inquire about cleaning old tests or overwrite?
-        cout << "Choose Minimum inputs per test case or Manually set\n";
+        cout << "\nChoose Minimum inputs per test case or Manually set\n";
         cout << "A) Minimum inputs (Tests every option once)\n";
-        cout << "B) Robust  inputs (Tests minimum + additional inputs)";
+        cout << "B) Robust  inputs (Tests minimum + additional inputs)\n";
+        prompt(); 
         cin >> input;
         transform( input.begin(), input.end(), input.begin(), ::tolower);
         if (!input.compare("a") || !input.compare("minimum"))
         {
-    // value of items in tests
+            break;
+        }
+        else if (!input.compare("b") || !input.compare("robust"))
+        {
+                // value of items in tests
             while(1)
             {
-                cout << "How many additional option inputs";
+                cout << "\nHow many additional option inputs ";
                 cout << "should there be?\n (Enter a numeric value)"  << endl;
+                prompt(); 
                 cin >> input;
                 amountToGenerate = atoi(input.c_str());
                 if (amountToGenerate > 0)
@@ -638,11 +671,7 @@ void generatemenutestcasesmenu(int &amountToGenerate, int &filesToMake)
             }
             break;
         }
-        else if (!input.compare("b") || !input.compare("robust"))
-        {
-            break;
-        }
-        cout << "I didn't understand.  Please try again." << endl;
+        cout << "\nI didn't understand.  Please try again." << endl;
     }
 
 }

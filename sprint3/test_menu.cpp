@@ -43,19 +43,21 @@ void read_spec_file()
     getcwd(dir, sizeof(dir));
     string loc (dir);
     string file;
-    
+
     SPECFILE = "";
 
     i = 0;
 
     cout << "Please enter name of the specifications file" << endl;
+    prompt(); 
     cin >> TEMPSPEC;
     cin.ignore(10000, '\n');
 
     find_spec_file(loc, 0);
     if( SPECFILE.length() < 1 )
     {
-        cout << SPECFILE << " is not a valid specifications file" << endl;
+        cout << TEMPSPEC << " is not a valid specifications file" << endl;
+        TEMPSPEC = "";
         SPECFILE = "";
         chdir(HOME_DIR.c_str());
         main_menu();
