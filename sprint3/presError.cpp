@@ -10,7 +10,6 @@
 using namespace std;
 using namespace boost::algorithm;
 
-
 struct subs
 {
 	string first;
@@ -20,13 +19,11 @@ struct subs
 void compareFiles( ifstream &solution, ifstream &fin, ifstream &difference );
 bool compStrs1( string s1, string s2 );
 bool compStrs2( string s1, string s2 );
-//int prezErrorCount( fstream file1, fstream file2) 
 subs subStrings( string s, char delim );
 bool roundNums( string s1, string s2 );
-//subs 
+int markError( istringstream &first, istringstream &last ); 
 
-
-
+//a.txt should be replaced by the solution file, and b.txt with student's answer file
 int main()
 {
 	fstream difference( "a.out" );
@@ -38,34 +35,11 @@ int main()
 	
 	while( getline( difference, line ) )
 	{
-		int i = 1;
-		string word1, word2;
 		dif = subStrings( line, '|' ); 
-		istringstream first( dif.first );
- 	        istringstream last( dif.last );
-		while( first >> word1 && last >> word2 )
-		{
-			if( word1 != word2 )
-			{
-				if( i % 2 != 0 )
-				{
-					if ( ( compStrs1( word1, word2 ) || compStrs2( word1, word2 ) ) != 0 )
-						errors++;
-				}
-				else
-				{
-					if( roundNums( word1, word2 ) != 0 )
-						errors++;
-				}
-			}
-				
-			cout << "Word1: " << word1 << endl;
-			cout << "Word2: " << word2 << endl;
-
-			i++;
-		}
-	
-
+		istringstream desc( dif.first );
+ 	        istringstream val( dif.last );
+		
+		errors += markError( desc, val );
 	}
 	
 	cout << "Errors: " << errors << endl;
@@ -106,15 +80,14 @@ bool roundNums( string s1, string s2 )
 	if( s1.size() == s2.size() )
 		return ( s1 == s2 );
 
-	else if ( s1.size() > s2.size() )
+	else if( s1.size() > s2.size() )
 		return false;
 
-	else
+	else if(( s1.find('.') != string::npos ) && (( s2.find('.') != string::npos )))
 	{
 		subs solution = subStrings( s1, '.' ); 
 		subs diff = subStrings( s2, '.' ); 
 		auto x = diff.last.size();
-		cout << diff.first << " " << diff.last << endl;
 		while( x != solution.last.size() )
 		{
 			int y = ( diff.last[ x - 1 ] - '0' );
@@ -129,21 +102,31 @@ bool roundNums( string s1, string s2 )
 			return false;
 		return true;
 	}
+	else
+		return true;
 }
 
-/*int prezErrorCount( fstream file1, fstream file2) 
+int markError( istringstream &first, istringstream &last )
 {
-	fstream difference( "a.out" );
-	system( string("diff -b -y -i --suppress-common-lines" + file1 + " " + file2 " > a.out").c_str() );
-	string line;
-	subs dif;
-
-
-	while( getline( difference, line ) )
+	int error = 0;
+	int counter = 1;
+	string s1, s2;
+	while( first >> s1 && last >> s2 )
 	{
-		dif = subStrings( line, '|' ); 
+		if( s1 != s2 )
+		{
+			if( counter % 2 != 0 )
+			{
+				if(( compStrs1( s1, s2 ) || compStrs2( s1, s2 )) != 0 )
+					error++;
+			}
+			else
+			{
+				if( roundNums( s1, s2 ) != 0 )
+					error++;
+			}
+		}
+		counter++;
 	}
-	
-	difference.close();
-	return 0;
-}*/
+	return error;	
+}
