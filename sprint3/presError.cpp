@@ -32,6 +32,33 @@ string trim( string s );
 	return 0;
 }*/
 
+/******************************************************************************
+* Author: Hafiza Farzami
+* Description: The following function takes in a string and gets rid of the 
+* white spaces in it.
+* 
+* param[in]	s - the input string
+*
+* returns	s - the output string without white spaces
+******************************************************************************/
+string trim( string s )
+{
+	  s.erase( remove( s.begin(),s.end(),' ' ), s.end());
+
+	return s;
+}
+
+/******************************************************************************
+* Author: Hafiza Farzami
+* Description: The following function takes in a string and a delimiter. It
+* breaks the string into two part at the delimiter.
+* 
+* param[in]	s - the string 
+* param[in]	delim - the delimiter
+*
+* returns	substrings - the structure containing two parts of the original
+*				string
+******************************************************************************/
 subs subStrings( string s, char delim )
 {
 	subs substrings;
@@ -40,10 +67,22 @@ subs subStrings( string s, char delim )
      	substrings.last = s.substr( pos + 1 );
 	trim( substrings.first );
 	trim( substrings.last );
-	
+
 	return substrings;
 }
 
+/******************************************************************************
+* Author: Hafiza Farzami
+* Description: The following function takes in two strings to compare them.
+* If the strings are of the same size and their first and last letters match,
+* the function returns true, else false.
+* 
+* param[in]	s1 - first string 
+* param[in]	s2 - second string to compare to s1
+*
+* returns	true - if the strings are "equal"	
+* 		false - if the strings are not equal
+******************************************************************************/
 bool compStrs1( string s1, string s2 )
 {
 	auto x = s1.size();
@@ -52,6 +91,18 @@ bool compStrs1( string s1, string s2 )
 	return (( x != y ) || ( s1[0] != s2[0] ) || ( s1[x - 1] != s2[y - 1] ));	
 }
 
+
+/******************************************************************************
+* Author: Hafiza Farzami
+* Description: The following function takes in two strings and checks if they
+* are anagrams
+* 
+* param[in]	s1 - first string 
+* param[in]	s2 - second string to compare to s1
+*
+* returns	true - if the strings are anagrams
+* 		false - if the strings are not anagrams
+******************************************************************************/
 bool compStrs2( string s1, string s2 )
 {
 	sort( s1.begin(), s1.end() );
@@ -60,20 +111,35 @@ bool compStrs2( string s1, string s2 )
 	return ( s1 == s2 );
 }
 
+/******************************************************************************
+* Author: Hafiza Farzami
+* Description: The following function takes in two strings to compare them.
+* If the strings are of the same size and their first and last letters match,
+* the function returns true, else false.
+* 
+* param[in]	s1 - first string 
+* param[in]	s2 - second string to compare to s1
+*
+* returns	true - if the strings are "equal"	
+* 		false - if the strings are not equal
+******************************************************************************/
 bool roundNums( string s1, string s2 )
 {
-	if( s1.size() == s2.size() )
-		return ( s1 == s2 );
-
-	else if ( s1.size() > s2.size() )
+	
+	//If the student answer is of lower precision
+	if ( s1.size() > s2.size() )
 		return false;
 
+	/*If the student's answer is of higher precision, then round to the same
+	number of precision as the key's answer*/
 	else
 	{
+		//Break the numbers into whole and decimal parts
 		subs solution = subStrings( s1, '.' ); 
 		subs diff = subStrings( s2, '.' ); 
 		auto x = diff.last.size();
-		cout << diff.first << " " << diff.last << endl;
+
+		//Round until the student answer is the same size as the key 
 		while( x != solution.last.size() )
 		{
 			int y = ( diff.last[ x - 1 ] - '0' );
@@ -84,12 +150,25 @@ bool roundNums( string s1, string s2 )
 			diff.last.pop_back();
 			x--;
 		}
+
+		//If the rounded number does not match the key, then return false
 		if(( solution.first != diff.first ) || ( solution.last != diff.last ))
 			return false;
+
 		return true;
 	}
 }
 
+/******************************************************************************
+* Author: Hafiza Farzami
+* Description: The following function counts the number of errors in a given 
+* line.
+* 
+* param[in]	first - string stream from the diff file (the key part)
+* param[in]	last - string stream from the diff file (the student part)
+*
+* returns	error - the number of errors in a given string stream
+******************************************************************************/
 int markError( istringstream &first, istringstream &last )
 {
 	int error = 0;
@@ -115,6 +194,17 @@ int markError( istringstream &first, istringstream &last )
 	return error;	
 }
 
+/******************************************************************************
+* Author: Hafiza Farzami
+* Description: The following function makes the diff call on the key and stude-
+* nt files. The difference is stored in 'a.out'. The difference is then read in
+* and the errors are detected and counted.
+* 
+* param[in]	file1 - name of the key file (as a string)
+* param[in]	file2 - name of the student file (as a string)
+*
+* returns	errors - number of errors per file
+******************************************************************************/
 int prezErrorCount( string file1, string file2 ) 
 {
 	ifstream difference( "a.out" );
@@ -134,11 +224,4 @@ int prezErrorCount( string file1, string file2 )
 
 	difference.close();
 	return errors;
-}
-
-string trim( string s )
-{
-	  s.erase( remove( s.begin(),s.end(),' ' ), s.end());
-
-	return s;
 }
