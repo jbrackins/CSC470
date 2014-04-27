@@ -1,3 +1,11 @@
+/**************************************************************************//**
+* @file test_log.cpp
+*
+* @brief 
+*
+* @authors Jonathan Dixon, Julian Brackins, Hafiza Farzami, Alex Wulff
+******************************************************************************/
+
 #include "test_log.hpp"
 #include "main.hpp"
 #include "test_string.hpp"
@@ -16,6 +24,16 @@ extern int TOTALPASSED;
 /************************Generate_Performance_Report***************************/
 // QQQ!!! Alex: built to write in the specifics of success and failures per cpp
 /******************************************************************************/
+/**************************************************************************//**
+ * @authors Alex Wulff, Jonathan Dixon, Julian Brackins
+ *
+ * @par Description:
+ *
+ * @param[in] xxx - character to be replaced
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 string Generate_Performance_Report(string file, int score, int total)
 {
 
@@ -38,7 +56,17 @@ string Generate_Performance_Report(string file, int score, int total)
 
 /***************************** writefinaloutfile ******************************/
 // Writes all of the data to the final .log file
-/******************************************************************************/   
+/******************************************************************************/ 
+ /**************************************************************************//**
+ * @author
+ *
+ * @par Description:
+ *
+ * @param[in] xxx - character to be replaced
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/  
 void writefinaloutfile(vector<string> finaloutfilecontents)//QQQ!!! Alex : commented out new processing method
 //                               string progname, vector<string> finaloutfilecontents)
 {  
@@ -87,6 +115,16 @@ void writefinaloutfile(vector<string> finaloutfilecontents)//QQQ!!! Alex : comme
 // given test
 /****************************************************************************/
 
+ /**************************************************************************//**
+ * @author
+ *
+ * @par Description:
+ *
+ * @param[in] xxx - character to be replaced
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void writeindividualreport(string program, string testcase, int success, int curr)
 {
   string temp;
@@ -117,7 +155,17 @@ void writeindividualreport(string program, string testcase, int success, int cur
 /*****************************createReports***********************************/
 // Jon: Writes the .log file for a specific student
 /*****************************************************************************/
-void createReports()
+ /**************************************************************************//**
+ * @author
+ *
+ * @par Description:
+ *
+ * @param[in] xxx - character to be replaced
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
+pvoid createReports()
 {
    string tempout, tempin, temp;
    string linein;

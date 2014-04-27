@@ -1,11 +1,11 @@
 /**************************************************************************//**
-* @file test_string.hpp
+* @file test_ui.hpp
 *
-* @brief An extensize suite of string manipulation functions needed for file
-* names, logfile generation, extension handling, and various other operations.
+* @brief Declaration of user interface
 *
-* @authors Julian Brackins, Jonathan Dixon, Hafiza Farzami
+* @author Julian Brackins
 ******************************************************************************/
+
 #ifndef TEST_UI_CPP_INCLUDED
 #define TEST_UI_CPP_INCLDED
 

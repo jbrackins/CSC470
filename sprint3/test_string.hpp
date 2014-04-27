@@ -1,11 +1,11 @@
 /**************************************************************************//**
 * @file test_string.hpp
 *
-* @brief An extensize suite of string manipulation functions needed for file
-* names, logfile generation, extension handling, and various other operations.
+* @brief Declaration of string manipulation functions
 *
-* @authors Julian Brackins, Jonathan Dixon, Hafiza Farzami
+* @author Julian Brackins
 ******************************************************************************/
+
 #ifndef TEST_STRING_CPP_INCLUDED
 #define TEST_STRING_CPP_INCLDED
 

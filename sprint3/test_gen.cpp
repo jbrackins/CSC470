@@ -1,3 +1,13 @@
+/**************************************************************************//**
+* @file test_gen.cpp
+*
+* @brief A collection of functions used to prompt the user for test case
+* generation. For menu driven tests, the code is found both here and in
+* test_menu.cpp.
+*
+* @authors Julian Brackins, Jonathan Dixon
+******************************************************************************/
+
 #include "test_gen.hpp"
 #include "test_run.hpp"
 #include "test_dir.hpp"

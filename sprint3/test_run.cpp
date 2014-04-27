@@ -1,3 +1,11 @@
+/**************************************************************************//**
+* @file test_run.cpp
+*
+* @brief 
+*
+* @authors Julian Brackins, Jonathan Dixon, Hafiza Farzami
+******************************************************************************/
+
 #include "test_run.hpp"
 #include "test_string.hpp"
 #include "test_log.hpp"

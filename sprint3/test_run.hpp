@@ -1,3 +1,11 @@
+/**************************************************************************//**
+* @file test_run.hpp
+*
+* @brief Declaration of functions used to grade cpp files
+*
+* @authors Julian Brackins, Jonathan Dixon, Hafiza Farzami
+******************************************************************************/
+
 #ifndef TEST_RUN_CPP_INCLUDED
 #define TEST_RUN_CPP_INCLDED
 

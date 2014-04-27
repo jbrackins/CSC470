@@ -1,3 +1,11 @@
+/**************************************************************************//**
+* @file test_dir.hpp
+*
+* @brief Declaration of directory traversal functions
+*
+* @authors Julian Brackins, Alex Wulff
+******************************************************************************/
+
 #ifndef TEST_DIR_CPP_INCLUDED
 #define TEST_DIR_CPP_INCLDED
 

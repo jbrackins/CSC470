@@ -1,3 +1,11 @@
+/**************************************************************************//**
+* @file test_dir.cpp
+*
+* @brief 
+*
+* @authors Julian Brackins, Alex Wulff
+******************************************************************************/
+
 #include "test_dir.hpp"
 #include "main.hpp"
 using namespace std;

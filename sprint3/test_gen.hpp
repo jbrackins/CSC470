@@ -1,3 +1,11 @@
+/**************************************************************************//**
+* @file test_gen.hpp
+*
+* @brief Declaration of test generation functions
+*
+* @authors Julian Brackins, Jonathan Dixon
+******************************************************************************/
+
 #ifndef TEST_GEN_CPP_INCLUDED
 #define TEST_GEN_CPP_INCLDED
 

@@ -1,3 +1,11 @@
+/**************************************************************************//**
+* @file test_log.hpp
+*
+* @brief Declaration of log file generation functions
+*
+* @authors Jonathan Dixon, Julian Brackins, Hafiza Farzami, Alex Wulff
+******************************************************************************/
+
 #ifndef TEST_LOG_CPP_INCLUDED
 #define TEST_LOG_CPP_INCLDED
 

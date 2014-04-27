@@ -1,7 +1,14 @@
+/**************************************************************************//**
+* @file test_string.cpp
+*
+* @brief An extensize suite of string manipulation functions needed for file
+* names, logfile generation, extension handling, and various other operations.
+*
+* @author Julian Brackins
+******************************************************************************/
+
 #include "test_string.hpp"
 using namespace std;
-
-
 
 
 /**************************************************************************//**

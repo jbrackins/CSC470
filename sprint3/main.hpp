@@ -1,3 +1,11 @@
+/**************************************************************************//**
+* @file main.hpp
+*
+* @brief Declaration of main.
+*
+* @authors Julian Brackins, Jonathan Dixon, Hafiza Farzami
+******************************************************************************/
+
 #ifndef MAIN_CPP_INCLUDED
 #define MAIN_CPP_CPP_INCLDED
 #include <iostream>

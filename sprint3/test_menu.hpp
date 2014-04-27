@@ -1,11 +1,11 @@
 /**************************************************************************//**
-* @file test_string.h
+* @file test_menu.hpp
 *
-* @brief An extensize suite of string manipulation functions needed for file
-* names, logfile generation, extension handling, and various other operations.
+* @brief Declaration of menu-driven testing functions
 *
-* @authors Julian Brackins, Jonathan Dixon, Hafiza Farzami
+* @author Julian Brackins
 ******************************************************************************/
+
 #ifndef TEST_MENU_CPP_INCLUDED
 #define TEST_MENU_CPP_INCLDED
 
