@@ -6,10 +6,8 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
-#include <boost/algorithm/string.hpp>
 
 using namespace std;
-using namespace boost::algorithm;
 
 struct subs
 {
@@ -23,15 +21,16 @@ int prezErrorCount( string file1, string file2 );
 subs subStrings( string s, char delim );
 bool roundNums( string s1, string s2 );
 int markError( istringstream &first, istringstream &last );
+string trim( string s );
 
-int main()
+/*int main()
 {
 	string a = "a.txt";
 	string b = "b.txt";
 	prezErrorCount( a, b );
 
 	return 0;
-}
+}*/
 
 subs subStrings( string s, char delim )
 {
@@ -131,9 +130,15 @@ int prezErrorCount( string file1, string file2 )
  	        istringstream val( dif.last );
 		
 		errors += markError( desc, val );
-
 	}	
-	cout << "Errors: " << errors << endl;
+
 	difference.close();
-	return 0;
+	return errors;
+}
+
+string trim( string s )
+{
+	  s.erase( remove( s.begin(),s.end(),' ' ), s.end());
+
+	return s;
 }
