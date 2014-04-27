@@ -151,6 +151,7 @@ int runtests(string prog, string specifictestcase)
     string prog_cpp = prog;
     string progname = prog_cpp.substr(0,prog_cpp.find("."));
     string progcomp = "g++ -fprofile-arcs -ftest-coverage -o " + progname  + " " + prog_cpp;
+    string gProf = "g++ -pg -std=c++11 " + prog_cpp + " -o " + progname;
     size_t found = prog_cpp.find_last_of("/\\");
 
     // QQQ!!! Alex : to save time, only compile if needed.
@@ -160,6 +161,7 @@ int runtests(string prog, string specifictestcase)
         fileExists.close();
         //compile program to be tested
         system(progcomp.c_str());
+        system( gProf.c_str() );
     }
     else
     {
@@ -200,7 +202,9 @@ int runtests(string prog, string specifictestcase)
 
     nodir.erase(0, nodir.find_last_of("/") + 1);
     string gcovrun = "gcov " + nodir + ".gcno" + " > " + progname + ".cpp.covs";
+    string gprofrun = "gprof -p -b " + progname + " > gprof.tx";
     system(gcovrun.c_str());
+    system( gprofrun.c_str() );
 
     //gcovrun = "rm " + nodir + ".cpp.gcov " + nodir + ".gcda " + nodir + ".gcno -f";
     //system(gcovrun.c_str());
