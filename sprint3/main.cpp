@@ -117,7 +117,6 @@ vector<report> INDIVIDUALREPORTS;
 vector<string> TESTCASES;
 vector<string> LOGVECTOR;
 vector<string> SUMMARYVECTOR;
-vector<string> STUDENTVECTOR;
 string GOLDCPP;
 string SPECFILE;
 string TEMPSPEC;
