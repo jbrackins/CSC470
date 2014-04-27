@@ -15,16 +15,13 @@
 #include "test_run.hpp"
 using namespace std;
 
-
 /*********************************GLOBALS************************************/
-extern vector<string> STUDENTVECTOR;
 extern vector<string> TESTCASES;
 extern string GOLDCPP;
 extern string SPECFILE;
 extern string TEMPSPEC;
 extern string TEMPGCPP;
 extern string HOME_DIR;
-extern int TOTALPASSED;
 /****************************************************************************/
 
 /**************************************************************************//**

@@ -15,12 +15,10 @@ using namespace std;
 /*********************************GLOBALS************************************/
 extern vector<string> STUDENTVECTOR;
 extern vector<report> INDIVIDUALREPORTS;
-extern vector<string> TESTCASES;
 extern string GOLDCPP;
 extern string SPECFILE;
 extern string TEMPSPEC;
 extern string TEMPGCPP;
-extern int TOTALPASSED;
 /****************************************************************************/
 
 /******************************find_students********************************/

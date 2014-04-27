@@ -15,11 +15,8 @@ using namespace std;
 extern vector<string> STUDENTVECTOR;
 extern vector<report> INDIVIDUALREPORTS;
 extern vector<string> TESTCASES;
-extern string GOLDCPP;
 extern int TOTALPASSED;
 /****************************************************************************/
-
-
 
 /************************Generate_Performance_Report***************************/
 // QQQ!!! Alex: built to write in the specifics of success and failures per cpp

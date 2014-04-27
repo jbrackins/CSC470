@@ -15,15 +15,11 @@
 
 using namespace std;
 
-
-extern int loop_time;      //time tester will allow a program to run
 /*********************************GLOBALS************************************/
-extern vector<string> STUDENTVECTOR;
 extern vector<report> INDIVIDUALREPORTS;
 extern vector<string> TESTCASES;
-extern string GOLDCPP;
 extern string HOME_DIR;
-extern int TOTALPASSED;
+extern int loop_time;      //time tester will allow a program to run
 /****************************************************************************/
 
 /***************************************************************************//**
