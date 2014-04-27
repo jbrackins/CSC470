@@ -2,6 +2,7 @@
 #include <cmath>
 #include <fstream>
 #include <stdlib.h>
+#include <cstring>
 #include <string>
 #include <sstream>
 #include <algorithm>
@@ -16,34 +17,19 @@ struct subs
 	string last;
 };
 
-void compareFiles( ifstream &solution, ifstream &fin, ifstream &difference );
 bool compStrs1( string s1, string s2 );
 bool compStrs2( string s1, string s2 );
+int prezErrorCount( string file1, string file2 ); 
 subs subStrings( string s, char delim );
 bool roundNums( string s1, string s2 );
-int markError( istringstream &first, istringstream &last ); 
+int markError( istringstream &first, istringstream &last );
 
-//a.txt should be replaced by the solution file, and b.txt with student's answer file
 int main()
 {
-	fstream difference( "a.out" );
-	system( "diff -b -y -i --suppress-common-lines a.txt b.txt > a.out" );
-	
-	string line;
-	subs dif;
-	int errors = 0;
-	
-	while( getline( difference, line ) )
-	{
-		dif = subStrings( line, '|' ); 
-		istringstream desc( dif.first );
- 	        istringstream val( dif.last );
-		
-		errors += markError( desc, val );
-	}
-	
-	cout << "Errors: " << errors << endl;
-	difference.close();
+	string a = "a.txt";
+	string b = "b.txt";
+	prezErrorCount( a, b );
+
 	return 0;
 }
 
@@ -80,14 +66,15 @@ bool roundNums( string s1, string s2 )
 	if( s1.size() == s2.size() )
 		return ( s1 == s2 );
 
-	else if( s1.size() > s2.size() )
+	else if ( s1.size() > s2.size() )
 		return false;
 
-	else if(( s1.find('.') != string::npos ) && (( s2.find('.') != string::npos )))
+	else
 	{
 		subs solution = subStrings( s1, '.' ); 
 		subs diff = subStrings( s2, '.' ); 
 		auto x = diff.last.size();
+		cout << diff.first << " " << diff.last << endl;
 		while( x != solution.last.size() )
 		{
 			int y = ( diff.last[ x - 1 ] - '0' );
@@ -102,8 +89,6 @@ bool roundNums( string s1, string s2 )
 			return false;
 		return true;
 	}
-	else
-		return true;
 }
 
 int markError( istringstream &first, istringstream &last )
@@ -129,4 +114,26 @@ int markError( istringstream &first, istringstream &last )
 		counter++;
 	}
 	return error;	
+}
+
+int prezErrorCount( string file1, string file2 ) 
+{
+	ifstream difference( "a.out" );
+	system(("diff -b -y -i --suppress-common-lines " + file1 + " " + file2 + " > a.out" ).c_str());
+	string line;
+	subs dif;
+	int errors = 0;
+	
+	while( getline( difference, line ) )
+	{
+		dif = subStrings( line, '|' ); 
+		istringstream desc( dif.first );
+ 	        istringstream val( dif.last );
+		
+		errors += markError( desc, val );
+
+	}	
+	cout << "Errors: " << errors << endl;
+	difference.close();
+	return 0;
 }
