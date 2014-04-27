@@ -173,6 +173,16 @@ void read_spec_file()
 
 }
 
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description:
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void option_generator(int opt, struct menu_option option[], int arr_size, ofstream &fout)
 {
     /*This function takes an array of menu options, matches the

@@ -26,12 +26,25 @@ extern string TEMPGCPP;
 extern string HOME_DIR;
 extern int TOTALPASSED;
 /****************************************************************************/
+
 /********************************Defines*************************************/
 int MININT = -2147483647;
 /****************************************************************************/
+
 /******************************generatetestcases*****************************/
 //QQQ!!! Alex : testcase builder starts here
 /****************************************************************************/
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void generatetestcases()
 {
     bool doubles, lesserThanAmount, greaterThanAmount;
@@ -184,13 +197,22 @@ void generatetestcases()
     cleanup();
 
     cout << "\nTest generation completed. Press enter to continue.\n\n";
-
-
 }
 
 /******************************generatetestcases*****************************/
 //QQQ!!! Alex : testcase builder starts here
 /****************************************************************************/
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void generatestringtestcases()
 {
     int filesToMake;
@@ -261,6 +283,17 @@ void generatestringtestcases()
     cout << "\nTest generation completed. Press enter to continue.\n\n";
 }
 
+/**************************************************************************//**
+ * @author Jonathan Dixon
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void gen_random(char *s, const int len) 
 {
     static const char alpha[] = "abcdefghijklmnopqrstuvwxyz1234567890";
@@ -275,6 +308,17 @@ void gen_random(char *s, const int len)
 /****************************generatetestcasemenu****************************/
 //QQQ!!! Alex : testcase builder menu is here... long...
 /****************************************************************************/
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount, 
                            bool &greaterThanAmount, double &min, double &max, 
                            int &amountToGenerate, int &filesToMake)
@@ -498,6 +542,17 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
 /****************************generatetestcasemenu****************************/
 //QQQ!!! Alex : testcase builder menu is here... long...
 /****************************************************************************/
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void generatestringtestcasesmenu(int &stringsToGen, int &maxLen, int &filesToMake)
 {
     string input = "";
@@ -601,6 +656,17 @@ void generatestringtestcasesmenu(int &stringsToGen, int &maxLen, int &filesToMak
     }
 }
 
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void generatemenutestcasesmenu(int &amountToGenerate, int &filesToMake)
 {
     string input = "";
@@ -702,9 +768,21 @@ void generatemenutestcasesmenu(int &amountToGenerate, int &filesToMake)
     }
 
 }
+
 /****************************pregenerateclean********************************/
 // QQQ!!! Alex : removes old generated test cases
 /****************************************************************************/
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void pregenerateclean()
 {
     system("rm ./tests/GeneratedTestCase* &>/dev/null");
@@ -713,7 +791,17 @@ void pregenerateclean()
 /*******************************generateanswers******************************/
 // QQQ!!! Alex : needed to generate answers to new tests using the golden cpp.
 /****************************************************************************/
-
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void generateanswers()
 {
     // compile golden cpp
@@ -741,6 +829,16 @@ void generateanswers()
     }
 }
 
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Prompt user to enter name of golden .cpp file.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void set_goldencpp()
 {
     char buffer[100];
@@ -750,11 +848,10 @@ void set_goldencpp()
     cout << ">> ";
     
 
-    //read in commands, break up arguments into tokens
+    //read in user input
     fgets(buffer,100, stdin);
 
     string temp1(buffer);
     string temp2(temp1.begin(), temp1.end()-1);
     TEMPGCPP = temp2;
-    //cin.ignore(10000, '\n');
 }

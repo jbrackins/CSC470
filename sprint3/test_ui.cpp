@@ -25,6 +25,7 @@ extern string GOLDCPP;
 extern string HOME_DIR;
 extern int TOTALPASSED;
 /****************************************************************************/
+
 /***************************************************************************//**
  * @author Julian Brackins
  *
@@ -83,6 +84,17 @@ void main_menu()
     }
 }
 
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 string test_case_menu1()
 {
     string input;
@@ -116,6 +128,17 @@ string test_case_menu1()
      //Check to see if NULL command was sent from console
 }
 
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void test_case_menu2()
 {
     int choice = 0;
@@ -154,6 +177,17 @@ void test_case_menu2()
     }
 }
 
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 string grade_program_menu()
 {
     string input;
@@ -187,6 +221,17 @@ string grade_program_menu()
      //Check to see if NULL command was sent from console
 }
 
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void set_max_menu( )
 {
     // intitializing variable
@@ -267,6 +312,17 @@ int get_choice( )
     return 0;
 }
 
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void test_case_header1()
 {
     cout << "=====================AUTOMATED TESTING SUITE v.3=====================\n";
@@ -282,6 +338,17 @@ void test_case_header1()
     cout << "=====================================================================\n";
 }
 
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void test_case_header2()
 {
     cout << "=========================GENERATE TEST CASES=========================\n";
@@ -299,6 +366,17 @@ void test_case_header2()
     cout << "=====================================================================\n";
 }
 
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void menu_header()
 {
     cout << "=====================AUTOMATED TESTING SUITE v.3=====================\n";
@@ -315,8 +393,17 @@ void menu_header()
     cout << "=====================================================================\n";
 }
 
-
-
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void grade_program_header()
 {
     cout << "=====================AUTOMATED TESTING SUITE v.3=====================\n";
@@ -331,6 +418,17 @@ void grade_program_header()
     cout << "=====================================================================\n";
 }
 
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void set_max_header()
 {
 
@@ -348,6 +446,17 @@ void set_max_header()
     cout << "=====================================================================\n";
 }
 
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void print_max_time()
 {
     int i;
@@ -360,6 +469,7 @@ void print_max_time()
         cout << " ";
     cout  << "=\n";
 }
+
 /**************************************************************************//**
 * @author Julian Brackins
 *
@@ -415,7 +525,6 @@ void dir_list()
     }
 }
 
-
  /**************************************************************************//**
   * @author Julian Brackins
   *
@@ -435,4 +544,15 @@ bool is_dir(string dir)
         return false;
 }
 
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void prompt() {cout << ">> ";}

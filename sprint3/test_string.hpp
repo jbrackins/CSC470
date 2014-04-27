@@ -3,7 +3,7 @@
 *
 * @brief Declaration of string manipulation functions
 *
-* @author Julian Brackins
+* @authors Julian Brackins, Benjamin Sherman
 ******************************************************************************/
 
 #ifndef TEST_STRING_CPP_INCLUDED

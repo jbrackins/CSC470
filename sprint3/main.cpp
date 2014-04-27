@@ -111,10 +111,6 @@
 #include <dirent.h>
 using namespace std;
 
-
-
-
-
 /*********************************GLOBALS************************************/
 vector<string> STUDENTVECTOR;
 vector<report> INDIVIDUALREPORTS;
@@ -128,7 +124,17 @@ int TOTALPASSED;
 int loop_time;      //time tester will allow a program to run
 /****************************************************************************/
 
-
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Main function. Sets a few default global values,
+ * then invokes the user interface.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 int main(int argc, char* argv[])
 {
     loop_time = 60;
@@ -143,4 +149,3 @@ int main(int argc, char* argv[])
     
     return 0;
 }
-/********************************** END main **********************************/

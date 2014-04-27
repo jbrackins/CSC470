@@ -165,7 +165,7 @@ void writeindividualreport(string program, string testcase, int success, int cur
  * @returns xxx -
  *
  *****************************************************************************/
-pvoid createReports()
+void createReports()
 {
    string tempout, tempin, temp;
    string linein;

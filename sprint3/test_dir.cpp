@@ -27,6 +27,17 @@ extern int TOTALPASSED;
 // QQQ!!! Alex : built to directory crawl and find all student files and 
 // avoid duplicates and the golden cpp (praesumo presumo)
 /****************************************************************************/
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: blah blah. Modified by Julian Brackins to handle golden
+ * cpp detection more effectively.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void find_students(string directory, int level)
 {
     int length;
@@ -95,7 +106,17 @@ void find_students(string directory, int level)
 
 /********************************* find_tsts **********************************/
 // Locates all .tst files to be ran against the program to be tested
-/******************************************************************************/ 
+/******************************************************************************/
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description:
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/ 
 vector<string> find_tsts(string progdir)
 {
     vector<string> tstfilelist;
@@ -136,6 +157,16 @@ vector<string> find_tsts(string progdir)
 }
 /******************************* END find_tsts ********************************/
 
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description:
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void find_spec_file(string directory, int level)
 {
     int length;

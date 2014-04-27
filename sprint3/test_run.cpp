@@ -29,12 +29,9 @@ extern int loop_time;      //time tester will allow a program to run
  * input of a Unix command. The function identifies whether the redirect is an
  * output (>) or an input (<) to the command and tokenizes the command line. 
  * A child process is forked and redirects the i/o to the appropriate location.
- *
- * This function has been imported from my dsh.c program in Operating Systems!
- * Why rewrite a redirect function if ya already got one, am I right?
- *
- * Keeping this in mind, there have been some heavy modifications to this so
- * that it accomodates the needs for this sprint 3 testing suite.
+ * This function has been imported from my dsh.c program in Operating Systems.
+ * Keeping this in mind, there have been some heavy modifications to this 
+ * function so that it accomodates the needs for this sprint 3 testing suite.
  *
  * @param[in] commandline - input line containing command and redirection file
  *
@@ -136,6 +133,16 @@ int Event_REDIRECT(const char *commandline)
 // specified test case as part of the "foreach" loop in main.
 /******************************************************************************/
 //string runtests(string progname, string specifictestcase)
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description:
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 int runtests(string prog, string specifictestcase)
 { 
     string testresult;
@@ -227,7 +234,17 @@ int runtests(string prog, string specifictestcase)
 // compares two files and returns 1 if not equal, 0 if equal
 
 // QQQ!!! Alex : this was causing huge performance hits. Reworked to a dif check
-/******************************************************************************/ 
+/******************************************************************************/
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description:
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/ 
 int filesequal(string file1name, string file2name)  // QQQ!!! Alex: used as boolean,
 // so change return type or make clear that return is 0 for false (based on name)
 {
@@ -302,6 +319,16 @@ int filesequal(string file1name, string file2name)  // QQQ!!! Alex: used as bool
 /***********************************cleanup**********************************/
 // QQQ!!! Alex : cleans up the globals
 /****************************************************************************/
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description:
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void cleanup()
 {
     // remove temp files
@@ -326,6 +353,16 @@ void cleanup()
     system( "rm */*.covs &>/dev/null");
 }
 
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description:
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void progbar(int kill_pid, int runtime, string progname)
 {
 
@@ -387,6 +424,17 @@ void progbar(int kill_pid, int runtime, string progname)
 
 }
 
+/**************************************************************************//**
+ * @authors xxxxxxx
+ *
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
+ *
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
+ *
+ *****************************************************************************/
 void tester()
 {
 

@@ -4,7 +4,7 @@
 * @brief An extensize suite of string manipulation functions needed for file
 * names, logfile generation, extension handling, and various other operations.
 *
-* @author Julian Brackins
+* @authors Julian Brackins, Benjamin Sherman
 ******************************************************************************/
 
 #include "test_string.hpp"
