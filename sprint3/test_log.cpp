@@ -48,7 +48,6 @@ string Generate_Performance_Report(string file, int score, int total)
 
     
   return report + ":  " + temp.str();
-
 }
 
 /***************************** writefinaloutfile ******************************/

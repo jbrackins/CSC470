@@ -191,8 +191,9 @@ string grade_program_menu()
     char* command;
     char* filename;
     char buffer[100];
-
    
+    /*Prompt user to enter the name of the program they
+      wish to grade.*/
     do
     {
         grade_program_header();
@@ -210,7 +211,6 @@ string grade_program_menu()
             chdir(HOME_DIR.c_str());
             main_menu();
         }
-
         else
             return input;
     }while(command != NULL);
@@ -265,10 +265,7 @@ void set_max_menu( )
  ******************************************************************************/
 int get_choice( )
 {
-    // intitializing variable
     int choice = 0;
-    // output menu
-    // input the user's choice
 
     string input;
     string arg;
@@ -276,20 +273,20 @@ int get_choice( )
     char* filename;
     char buffer[100];
 
-    prompt();              //prompt
-
+    prompt();              
     //read in commands, break up arguments into tokens
     fgets(buffer,100, stdin);
     command = strtok(buffer," \n");
     filename = strtok(NULL, " \n");
 
+    /*Tokenizing occurs to handle if somebody tries
+     to be clever and break the console by adding
+     too many values to terminal at a time*/
     //Check to see if NULL command was sent from console
     if(command != NULL)
     {
         input = command;
         
-        //test <filename>
-        //handle improper commands here as well
         if(input.compare("1") == 0)
             return 1;
         else if(input.compare("2") == 0)
@@ -302,8 +299,6 @@ int get_choice( )
             return 5;
         else if(input.compare("6") == 0)
             return 6;
-        // else if(input.compare("1") == 0)
-        //     return 1;
     }
     return 0;
 }
