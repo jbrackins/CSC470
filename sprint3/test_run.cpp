@@ -10,6 +10,7 @@
 #include "test_string.hpp"
 #include "test_log.hpp"
 #include "test_dir.hpp"
+#include "test_err.hpp"
 using namespace std;
 
 /*********************************GLOBALS************************************/
@@ -225,6 +226,9 @@ int runtests(string prog, string specifictestcase)
     }
     else if(nodifference ==1)
     {
+        if(prezErrorCount( testcaseans, tempfile ) > 0)
+            return 2;
+        else
         // QQQ!!! Alex : changing... testresult = "Result: fail    Case: " + specifictestcase;
         return 0;
     }

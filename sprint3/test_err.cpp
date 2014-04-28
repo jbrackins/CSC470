@@ -96,7 +96,7 @@ bool compStrs2( string s1, string s2 )
 ******************************************************************************/
 bool roundNums( string s1, string s2 )
 {
-	
+	cout << "Tryna round " << s1 << " to " << s2 << endl;
 	//If the student answer is of lower precision
 	if ( s1.size() > s2.size() )
 		return false;
@@ -158,6 +158,8 @@ int markError( istringstream &first, istringstream &last )
 			{
 				if( roundNums( s1, s2 ) != 0 )
 					error++;
+				else
+					return 0;
 			}
 		}
 		counter++;
@@ -190,7 +192,10 @@ int prezErrorCount( string file1, string file2 )
 		istringstream desc( dif.first );
  	        istringstream val( dif.last );
 		
-		errors += markError( desc, val );
+		if(markError( desc, val ))
+			errors++;
+		else
+			return 0;
 	}	
 
 	difference.close();
