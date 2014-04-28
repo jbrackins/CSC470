@@ -10,8 +10,6 @@
 #include "main.hpp"
 using namespace std;
 
-
-
 /*********************************GLOBALS************************************/
 extern vector<string> STUDENTVECTOR;
 extern vector<report> INDIVIDUALREPORTS;
@@ -21,19 +19,17 @@ extern string TEMPSPEC;
 extern string TEMPGCPP;
 /****************************************************************************/
 
-/******************************find_students********************************/
-// QQQ!!! Alex : built to directory crawl and find all student files and 
-// avoid duplicates and the golden cpp (praesumo presumo)
-/****************************************************************************/
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Alex Wulff, Julian Brackins, Jonathan Dixon
  *
- * @par Description: blah blah. Modified by Julian Brackins to handle golden
+ * @par Description: Built to directory crawl and find all student files and 
+ * avoid duplicates and the golden cpp . Modified to handle golden
  * cpp detection more effectively.
  *
- * @param[in] xxx - xxxxxxxx
+ * @param[in] directory - the directory to look for students
+ * @param[in] level - the level of the directory
  *
- * @returns xxx -
+ * @returns none - void function
  *
  *****************************************************************************/
 void find_students(string directory, int level)
@@ -102,17 +98,15 @@ void find_students(string directory, int level)
     closedir(dir);
 }
 
-/********************************* find_tsts **********************************/
-// Locates all .tst files to be ran against the program to be tested
-/******************************************************************************/
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Alex Wulff, Julian Brackins, Jonathan Dixon
  *
- * @par Description:
+ * @par Description: Locates all .tst files to be ran against the program to be 
+ * tested
  *
- * @param[in] xxx - xxxxxxxx
+ * @param[in] progdir - program directory
  *
- * @returns xxx -
+ * @returns tstfilelist - list of tst files
  *
  *****************************************************************************/ 
 vector<string> find_tsts(string progdir)
@@ -153,16 +147,16 @@ vector<string> find_tsts(string progdir)
 
     return tstfilelist;
 }
-/******************************* END find_tsts ********************************/
 
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Alex Wulff, Jonathan Dixon, Julian Brackins 
  *
- * @par Description:
+ * @par Description: This function locates the spec file.
  *
- * @param[in] xxx - xxxxxxxx
- *
- * @returns xxx -
+ * @param[in] directory - a given directory
+ * @param[in] level - the level spec file can be
+ * 
+ * @returns none - void function
  *
  *****************************************************************************/
 void find_spec_file(string directory, int level)
