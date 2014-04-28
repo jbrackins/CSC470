@@ -96,15 +96,14 @@ bool compStrs2( string s1, string s2 )
 ******************************************************************************/
 bool roundNums( string s1, string s2 )
 {
-	cout << "OH hey " << s1 << " is basically " << s2 << " right?" <<endl;
+	double dev = 0;
+	//cout << "OH hey " << s1 << " is basically " << s2 << " right?" <<endl;
 	//If the student answer is of lower precision
 	if ( s1.size() > s2.size() )
 	{
-		cout << "WRONGO" << endl;
+		//cout << "WRONGO" << endl;
 		return false;
 	}
-		
-
 	/*If the student's answer is of higher precision, then round to the same
 	number of precision as the key's answer*/
 	else
@@ -129,7 +128,7 @@ bool roundNums( string s1, string s2 )
 		//If the rounded number does not match the key, then return false
 		if(( solution.first != diff.first ) || ( solution.last != diff.last ))
 		{
-			cout << "WRONGO" << endl;
+			//cout << "WRONGO" << endl;
 			return false;
 		}
 

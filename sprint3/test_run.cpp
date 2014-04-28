@@ -460,7 +460,9 @@ void tester()
 
     TESTCASES = find_tsts(progdir);
 
+    int q = 0;
     find_students(loc, 0);
+
     //QQQ!!! Alex: inserting here for new functionality
     string ans;
     // QQQ!!! Alex : gathers all of the .tst files in current and sub directories of the program

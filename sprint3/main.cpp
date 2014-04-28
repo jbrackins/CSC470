@@ -139,7 +139,7 @@ int loop_time;      //time tester will allow a program to run
  *****************************************************************************/
 int main(int argc, char* argv[])
 {
-    loop_time = 60;
+    loop_time = 5;
 
     char dir[1024];
     getcwd(dir, sizeof(dir));

@@ -3,7 +3,7 @@ LINK = g++
 
 # COMPILER OPTIONS:
 
-CFLAGS = -c  -g
+CFLAGS =  -g
 CXXFLAGS = $(CFLAGS) -std=c++11
 
 #OBJECT FILES

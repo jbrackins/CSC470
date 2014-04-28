@@ -635,8 +635,8 @@ void view_logfile_menu2()
         else if ( choice == 3 )
         {
             cin.ignore(10000, '\n');
-            chdir(gohome.c_str());
-            view_logfile_menu();
+            chdir(HOME_DIR.c_str());
+            main_menu();
         }
         cout << "I didn't understand.  Please try again." << endl;
     }
