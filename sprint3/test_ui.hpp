@@ -61,6 +61,6 @@ void view_logfile_menu2();
 void print_max_time();
 void dir_list();
 bool is_dir(std::string dir);
-void collect_logs(bool summ, bool log, bool cov);
+void collect_logs(bool summ, bool log, bool cov, bool prof);
 void prompt();
 #endif

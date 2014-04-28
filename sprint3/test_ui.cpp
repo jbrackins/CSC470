@@ -593,7 +593,7 @@ void view_logfile_menu2()
     string input = "";
     string run = "";
     int choice;
-    bool summfile, studentfile, logfile, covfile;
+    bool summfile, studentfile, logfile, covfile, proffile;
     cout << "Viewing log files for " << get_pathname() << endl;
     string gohome = get_pathname();
     int i;
@@ -678,8 +678,6 @@ void view_logfile_menu2()
             }      
         }
     }
-
-    cout << get_pathname() << endl;
                 
     if(studentfile)
     {
@@ -693,7 +691,9 @@ void view_logfile_menu2()
             cout << "=                                                                   =\n";
             cout << "=   1) Log files containing grades and test results                 =\n";
             cout << "=   2) Code Coverage files                                          =\n";
-            cout << "=   3) Go Back...                                                   =\n";
+            cout << "=   3) Gprof files containing function efficiency                   =\n";
+            cout << "=   4) Display All (.log, .gprof, .covs)                            =\n";
+            cout << "=   5) Go Back...                                                   =\n";
             cout << "=                                                                   =\n";
             cout << "=                                                                   =\n";
             cout << "=====================================================================\n";
@@ -706,15 +706,31 @@ void view_logfile_menu2()
             {
                 logfile = true;
                 covfile = false;
+                proffile = false;
                 break;
             }
             else if ( choice == 2 )
             {
                 logfile = false;
                 covfile = true;
+                proffile = false;
                 break;
             }
             else if ( choice == 3 )
+            {
+                logfile = false;
+                covfile = false;
+                proffile = true;
+                break;
+            }
+            else if ( choice == 4 )
+            {
+                logfile = true;
+                covfile = true;
+                proffile = true;
+                break;
+            }
+            else if ( choice == 5 )
             {
                 cin.ignore(10000, '\n');
                 chdir(gohome.c_str());
@@ -724,7 +740,7 @@ void view_logfile_menu2()
         }
     }
 
-    collect_logs(summfile, logfile, covfile);
+    collect_logs(summfile, logfile, covfile, proffile);
 
 
     filelist:
@@ -870,7 +886,7 @@ bool is_dir(string dir)
         return false;
 }
 
-void collect_logs(bool summ, bool log, bool cov)
+void collect_logs(bool summ, bool log, bool cov, bool prof)
 {
     LOGVECTOR.clear();    
 
@@ -900,9 +916,11 @@ void collect_logs(bool summ, bool log, bool cov)
             LOGVECTOR.push_back(temp.c_str());
         else if ( summ && found != std::string::npos )
             LOGVECTOR.push_back(temp.c_str());
+        else if ( prof && length > 6 && (temp.substr(length-6) == ".gprof") )
+            LOGVECTOR.push_back(temp.c_str());
     }
     pclose( f );
-
+    sort(LOGVECTOR.begin(),LOGVECTOR.end());
 }
 
 /**************************************************************************//**

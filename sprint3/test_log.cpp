@@ -175,7 +175,8 @@ void createReports()
          for( int j = 0; j < INDIVIDUALREPORTS[i].reports.size(); j++ )
             fout << INDIVIDUALREPORTS[i].reports[j] << endl;
             
-         tempin = temp + ".covs";
+            //cout << "::" << temp << "::" << endl;
+         tempin = remove_extension( temp ) + ".covs";
 
          fin.open(tempin.c_str());
          //cout << "attempting to open " << tempin << " file " << endl;
@@ -191,7 +192,7 @@ void createReports()
          //else
           //cout << "Could not open .covs file." << endl;
 	 temp = temp.substr(0,temp.find("."));
-	 tempin = temp + ".gprof.txt";
+	 tempin = temp + ".gprof";
 	
 	gfin.open( tempin.c_str() );
 	if( gfin )
