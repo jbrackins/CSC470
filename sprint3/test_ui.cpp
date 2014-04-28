@@ -52,7 +52,6 @@ void main_menu()
             {
                 if( chdir(run.c_str()) == 0 )
                 {
-                    set_goldencpp();
                     tester();
                 }
                 else

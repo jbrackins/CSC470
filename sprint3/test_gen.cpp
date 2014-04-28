@@ -27,14 +27,18 @@ extern string HOME_DIR;
 int MININT = -2147483647;
 /****************************************************************************/
 
+/******************************generatetestcases*****************************/
+//QQQ!!! Alex : testcase builder starts here
+/****************************************************************************/
 /**************************************************************************//**
- * @authors Alex Wulff, Jonathan Dixon, Julian Brackins
+ * @authors xxxxxxx
  *
- * @par Description: This function generates test cases.
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
  *
- * @param[in] none
+ * @param[in] xxx - xxxxxxxx
  *
- * @returns none - void function
+ * @returns xxx -
  *
  *****************************************************************************/
 void generatetestcases()
@@ -181,7 +185,6 @@ void generatetestcases()
 
     }
 
-    cin.ignore(10000, '\n');
     set_goldencpp();
     // find all tests and use generated tests to make ans
     TESTCASES = find_tsts(progdir);
@@ -202,14 +205,18 @@ void generatetestcases()
     cout << "\nTest generation completed. Press enter to continue.\n\n";
 }
 
+/******************************generatetestcases*****************************/
+//QQQ!!! Alex : testcase builder starts here
+/****************************************************************************/
 /**************************************************************************//**
- * @authors Jonathan Dixon, Julian Brackins
+ * @authors xxxxxxx
  *
- * @par Description: This function generates string test cases.
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
  *
- * @param[in] none
+ * @param[in] xxx - xxxxxxxx
  *
- * @returns none - void function
+ * @returns xxx -
  *
  *****************************************************************************/
 void generatestringtestcases()
@@ -262,7 +269,7 @@ void generatestringtestcases()
         rand_out.close();
     }
 
-    cin.ignore(10000, '\n');
+    
     set_goldencpp();
     // find all tests and use generated tests to make ans
     TESTCASES = find_tsts(progdir);
@@ -285,12 +292,12 @@ void generatestringtestcases()
 /**************************************************************************//**
  * @author Jonathan Dixon
  *
- * @par Description: This function creates a random string.
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
  *
- * @param[in] s - string
- * @param[in] len - length of the string
+ * @param[in] xxx - xxxxxxxx
  *
- * @returns none - void function
+ * @returns xxx -
  *
  *****************************************************************************/
 void gen_random(char *s, const int len) 
@@ -304,17 +311,18 @@ void gen_random(char *s, const int len)
     s[len] = 0;
 }
 
+/****************************generatetestcasemenu****************************/
+//QQQ!!! Alex : testcase builder menu is here... long...
+/****************************************************************************/
 /**************************************************************************//**
- * @authors Alex Wulff, Jonathan Dixon, Julian Brackins
+ * @authors xxxxxxx
  *
- * @par Description: This function generates random numbers in a given interval.
- * 
- * @param[in] doubles - numbers to generate
- * @param[in] lesserThanAmount - upperbound
- * @param[in] greaterThanAmount - lowerbound
- * @param[in] amountToGenerate - the amount of numbers to generate
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
  *
- * @returns none - void function
+ * @param[in] xxx - xxxxxxxx
+ *
+ * @returns xxx -
  *
  *****************************************************************************/
 void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount, 
@@ -537,15 +545,18 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
 
 }
 
+/****************************generatetestcasemenu****************************/
+//QQQ!!! Alex : testcase builder menu is here... long...
+/****************************************************************************/
 /**************************************************************************//**
- * @authors Jonathan Dixon, Julian Brackins
+ * @authors xxxxxxx
  *
- * @par Description: This function generates string test cases.
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
  *
- * @param[in] stringsToGen - strings to generate
- * @param[in] maxLen - maximum length
+ * @param[in] xxx - xxxxxxxx
  *
- * @returns none - void function
+ * @returns xxx -
  *
  *****************************************************************************/
 void generatestringtestcasesmenu(int &stringsToGen, int &maxLen, int &filesToMake)
@@ -652,13 +663,14 @@ void generatestringtestcasesmenu(int &stringsToGen, int &maxLen, int &filesToMak
 }
 
 /**************************************************************************//**
- * @authors Jonathan Dixon, Julian Brackins
+ * @authors xxxxxxx
  *
- * @par Description: String test case generator menu function.
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
  *
- * @param[in] amountToGenerate - amount of strings to generate
+ * @param[in] xxx - xxxxxxxx
  *
- * @returns none - void function
+ * @returns xxx -
  *
  *****************************************************************************/
 void generatemenutestcasesmenu(int &amountToGenerate, int &filesToMake)
@@ -763,14 +775,18 @@ void generatemenutestcasesmenu(int &amountToGenerate, int &filesToMake)
 
 }
 
+/****************************pregenerateclean********************************/
+// QQQ!!! Alex : removes old generated test cases
+/****************************************************************************/
 /**************************************************************************//**
- * @authors Jonathan Dixon, Julian Brackins
+ * @authors xxxxxxx
  *
- * @par Description: This function cleans the generated test cases.
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
  *
- * @param[in] none
+ * @param[in] xxx - xxxxxxxx
  *
- * @returns none - void function
+ * @returns xxx -
  *
  *****************************************************************************/
 void pregenerateclean()
@@ -778,14 +794,18 @@ void pregenerateclean()
     system("rm ./tests/GeneratedTestCase* &>/dev/null");
 }
 
+/*******************************generateanswers******************************/
+// QQQ!!! Alex : needed to generate answers to new tests using the golden cpp.
+/****************************************************************************/
 /**************************************************************************//**
- * @authors Jonathan Dixon, Julian Brackins
+ * @authors xxxxxxx
  *
- * @par Description: This function generates the answers. 
+ * @par Description: Originally Lounge Against The Machine's sprint 2 main,
+ * reworked into a function for modularity purposes.
  *
- * @param[in] none
+ * @param[in] xxx - xxxxxxxx
  *
- * @returns none - void function
+ * @returns xxx -
  *
  *****************************************************************************/
 void generateanswers()
@@ -816,18 +836,19 @@ void generateanswers()
 }
 
 /**************************************************************************//**
- * @authors Jonathan Dixon, Julian Brackins
+ * @authors xxxxxxx
  *
  * @par Description: Prompt user to enter name of golden .cpp file.
  *
- * @param[in] none
+ * @param[in] xxx - xxxxxxxx
  *
- * @returns none - void function
+ * @returns xxx -
  *
  *****************************************************************************/
 void set_goldencpp()
 {
     char buffer[100];
+    cin.ignore(10000, '\n');
     cout << "Enter Golden cpp file name. This file is needed\n";
     cout << "to properly generate ans files for the test cases\n";
     cout << ">> ";
