@@ -1,0 +1,558 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.3.31)  28 APR 2014 02:36
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**sprint3.tex
+(./sprint3.tex
+LaTeX2e <2011/06/27>
+Babel <3.9f> and hyphenation patterns for 2 languages loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 130.
+
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count87
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2013/01/14 v2.14 AMS math features
+\@mathmargin=\skip43
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks14
+\ex@=\dimen103
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen104
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count88
+LaTeX Info: Redefining \frac on input line 210.
+\uproot@=\count89
+\leftroot@=\count90
+LaTeX Info: Redefining \overline on input line 306.
+\classnum@=\count91
+\DOTSCASE@=\count92
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen105
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+\macc@depth=\count93
+\c@MaxMatrixCols=\count94
+\dotsspace@=\muskip10
+\c@parentequation=\count95
+\dspbrk@lvl=\count96
+\tag@help=\toks15
+\row@=\count97
+\column@=\count98
+\maxfields@=\count99
+\andhelp@=\toks16
+\eqnshift@=\dimen106
+\alignsep@=\dimen107
+\tagshift@=\dimen108
+\tagwidth@=\dimen109
+\totwidth@=\dimen110
+\lineht@=\dimen111
+\@envbody=\toks17
+\multlinegap=\skip44
+\multlinetaggap=\skip45
+\mathdisplay@stack=\toks18
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks19
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count100
+\Gm@cntv=\count101
+\c@Gm@tempcnt=\count102
+\Gm@bindingoffset=\dimen112
+\Gm@wd@mp=\dimen113
+\Gm@odd@mp=\dimen114
+\Gm@even@mp=\dimen115
+\Gm@layoutwidth=\dimen116
+\Gm@layoutheight=\dimen117
+\Gm@layouthoffset=\dimen118
+\Gm@layoutvoffset=\dimen119
+\Gm@dimlist=\toks20
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+)
+\Gin@req@height=\dimen120
+\Gin@req@width=\dimen121
+)
+(/usr/share/texlive/texmf-dist/tex/latex/chngcntr/chngcntr.sty
+Package: chngcntr 2009/09/02 v1.0a change counter resetting
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count103
+\lst@gtempboxa=\box28
+\lst@token=\toks21
+\lst@length=\count104
+\lst@currlwidth=\dimen122
+\lst@column=\count105
+\lst@pos=\count106
+\lst@lostspace=\dimen123
+\lst@width=\dimen124
+\lst@newlines=\count107
+\lst@lineno=\count108
+\lst@maxwidth=\dimen125
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+\c@lstnumber=\count109
+\lst@skipnumbers=\count110
+\lst@framebox=\box29
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2007/02/22 1.4 listings configuration
+))
+Package: listings 2007/02/22 1.4 (Carsten Heinz)
+
+(/usr/share/texlive/texmf-dist/tex/latex/pdfpages/pdfpages.sty
+Package: pdfpages 2012/08/31 v0.4t Insert pages of external PDF documents (AM)
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count111
+\calc@Bcount=\count112
+\calc@Adimen=\dimen126
+\calc@Bdimen=\dimen127
+\calc@Askip=\skip46
+\calc@Bskip=\skip47
+LaTeX Info: Redefining \setlength on input line 76.
+LaTeX Info: Redefining \addtolength on input line 77.
+\calc@Ccount=\count113
+\calc@Cskip=\skip48
+)
+(/usr/share/texlive/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+Package: eso-pic 2010/10/06 v2.0c eso-pic (RN)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/atbegshi.sty
+Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/pdfpages/pppdftex.def
+File: pppdftex.def 2012/08/31 v0.4t Pdfpages driver for pdfTeX (AM)
+)
+\AM@pagebox=\box30
+\AM@toc@title=\toks22
+\c@AM@survey=\count114
+\AM@templatesizebox=\box31
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2004/09/05 1.3 listings language file
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang2.sty
+File: lstlang2.sty 2004/09/05 1.3 listings language file
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang3.sty
+File: lstlang3.sty 2004/09/05 1.3 listings language file
+) (./sprint3.aux)
+\openout1 = `sprint3.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count115
+\scratchdimen=\dimen128
+\scratchbox=\box32
+\nofMPsegments=\count116
+\nofMParguments=\count117
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count118
+\MPscratchDim=\dimen129
+\MPnumerator=\count119
+\makeMPintoPDFobject=\count120
+\everyMPtoPDFconversion=\toks24
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(54.2025pt, 505.89pt, 54.2025pt)
+* v-part:(T,H,B)=(54.2025pt, 686.56499pt, 54.2025pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=505.89pt
+* \textheight=686.56499pt
+* \oddsidemargin=-18.06749pt
+* \evensidemargin=-18.06749pt
+* \topmargin=-55.06749pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+\c@lstlisting=\count121
+\AtBeginShipoutBox=\box33
+
+[1
+
+{/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}]
+(./sprint3.toc [1] [2])
+\tf@toc=\write3
+\openout3 = `sprint3.toc'.
+
+ [3] (./sprint3.lof)
+\tf@lof=\write4
+\openout4 = `sprint3.lof'.
+
+ [4]
+Underfull \hbox (badness 10000) in paragraph at lines 44--60
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--60
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--60
+
+ []
+
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 65--66
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 67--71
+
+ []
+
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 93--96
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 93--96
+
+ []
+
+<diagram.jpg, id=30, 655.69969pt x 804.75656pt>
+File: diagram.jpg Graphic file (type jpg)
+ <use diagram.jpg>
+Package pdftex.def Info: diagram.jpg used on input line 167.
+(pdftex.def)             Requested size: 354.12144pt x 434.62347pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 163--171
+
+ []
+
+[1] [2 <./diagram.jpg>] [3] [4]
+Underfull \hbox (badness 10000) in paragraph at lines 305--309
+
+ []
+
+<Figure1.jpg, id=44, 638.385pt x 257.96375pt>
+File: Figure1.jpg Graphic file (type jpg)
+ <use Figure1.jpg>
+Package pdftex.def Info: Figure1.jpg used on input line 312.
+(pdftex.def)             Requested size: 354.12144pt x 143.09677pt.
+ [5 <./Figure1.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 322--324
+
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 325.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 325.
+
+Underfull \hbox (badness 10000) in paragraph at lines 330--331
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 330--331
+
+ []
+
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 340.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
+File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 340.
+ [6] [7]
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 414.
+ [8]
+Overfull \hbox (4.11519pt too wide) in paragraph at lines 451--453
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][] 
+ []
+
+[9] [10] [11] [12] [13] [14] <mainmenu.png, id=80, 1606.0pt x 903.375pt>
+File: mainmenu.png Graphic file (type png)
+
+<use mainmenu.png>
+Package pdftex.def Info: mainmenu.png used on input line 737.
+(pdftex.def)             Requested size: 303.53708pt x 170.73326pt.
+ <gradeprog.png, id=81, 1606.0pt x 903.375pt>
+File: gradeprog.png Graphic file (type png)
+
+<use gradeprog.png>
+Package pdftex.def Info: gradeprog.png used on input line 750.
+(pdftex.def)             Requested size: 303.53708pt x 170.73326pt.
+ <progbar.png, id=82, 1606.0pt x 903.375pt>
+File: progbar.png Graphic file (type png)
+
+<use progbar.png>
+Package pdftex.def Info: progbar.png used on input line 761.
+(pdftex.def)             Requested size: 303.53708pt x 170.73326pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[15 <./mainmenu.png> <./gradeprog.png>]
+<viewsumm.png, id=86, 1606.0pt x 903.375pt>
+File: viewsumm.png Graphic file (type png)
+ <use viewsumm.png>
+Package pdftex.def Info: viewsumm.png used on input line 796.
+(pdftex.def)             Requested size: 303.53708pt x 170.73326pt.
+ [16 <./progbar.png> <./viewsumm.png>] [17] [18] [19] [20] [21] [22]
+<JB.pdf, id=111, page=1, 614.295pt x 794.97pt>
+File: JB.pdf Graphic file (type pdf)
+ <use JB.pdf, page 1>
+Package pdftex.def Info: JB.pdf, page1 used on input line 873.
+(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
+File: JB.pdf Graphic file (type pdf)
+
+<use JB.pdf, page 1>
+Package pdftex.def Info: JB.pdf, page1 used on input line 873.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+File: JB.pdf Graphic file (type pdf)
+ <use JB.pdf, page 1>
+Package pdftex.def Info: JB.pdf, page1 used on input line 873.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+File: JB.pdf Graphic file (type pdf)
+ <use JB.pdf, page 1>
+Package pdftex.def Info: JB.pdf, page1 used on input line 873.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+File: JB.pdf Graphic file (type pdf)
+
+<use JB.pdf, page 1>
+Package pdftex.def Info: JB.pdf, page1 used on input line 873.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+ [23 <./JB.pdf>]
+<JD.pdf, id=159, page=1, 614.295pt x 794.97pt>
+File: JD.pdf Graphic file (type pdf)
+ <use JD.pdf, page 1>
+Package pdftex.def Info: JD.pdf, page1 used on input line 874.
+(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
+File: JD.pdf Graphic file (type pdf)
+
+<use JD.pdf, page 1>
+Package pdftex.def Info: JD.pdf, page1 used on input line 874.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+File: JD.pdf Graphic file (type pdf)
+ <use JD.pdf, page 1>
+Package pdftex.def Info: JD.pdf, page1 used on input line 874.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+File: JD.pdf Graphic file (type pdf)
+ <use JD.pdf, page 1>
+Package pdftex.def Info: JD.pdf, page1 used on input line 874.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+File: JD.pdf Graphic file (type pdf)
+
+<use JD.pdf, page 1>
+Package pdftex.def Info: JD.pdf, page1 used on input line 874.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+ [24 <./JD.pdf>]
+<HF.pdf, id=208, page=1, 614.295pt x 794.97pt>
+File: HF.pdf Graphic file (type pdf)
+ <use HF.pdf, page 1>
+Package pdftex.def Info: HF.pdf, page1 used on input line 875.
+(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
+File: HF.pdf Graphic file (type pdf)
+
+<use HF.pdf, page 1>
+Package pdftex.def Info: HF.pdf, page1 used on input line 875.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+File: HF.pdf Graphic file (type pdf)
+ <use HF.pdf, page 1>
+Package pdftex.def Info: HF.pdf, page1 used on input line 875.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+File: HF.pdf Graphic file (type pdf)
+ <use HF.pdf, page 1>
+Package pdftex.def Info: HF.pdf, page1 used on input line 875.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+File: HF.pdf Graphic file (type pdf)
+
+<use HF.pdf, page 1>
+Package pdftex.def Info: HF.pdf, page1 used on input line 875.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+ [25 <./HF.pdf>] [26] (./sprint3.aux) ) 
+Here is how much of TeX's memory you used:
+ 5548 strings out of 495035
+ 77166 string characters out of 6181702
+ 190369 words of memory out of 5000000
+ 8657 multiletter control sequences out of 15000+600000
+ 10450 words of font info for 38 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 39i,18n,45p,239b,1635s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
+12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on sprint3.pdf (33 pages, 1173875 bytes).
+PDF statistics:
+ 277 PDF objects out of 1000 (max. 8388607)
+ 193 compressed objects within 2 object streams
+ 0 named destinations out of 1000 (max. 500000)
+ 76 words of extra memory for PDF output out of 10000 (max. 10000000)
+

@@ -1,0 +1,102 @@
+\contentsline {section}{\relax \fontsize {17.28}{22}\selectfont {\color {blue}Mission}}{v}
+\contentsline {section}{\relax \fontsize {17.28}{22}\selectfont {\color {blue}Document Preparation and Updates}}{vi}
+\contentsline {section}{\numberline {1}\relax \fontsize {17.28}{22}\selectfont {\color {blue}Overview and Concept of Operations}}{1}
+\contentsline {subsection}{\numberline {1.1}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Scope}}{1}
+\contentsline {subsection}{\numberline {1.2}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Purpose}}{1}
+\contentsline {subsubsection}{\numberline {1.2.1}\relax \fontsize {12}{14}\selectfont {\color {cyan}Traversing Subdirectories}}{1}
+\contentsline {paragraph}{\numberline {1.2.1.1}Functionality}{1}
+\contentsline {paragraph}{\numberline {1.2.1.2}Convenience}{1}
+\contentsline {subsubsection}{\numberline {1.2.2}\relax \fontsize {12}{14}\selectfont {\color {cyan}Generating Test Cases}}{1}
+\contentsline {subsubsection}{\numberline {1.2.3}\relax \fontsize {12}{14}\selectfont {\color {cyan}Compiling and Running .cpp Files}}{1}
+\contentsline {subsection}{\numberline {1.3}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Systems Goals}}{1}
+\contentsline {subsection}{\numberline {1.4}\relax \fontsize {14.4}{18}\selectfont {\color {blue}System Overview and Diagram}}{2}
+\contentsline {section}{\numberline {2}\relax \fontsize {17.28}{22}\selectfont {\color {blue}Project Overview}}{3}
+\contentsline {subsection}{\numberline {2.1}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Team Members and Roles}}{3}
+\contentsline {subsection}{\numberline {2.2}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Project Management Approach}}{3}
+\contentsline {subsection}{\numberline {2.3}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Phase Overview}}{3}
+\contentsline {section}{\numberline {3}\relax \fontsize {17.28}{22}\selectfont {\color {blue}User Stories, Backlog, and Requirements}}{4}
+\contentsline {subsection}{\numberline {3.1}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Overview}}{4}
+\contentsline {subsubsection}{\numberline {3.1.1}\relax \fontsize {12}{14}\selectfont {\color {cyan}Scope}}{4}
+\contentsline {subsubsection}{\numberline {3.1.2}\relax \fontsize {12}{14}\selectfont {\color {cyan}Purpose of the System}}{4}
+\contentsline {subsection}{\numberline {3.2}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Stakeholder Information}}{4}
+\contentsline {subsubsection}{\numberline {3.2.1}\relax \fontsize {12}{14}\selectfont {\color {cyan}Customer or End User (Product Owner}}{4}
+\contentsline {subsubsection}{\numberline {3.2.2}\relax \fontsize {12}{14}\selectfont {\color {cyan}Management or Instructor (Scrum Master)}}{4}
+\contentsline {subsubsection}{\numberline {3.2.3}\relax \fontsize {12}{14}\selectfont {\color {cyan}Developers - Testers}}{4}
+\contentsline {subsection}{\numberline {3.3}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Business Need}}{4}
+\contentsline {subsection}{\numberline {3.4}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Requirements and Design Constraints}}{4}
+\contentsline {subsubsection}{\numberline {3.4.1}\relax \fontsize {12}{14}\selectfont {\color {cyan}System Requirements}}{4}
+\contentsline {subsubsection}{\numberline {3.4.2}\relax \fontsize {12}{14}\selectfont {\color {cyan}Network Requirements}}{5}
+\contentsline {subsubsection}{\numberline {3.4.3}\relax \fontsize {12}{14}\selectfont {\color {cyan}Development Environment Requirements}}{5}
+\contentsline {subsubsection}{\numberline {3.4.4}\relax \fontsize {12}{14}\selectfont {\color {cyan}Project Management Methodology}}{5}
+\contentsline {subsection}{\numberline {3.5}\relax \fontsize {14.4}{18}\selectfont {\color {blue}User Stories}}{5}
+\contentsline {subsubsection}{\numberline {3.5.1}\relax \fontsize {12}{14}\selectfont {\color {cyan}User Story \#1}}{5}
+\contentsline {paragraph}{\numberline {3.5.1.1}\textbf {User Story Breakdown \#1}}{5}
+\contentsline {subsubsection}{\numberline {3.5.2}\relax \fontsize {12}{14}\selectfont {\color {cyan}User Story \#2}}{6}
+\contentsline {paragraph}{\numberline {3.5.2.1}\textbf {User Story Breakdown \#2}}{6}
+\contentsline {subsubsection}{\numberline {3.5.3}\relax \fontsize {12}{14}\selectfont {\color {cyan}User Story \#3}}{6}
+\contentsline {paragraph}{\numberline {3.5.3.1}\textbf {User Story Breakdown \#3}}{6}
+\contentsline {subsubsection}{\numberline {3.5.4}\relax \fontsize {12}{14}\selectfont {\color {cyan}User Story \#4}}{6}
+\contentsline {paragraph}{\numberline {3.5.4.1}\textbf {User Story Breakdown \#3}}{6}
+\contentsline {section}{\numberline {4}\relax \fontsize {17.28}{22}\selectfont {\color {blue}Design and Implementation}}{8}
+\contentsline {subsection}{\numberline {4.1}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Finding Test Cases (find tsts function)}}{8}
+\contentsline {subsubsection}{\numberline {4.1.1}\relax \fontsize {12}{14}\selectfont {\color {cyan}Technologies Used}}{8}
+\contentsline {subsubsection}{\numberline {4.1.2}\relax \fontsize {12}{14}\selectfont {\color {cyan}Component Overview}}{8}
+\contentsline {subsubsection}{\numberline {4.1.3}\relax \fontsize {12}{14}\selectfont {\color {cyan}Phase Overview}}{8}
+\contentsline {subsubsection}{\numberline {4.1.4}\relax \fontsize {12}{14}\selectfont {\color {cyan}Design Details}}{8}
+\contentsline {subsection}{\numberline {4.2}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Running the Student Programs (run tests function)}}{8}
+\contentsline {subsubsection}{\numberline {4.2.1}\relax \fontsize {12}{14}\selectfont {\color {cyan}Technologies Used}}{8}
+\contentsline {subsubsection}{\numberline {4.2.2}\relax \fontsize {12}{14}\selectfont {\color {cyan}Component Overview}}{8}
+\contentsline {subsubsection}{\numberline {4.2.3}\relax \fontsize {12}{14}\selectfont {\color {cyan}Phase Overview}}{8}
+\contentsline {subsubsection}{\numberline {4.2.4}\relax \fontsize {12}{14}\selectfont {\color {cyan}Design Details}}{9}
+\contentsline {subsection}{\numberline {4.3}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Checking Student Output (files equal function)}}{9}
+\contentsline {subsubsection}{\numberline {4.3.1}\relax \fontsize {12}{14}\selectfont {\color {cyan}Technologies Used}}{9}
+\contentsline {subsubsection}{\numberline {4.3.2}\relax \fontsize {12}{14}\selectfont {\color {cyan}Component Overview}}{9}
+\contentsline {subsubsection}{\numberline {4.3.3}\relax \fontsize {12}{14}\selectfont {\color {cyan}Phase Overview}}{9}
+\contentsline {subsubsection}{\numberline {4.3.4}\relax \fontsize {12}{14}\selectfont {\color {cyan}Design Details}}{9}
+\contentsline {subsection}{\numberline {4.4}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Finding Student Code (find\_students)}}{10}
+\contentsline {subsubsection}{\numberline {4.4.1}\relax \fontsize {12}{14}\selectfont {\color {cyan}Technologies Used}}{10}
+\contentsline {subsubsection}{\numberline {4.4.2}\relax \fontsize {12}{14}\selectfont {\color {cyan}Component Overview}}{10}
+\contentsline {subsubsection}{\numberline {4.4.3}\relax \fontsize {12}{14}\selectfont {\color {cyan}Phase Overview}}{10}
+\contentsline {subsubsection}{\numberline {4.4.4}\relax \fontsize {12}{14}\selectfont {\color {cyan}Design Details}}{10}
+\contentsline {subsection}{\numberline {4.5}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Write Individual Report (writeindividualreport function)}}{10}
+\contentsline {subsubsection}{\numberline {4.5.1}\relax \fontsize {12}{14}\selectfont {\color {cyan}Technologies Used}}{10}
+\contentsline {subsubsection}{\numberline {4.5.2}\relax \fontsize {12}{14}\selectfont {\color {cyan}Component Overview}}{11}
+\contentsline {subsubsection}{\numberline {4.5.3}\relax \fontsize {12}{14}\selectfont {\color {cyan}Phase Overview}}{11}
+\contentsline {subsubsection}{\numberline {4.5.4}\relax \fontsize {12}{14}\selectfont {\color {cyan}Design Details}}{11}
+\contentsline {subsection}{\numberline {4.6}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Detecting Presentation Errors}}{11}
+\contentsline {subsubsection}{\numberline {4.6.1}\relax \fontsize {12}{14}\selectfont {\color {cyan}Technologies Used}}{11}
+\contentsline {subsubsection}{\numberline {4.6.2}\relax \fontsize {12}{14}\selectfont {\color {cyan}Component Overview}}{11}
+\contentsline {subsubsection}{\numberline {4.6.3}\relax \fontsize {12}{14}\selectfont {\color {cyan}Phase Overview}}{11}
+\contentsline {subsubsection}{\numberline {4.6.4}\relax \fontsize {12}{14}\selectfont {\color {cyan}Design Details}}{11}
+\contentsline {section}{\numberline {5}\relax \fontsize {17.28}{22}\selectfont {\color {blue}System and Unit Testing}}{12}
+\contentsline {subsection}{\numberline {5.1}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Overview}}{12}
+\contentsline {subsection}{\numberline {5.2}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Dependencies}}{12}
+\contentsline {subsection}{\numberline {5.3}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Test Setup and Execution}}{12}
+\contentsline {section}{\numberline {6}\relax \fontsize {17.28}{22}\selectfont {\color {blue}Development Environment}}{13}
+\contentsline {subsection}{\numberline {6.1}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Development IDE and Tools}}{13}
+\contentsline {subsection}{\numberline {6.2}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Source Control}}{13}
+\contentsline {subsection}{\numberline {6.3}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Dependencies}}{13}
+\contentsline {subsection}{\numberline {6.4}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Build Environment}}{13}
+\contentsline {subsection}{\numberline {6.5}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Development Machine Setup}}{13}
+\contentsline {section}{\numberline {7}\relax \fontsize {17.28}{22}\selectfont {\color {blue}Release - Setup - Deployment}}{14}
+\contentsline {subsection}{\numberline {7.1}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Deployment Information and Dependencies}}{14}
+\contentsline {subsection}{\numberline {7.2}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Setup Information}}{14}
+\contentsline {subsection}{\numberline {7.3}\relax \fontsize {14.4}{18}\selectfont {\color {blue}System Versioning Information}}{14}
+\contentsline {section}{\numberline {8}\relax \fontsize {17.28}{22}\selectfont {\color {blue}User Documentation}}{15}
+\contentsline {subsection}{\numberline {8.1}\relax \fontsize {14.4}{18}\selectfont {\color {blue}User Guide}}{15}
+\contentsline {subsubsection}{\numberline {8.1.1}\relax \fontsize {12}{14}\selectfont {\color {cyan}Test Case Files}}{16}
+\contentsline {subsubsection}{\numberline {8.1.2}\relax \fontsize {12}{14}\selectfont {\color {cyan}Expected Output Files}}{16}
+\contentsline {subsubsection}{\numberline {8.1.3}\relax \fontsize {12}{14}\selectfont {\color {cyan}.log Files}}{16}
+\contentsline {subsection}{\numberline {8.2}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Installation Guide}}{17}
+\contentsline {subsection}{\numberline {8.3}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Programmer Manual}}{17}
+\contentsline {section}{\numberline {9}\relax \fontsize {17.28}{22}\selectfont {\color {blue}Class Index}}{18}
+\contentsline {subsection}{\numberline {9.1}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Class List}}{18}
+\contentsline {section}{\numberline {10}\relax \fontsize {17.28}{22}\selectfont {\color {blue}Sprint Reports}}{19}
+\contentsline {subsection}{\numberline {10.1}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Sprint Report \# 1}}{19}
+\contentsline {subsection}{\numberline {10.2}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Sprint Report \# 2}}{19}
+\contentsline {subsection}{\numberline {10.3}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Sprint Report \# 3}}{19}
+\contentsline {section}{\relax \fontsize {17.28}{22}\selectfont {\color {blue}Acknowledgements}}{20}
+\contentsline {section}{\relax \fontsize {17.28}{22}\selectfont {\color {blue}Supporting Materials}}{21}
+\contentsline {section}{\relax \fontsize {17.28}{22}\selectfont {\color {blue}Industrial Experience}}{22}
+\contentsline {subsection}{\numberline {10.4}\relax \fontsize {14.4}{18}\selectfont {\color {blue}Resumes}}{22}
+\contentsline {section}{\relax \fontsize {17.28}{22}\selectfont {\color {blue}Bibliography}}{26}
