@@ -125,23 +125,18 @@ int Event_REDIRECT(const char *commandline)
     return 1;
 }
 
-/********************************** runtests **********************************/
-// Runs all of the .tst test cases against the program one at a time
-//  and returns the results of that particlar test, stored in a string
-
-// QQQ!!! Alex : modified here to compile and execute each test with each 
-// specified test case as part of the "foreach" loop in main.
-/******************************************************************************/
-//string runtests(string progname, string specifictestcase)
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Alex Wulff, Jonathan Dixon, Hafiza Farzami, Julian Brackins
  *
- * @par Description:
+ * @par Description: Runs all of the .tst test cases against the program one 
+ * at a time and returns the results of that particlar test, stored in a string
  *
- * @param[in] xxx - xxxxxxxx
+ * @param[in] prog - cpp file
+ * @param[in] specifictestcase - the specific test case
  *
- * @returns xxx -
- *
+ * @returns 1 - files not equal
+ *	    0 - files equal
+ * 	    -1 - file did not open for comparison	
  *****************************************************************************/
 int runtests(string prog, string specifictestcase)
 { 
@@ -166,9 +161,6 @@ int runtests(string prog, string specifictestcase)
         fileExists.close();
     }
 
-//    cout << "Compiling: " << progcomp << endl;
-//    system( progcomp.c_str() );
-
     //temporary file used to compare results
     string tempfile = "temp.txt";
 
@@ -189,7 +181,6 @@ int runtests(string prog, string specifictestcase)
     string progrun = progname+" < "+specifictestcase+" > "+tempfile;
 
     //running the program
-    //system(progrun.c_str());
     int infinite_loop = Event_REDIRECT(progrun.c_str());
 
     if(infinite_loop < 0)
@@ -209,8 +200,6 @@ int runtests(string prog, string specifictestcase)
     }
     else
         gmonExists.close();
-    
-    //system( "mv gmon.out gmon.sum" );
  
     ifstream outExists("gmon.out");
     if( outExists)
@@ -222,9 +211,6 @@ int runtests(string prog, string specifictestcase)
         outExists.close();
 
     system(gcovrun.c_str());
-
-    //gcovrun = "rm " + nodir + ".cpp.gcov " + nodir + ".gcda " + nodir + ".gcno -f";
-    //system(gcovrun.c_str());
 
     //building string for the .ans file name to compare against
     string testcaseans = specifictestcase;
@@ -239,11 +225,8 @@ int runtests(string prog, string specifictestcase)
     }
     else if(nodifference ==1)
     {
-        if (prezErrorCount( testcaseans, tempfile ) > 0 ) 
-            return 2;
-        else
         // QQQ!!! Alex : changing... testresult = "Result: fail    Case: " + specifictestcase;
-            return 0;
+        return 0;
     }
     else
     {
@@ -252,21 +235,18 @@ int runtests(string prog, string specifictestcase)
     }
     // QQQ!!! Alex : changing... return testresult;
 }
-/******************************* END runtests *********************************/
 
-/********************************* filesequal *********************************/
-// compares two files and returns 1 if not equal, 0 if equal
-
-// QQQ!!! Alex : this was causing huge performance hits. Reworked to a dif check
-/******************************************************************************/
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Alex Wulff, Julian Brackins, Jonathan Dixon, Hafiza Farzami
  *
- * @par Description:
+ * @par Description: This function compares two files and returns 1 if not equal
+ * , 0 if equal
  *
- * @param[in] xxx - xxxxxxxx
+ * @param[in] file1name - the first file
+ * @param[in] file2name - the second file, compared to file1name
  *
- * @returns xxx -
+ * @returns 0 - if files are equal
+ * 	    1 - otherwise
  *
  *****************************************************************************/ 
 int filesequal(string file1name, string file2name)  // QQQ!!! Alex: used as boolean,
@@ -338,19 +318,15 @@ int filesequal(string file1name, string file2name)  // QQQ!!! Alex: used as bool
         return 1; //files had different amount of lines, thus not equal
     }
 }
-/******************************* END filesequal *******************************/
 
-/***********************************cleanup**********************************/
-// QQQ!!! Alex : cleans up the globals
-/****************************************************************************/
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Alex Wulff
  *
- * @par Description:
+ * @par Description: The 'cleanup()' function cleans up all the globals
  *
- * @param[in] xxx - xxxxxxxx
+ * @param[in] none 
  *
- * @returns xxx -
+ * @returns none - void function
  *
  *****************************************************************************/
 void cleanup()
@@ -378,22 +354,20 @@ void cleanup()
 }
 
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Julian Brackins
  *
- * @par Description:
+ * @par Description: This function kills the process after the given amount
+ * of time (runtime).
  *
- * @param[in] xxx - xxxxxxxx
+ * @param[in] kill_pid - process id
+ * @param[in] runtime - program runtime
+ * @param[in] progname - name of the program
  *
- * @returns xxx -
+ * @returns none - void function
  *
  *****************************************************************************/
 void progbar(int kill_pid, int runtime, string progname)
 {
-
-    // //Initialize default parameters
-    // int runtime = 60;           //argv1
-    // int kill_pid = -123;        //argv2
-    // string progname("program"); //argv3
 
     //Initializations
     float next = 0.05;
@@ -448,214 +422,16 @@ void progbar(int kill_pid, int runtime, string progname)
 
 }
 
-/******************************************************************************
-* Author: Hafiza Farzami
-* Description: The following function takes in a string and gets rid of the 
-* white spaces in it.
-* 
-* param[in] s - the input string
-*
-* returns   s - the output string without white spaces
-******************************************************************************/
-string trim( string s )
-{
-      s.erase( remove( s.begin(),s.end(),' ' ), s.end());
-
-    return s;
-}
-
-/******************************************************************************
-* Author: Hafiza Farzami
-* Description: The following function takes in a string and a delimiter. It
-* breaks the string into two part at the delimiter.
-* 
-* param[in] s - the string 
-* param[in] delim - the delimiter
-*
-* returns   substrings - the structure containing two parts of the original
-*               string
-******************************************************************************/
-subs subStrings( string s, char delim )
-{
-    subs substrings;
-    int pos = s.find_first_of( delim );
-    substrings.first = s.substr( 0, pos ),
-        substrings.last = s.substr( pos + 1 );
-    trim( substrings.first );
-    trim( substrings.last );
-
-    return substrings;
-}
-
-/******************************************************************************
-* Author: Hafiza Farzami
-* Description: The following function takes in two strings to compare them.
-* If the strings are of the same size and their first and last letters match,
-* the function returns true, else false.
-* 
-* param[in] s1 - first string 
-* param[in] s2 - second string to compare to s1
-*
-* returns   true - if the strings are "equal"   
-*       false - if the strings are not equal
-******************************************************************************/
-bool compStrs1( string s1, string s2 )
-{
-    auto x = s1.size();
-    auto y = s2.size();
-
-    return (( x != y ) || ( s1[0] != s2[0] ) || ( s1[x - 1] != s2[y - 1] ));    
-}
-
-
-/******************************************************************************
-* Author: Hafiza Farzami
-* Description: The following function takes in two strings and checks if they
-* are anagrams
-* 
-* param[in] s1 - first string 
-* param[in] s2 - second string to compare to s1
-*
-* returns   true - if the strings are anagrams
-*       false - if the strings are not anagrams
-******************************************************************************/
-bool compStrs2( string s1, string s2 )
-{
-    sort( s1.begin(), s1.end() );
-    sort( s2.begin(), s2.end() );
-
-    return ( s1 == s2 );
-}
-
-/******************************************************************************
-* Author: Hafiza Farzami
-* Description: The following function takes in two strings to compare them.
-* If the strings are of the same size and their first and last letters match,
-* the function returns true, else false.
-* 
-* param[in] s1 - first string 
-* param[in] s2 - second string to compare to s1
-*
-* returns   true - if the strings are "equal"   
-*       false - if the strings are not equal
-******************************************************************************/
-bool roundNums( string s1, string s2 )
-{
-    
-    //If the student answer is of lower precision
-    if ( s1.size() > s2.size() )
-        return false;
-
-    /*If the student's answer is of higher precision, then round to the same
-    number of precision as the key's answer*/
-    else
-    {
-        //Break the numbers into whole and decimal parts
-        subs solution = subStrings( s1, '.' ); 
-        subs diff = subStrings( s2, '.' ); 
-        auto x = diff.last.size();
-
-        //Round until the student answer is the same size as the key 
-        while( x != solution.last.size() )
-        {
-            int y = ( diff.last[ x - 1 ] - '0' );
-
-            if( y > 4 && ( diff.last[ x - 2 ] - '0' ) < 9 )
-                diff.last[ x - 2 ] += 1;
-            
-            diff.last.pop_back();
-            x--;
-        }
-
-        //If the rounded number does not match the key, then return false
-        if(( solution.first != diff.first ) || ( solution.last != diff.last ))
-            return false;
-
-        return true;
-    }
-}
-
-/******************************************************************************
-* Author: Hafiza Farzami
-* Description: The following function counts the number of errors in a given 
-* line.
-* 
-* param[in] first - string stream from the diff file (the key part)
-* param[in] last - string stream from the diff file (the student part)
-*
-* returns   error - the number of errors in a given string stream
-******************************************************************************/
-int markError( istringstream &first, istringstream &last )
-{
-    int error = 0;
-    int counter = 1;
-    string s1, s2;
-    while( first >> s1 && last >> s2 )
-    {
-        if( s1 != s2 )
-        {
-            if( counter % 2 != 0 )
-            {
-                if(( compStrs1( s1, s2 ) || compStrs2( s1, s2 )) != 0 )
-                    error++;
-                else
-                    return 0;
-            }
-            else
-            {
-                if( roundNums( s1, s2 ) != 0 )
-                    error++;
-            }
-        }
-        counter++;
-    }
-    return error;   
-}
-
-/******************************************************************************
-* Author: Hafiza Farzami
-* Description: The following function makes the diff call on the key and stude-
-* nt files. The difference is stored in 'a.out'. The difference is then read in
-* and the errors are detected and counted.
-* 
-* param[in] file1 - name of the key file (as a string)
-* param[in] file2 - name of the student file (as a string)
-*
-* returns   errors - number of errors per file
-******************************************************************************/
-int prezErrorCount( string file1, string file2 ) 
-{
-    ifstream difference( "a.out" );
-    system(("diff -b -y -i --suppress-common-lines " + file1 + " " + file2 + " > a.out" ).c_str());
-    string line;
-    subs dif;
-    int errors = 0;
-    
-    while( getline( difference, line ) )
-    {
-        dif = subStrings( line, '|' ); 
-        istringstream desc( dif.first );
-            istringstream val( dif.last );
-        
-        if (markError( desc, val ) > 0)
-            errors ++;
-        else
-            return 0;
-    }   
-
-    difference.close();
-    return errors;
-}
 
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Alex Wulff, Jonathan Dixon, Hafiza Farzami, Julian Brackins
  *
  * @par Description: Originally Lounge Against The Machine's sprint 2 main,
  * reworked into a function for modularity purposes.
  *
- * @param[in] xxx - xxxxxxxx
+ * @param[in] noen
  *
- * @returns xxx -
+ * @returns none - void function
  *
  *****************************************************************************/
 void tester()
@@ -671,18 +447,6 @@ void tester()
     //test for proper program usage from command line
     // QQQ!!! Alex : make gold cpp = ""
     GOLDCPP.clear();
-
-    //fill strings with proper names
-
-    // QQQ!!! Alex: moved to runtests to run on each test 
-    /*  prog_cpp = argv[1];
-    progname = prog_cpp.substr(0,prog_cpp.find("."));
-    progcomp = "g++ -o " + progname  + " " + prog_cpp;
-    size_t found = prog_cpp.find_last_of("/\\");// QQQ!!! Alex : why not just ints?
-    progdir = progname.substr(0,found+1);
-
-    //compile program to be tested
-    system(progcomp.c_str());*/
 
     char dir[1024];
     getcwd(dir, sizeof(dir));
@@ -732,7 +496,7 @@ void tester()
                 writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result, h);
                 break; //stop tests
             }
-            if (result > 1)
+            if (result == 1)
             {
                 score += 1;
                 TOTALPASSED +=1;
@@ -760,8 +524,5 @@ void tester()
 
     // clean up globals
     cleanup();
-    //deleting the temp file
-    //remove("temp.txt");
-
-    //exit program    
+   
 }
