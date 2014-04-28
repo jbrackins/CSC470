@@ -240,8 +240,11 @@ int runtests(string prog, string specifictestcase)
     }
     else if(nodifference ==1)
     {
+        if (prezErrorCount( testcaseans, tempfile ) > 0 ) 
+            return 2;
+        else
         // QQQ!!! Alex : changing... testresult = "Result: fail    Case: " + specifictestcase;
-        return 0;
+            return 0;
     }
     else
     {
@@ -597,6 +600,8 @@ int markError( istringstream &first, istringstream &last )
             {
                 if(( compStrs1( s1, s2 ) || compStrs2( s1, s2 )) != 0 )
                     error++;
+                else
+                    return 0;
             }
             else
             {
@@ -634,7 +639,10 @@ int prezErrorCount( string file1, string file2 )
         istringstream desc( dif.first );
             istringstream val( dif.last );
         
-        errors += markError( desc, val );
+        if (markError( desc, val ) > 0)
+            errors ++;
+        else
+            return 0;
     }   
 
     difference.close();
@@ -727,7 +735,7 @@ void tester()
                 writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result, h);
                 break; //stop tests
             }
-            if (result == 1)
+            if (result > 1)
             {
                 score += 1;
                 TOTALPASSED +=1;

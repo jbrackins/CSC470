@@ -132,6 +132,12 @@ void writeindividualreport(string program, string testcase, int success, int cur
     INDIVIDUALREPORTS[curr].reports.push_back(temp);
     //fout << "passed: " << testcase << endl;
   }
+  else if (success == 2) // if passed with presentation error
+  {
+    temp = "passed: " + testcase + " - Presentation Error";
+    INDIVIDUALREPORTS[curr].reports.push_back(temp);
+    //fout << "passed: " << testcase << endl;
+  }
 
   else if (success == -1 || success == 0)
   {
