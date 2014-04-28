@@ -119,7 +119,7 @@ int Event_REDIRECT(const char *commandline)
     }
     else if (wait_pid == childpid1)
     {
-        printf("%s failed to complete in %d seconds...\n", progname, 60); 
+        printf("%s failed to complete in %d seconds...\n", progname, loop_time); 
         return -999;
     }
     return 1;
@@ -199,7 +199,7 @@ int runtests(string prog, string specifictestcase)
     string nodir = progname;
 
     nodir.erase(0, nodir.find_last_of("/") + 1);
-    string gcovrun = "gcov " + nodir + ".gcno" + " > " + progname + ".cpp.covs";
+    string gcovrun = "gcov " + nodir + ".gcno" + " > " + progname + ".covs";
      
     ifstream gmonExists("gmon.sum");
     if( !gmonExists )
@@ -373,8 +373,8 @@ void cleanup()
     TESTCASES.erase(TESTCASES.begin(), TESTCASES.end());  
 
 
-    system( "rm *.gcno *.gcov *.gcda *.covs -f &>/dev/null" );
-    system( "rm */*.covs &>/dev/null");
+    system( "rm *.gcno *.gcov *.gcda *.covs *.gprof -f &>/dev/null" );
+    //system( "rm */*.covs &>/dev/null");
 }
 
 /**************************************************************************//**
@@ -744,7 +744,7 @@ void tester()
 		nodir = progname;
 		nodir.erase(0, nodir.find_last_of("/") + 1);
 		
-		string gprofrun = "gprof -p -b " + progname + " gmon.sum > " + tempdir + "/" + nodir + ".gprof.txt";
+		string gprofrun = "gprof -p -b " + progname + " gmon.sum > " + tempdir + "/" + nodir + ".gprof";
 		system( gprofrun.c_str() );
                 system( "rm gmon.out gmon.sum -f" );
         }

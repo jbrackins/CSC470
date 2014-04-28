@@ -50,6 +50,8 @@ void generatetestcases()
     ofstream fout;
     string file;
     stringstream temp;
+    max = 1;
+    min = 0;
     generatetestcasesmenu(doubles, lesserThanAmount, greaterThanAmount, min, max, amountToGenerate, filesToMake);
     double inValue;
     unsigned short drandSeed = 128;
@@ -108,14 +110,22 @@ void generatetestcases()
                 // threshold     offset to min   by random fraction   times the difference
                 if (max != 1)
                 {
-                    inValue = (min + (rand() % (int)max) + 1) * drand48();
+                    inValue = rand() % (int)max + (int)min;
                 }
                 else
                 {
-                    inValue = (MININT * rand()) + (rand() + rand()) * drand48();
+                    inValue = rand() % 2000;
                 }
-                fout << fixed;
-                fout << inValue << endl;
+                fout << inValue << ".";
+                if (max != 1)
+                {
+                    inValue = rand() % (int)max + (int)min;
+                }
+                else
+                {
+                    inValue = rand() % 900;
+                }
+                fout << abs (inValue) << endl;
             }
             fout.close();
         }
@@ -162,11 +172,11 @@ void generatetestcases()
                 //int inValue = (int) (min + ((double) rand() / RAND_MAX) * (max - min));
                 if (max != 1 && min != 0)
                 {
-                    inValue = (int (min) + rand()) % int(max) + 1;
+                    inValue = rand() % (int)max + (int)min;
                 }
                 else
                 {
-                    inValue = MININT + rand() + rand(); // Max at randmax, min at LONG_MIN
+                    inValue = rand() % 2000;
                 }        
                 fout << (int) inValue << endl;
             }

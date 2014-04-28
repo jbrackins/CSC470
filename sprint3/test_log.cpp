@@ -200,7 +200,7 @@ void createReports()
             fout << INDIVIDUALREPORTS[i].reports[j] << endl;
             
          tempin = temp + ".covs";
-	cout << "Covs: " << tempin << endl;
+
          fin.open(tempin.c_str());
          //cout << "attempting to open " << tempin << " file " << endl;
          if( fin )
