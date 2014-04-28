@@ -181,6 +181,7 @@ void generatetestcases()
 
     }
 
+    cin.ignore(10000, '\n');
     set_goldencpp();
     // find all tests and use generated tests to make ans
     TESTCASES = find_tsts(progdir);
@@ -261,7 +262,7 @@ void generatestringtestcases()
         rand_out.close();
     }
 
-    
+    cin.ignore(10000, '\n');
     set_goldencpp();
     // find all tests and use generated tests to make ans
     TESTCASES = find_tsts(progdir);
@@ -827,7 +828,6 @@ void generateanswers()
 void set_goldencpp()
 {
     char buffer[100];
-    cin.ignore(10000, '\n');
     cout << "Enter Golden cpp file name. This file is needed\n";
     cout << "to properly generate ans files for the test cases\n";
     cout << ">> ";

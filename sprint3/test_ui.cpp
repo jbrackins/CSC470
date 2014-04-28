@@ -51,7 +51,10 @@ void main_menu()
             else
             {
                 if( chdir(run.c_str()) == 0 )
+                {
+                    set_goldencpp();
                     tester();
+                }
                 else
                     cout << run << " is not a directory...\n";
                 chdir(HOME_DIR.c_str());

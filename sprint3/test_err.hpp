@@ -31,5 +31,6 @@ subs subStrings( std::string s, char delim );
 bool roundNums( std::string s1, std::string s2 );
 int markError( std::istringstream &first, std::istringstream &last );
 std::string trim( std::string s );
+bool is_number(const std::string& str);
 
 #endif

@@ -96,10 +96,14 @@ bool compStrs2( string s1, string s2 )
 ******************************************************************************/
 bool roundNums( string s1, string s2 )
 {
-	cout << "Tryna round " << s1 << " to " << s2 << endl;
+	cout << "OH hey " << s1 << " is basically " << s2 << " right?" <<endl;
 	//If the student answer is of lower precision
 	if ( s1.size() > s2.size() )
+	{
+		cout << "WRONGO" << endl;
 		return false;
+	}
+		
 
 	/*If the student's answer is of higher precision, then round to the same
 	number of precision as the key's answer*/
@@ -124,7 +128,10 @@ bool roundNums( string s1, string s2 )
 
 		//If the rounded number does not match the key, then return false
 		if(( solution.first != diff.first ) || ( solution.last != diff.last ))
+		{
+			cout << "WRONGO" << endl;
 			return false;
+		}
 
 		return true;
 	}
@@ -147,7 +154,17 @@ int markError( istringstream &first, istringstream &last )
 	string s1, s2;
 	while( first >> s1 && last >> s2 )
 	{
-		if( s1 != s2 )
+		if(is_number(s1) || is_number(s2))
+		{
+			if( roundNums( s1, s2 ) != 0 )
+			{
+				error++;
+				return error;
+			}
+			else
+				return 0;
+		}
+		else if( s1 != s2 )
 		{
 			if( counter % 2 != 0 )
 			{
@@ -200,4 +217,21 @@ int prezErrorCount( string file1, string file2 )
 
 	difference.close();
 	return errors;
+}
+
+/******************************************************************************
+* Author: Julian Brackins
+* Description: Is it a number? guess we'll find out.
+* 
+* param[in]	str - a string
+*
+* returns	true - is a number
+* returns   false - is a not number
+******************************************************************************/
+bool is_number(const std::string& str)
+{
+    string::const_iterator itr = str.begin();
+    while (itr != str.end() && std::isdigit(*itr)) 
+    	++itr;
+    return !str.empty() && itr == str.end();
 }

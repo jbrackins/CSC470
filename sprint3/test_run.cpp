@@ -11,6 +11,7 @@
 #include "test_log.hpp"
 #include "test_dir.hpp"
 #include "test_err.hpp"
+#include "main.hpp"
 using namespace std;
 
 /*********************************GLOBALS************************************/
@@ -18,6 +19,7 @@ extern vector<string> STUDENTVECTOR;
 extern vector<string> TESTCASES;
 extern string GOLDCPP;
 extern int TOTALPASSED;
+extern vector<report> INDIVIDUALREPORTS;
 extern int loop_time;      //time tester will allow a program to run
 /****************************************************************************/
 
@@ -352,7 +354,7 @@ void cleanup()
     STUDENTVECTOR.erase(STUDENTVECTOR.begin(), STUDENTVECTOR.end());
     TESTCASES.erase(TESTCASES.begin(), TESTCASES.end());  
 
-
+    INDIVIDUALREPORTS.erase(INDIVIDUALREPORTS.begin(), INDIVIDUALREPORTS.end());
     system( "rm *.gcno *.gcov *.gcda *.covs *.gprof -f &>/dev/null" );
     //system( "rm */*.covs &>/dev/null");
 }
@@ -464,10 +466,10 @@ void tester()
     // QQQ!!! Alex : gathers all of the .tst files in current and sub directories of the program
     // being tested
     // vector<string> testcases;
-    TESTCASES = find_tsts(progdir);
+    //TESTCASES = find_tsts(progdir);
 
     // QQQ!!! Alex: get the testcases
-    find_students(loc, 0);
+    //find_students(loc, 0);
 
     // QQQ!!! Alex : while more .tst files need ran, continue running the tests against the
     //program
@@ -528,5 +530,4 @@ void tester()
 
     // clean up globals
     cleanup();
-   
 }
