@@ -150,8 +150,7 @@ int runtests(string prog, string specifictestcase)
     // compile each
     string prog_cpp = prog;
     string progname = prog_cpp.substr(0,prog_cpp.find("."));
-    string progcomp = "g++ -fprofile-arcs -ftest-coverage -o " + progname  + " " + prog_cpp;
-    string gProf = "g++ -pg -std=c++11 " + prog_cpp + " -o " + progname;
+    string progcomp = "g++ -pg -fprofile-arcs -ftest-coverage -o " + progname  + " " + prog_cpp;
     size_t found = prog_cpp.find_last_of("/\\");
 
     // QQQ!!! Alex : to save time, only compile if needed.
@@ -161,7 +160,6 @@ int runtests(string prog, string specifictestcase)
         fileExists.close();
         //compile program to be tested
         system(progcomp.c_str());
-        system( gProf.c_str() );
     }
     else
     {
@@ -202,9 +200,28 @@ int runtests(string prog, string specifictestcase)
 
     nodir.erase(0, nodir.find_last_of("/") + 1);
     string gcovrun = "gcov " + nodir + ".gcno" + " > " + progname + ".cpp.covs";
-    string gprofrun = "gprof -p -b " + progname + " > gprof.tx";
+     
+    ifstream gmonExists("gmon.sum");
+    if( !gmonExists )
+    {
+        gmonExists.close();
+        system("mv gmon.out gmon.sum");
+    }
+    else
+        gmonExists.close();
+    
+    //system( "mv gmon.out gmon.sum" );
+ 
+    ifstream outExists("gmon.out");
+    if( outExists)
+    {
+        outExists.close();
+    	system( ("gprof -s " + progname + " gmon.out gmon.sum").c_str() );
+    }
+    else
+        outExists.close();
+
     system(gcovrun.c_str());
-    system( gprofrun.c_str() );
 
     //gcovrun = "rm " + nodir + ".cpp.gcov " + nodir + ".gcda " + nodir + ".gcno -f";
     //system(gcovrun.c_str());
@@ -428,6 +445,7 @@ void progbar(int kill_pid, int runtime, string progname)
 
 }
 
+
 /**************************************************************************//**
  * @authors xxxxxxx
  *
@@ -442,7 +460,8 @@ void progbar(int kill_pid, int runtime, string progname)
 void tester()
 {
 
-    string progname, prog_cpp, progcomp, progdir;
+    string progname, prog_cpp, progcomp, progdir, nodir;
+    
 
     //holds each test and result on a separate line
     vector<string> finaloutfilecontents;
@@ -518,6 +537,13 @@ void tester()
                 TOTALPASSED +=1;
             }
             writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result, h);
+
+		progname = STUDENTVECTOR[h].substr(0,STUDENTVECTOR[h].find("."));
+		nodir = progname;
+		nodir.erase(0, nodir.find_last_of("/") + 1);
+		string gprofrun = "gprof -p -b " + progname + " gmon.sum > " + nodir + ".gprof.txt";
+		system( gprofrun.c_str() );
+                system( "rm gmon.out gmon.sum -f" );
         }
         // QQQ!!! Alex : get report on this program
 
