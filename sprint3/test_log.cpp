@@ -174,6 +174,7 @@ void createReports()
    string path;
    ofstream fout;
    ifstream fin;
+   ifstream gfin;
    int lastDir;
 
    for( int i = 0; i < INDIVIDUALREPORTS.size(); i++ )
@@ -199,6 +200,7 @@ void createReports()
             fout << INDIVIDUALREPORTS[i].reports[j] << endl;
             
          tempin = temp + ".covs";
+	cout << "Covs: " << tempin << endl;
          fin.open(tempin.c_str());
          //cout << "attempting to open " << tempin << " file " << endl;
          if( fin )
@@ -208,8 +210,20 @@ void createReports()
             
             fout << linein << endl;
          }
+	fin.close();
+	fout << endl;
          //else
           //cout << "Could not open .covs file." << endl;
+	 temp = temp.substr(0,temp.find("."));
+	 tempin = temp + ".gprof.txt";
+	
+	gfin.open( tempin.c_str() );
+	if( gfin )
+	{
+ 		while( getline( gfin, linein ) )
+			fout << linein << endl;
+	}
+
       }
       else
       {
@@ -220,6 +234,7 @@ void createReports()
       path = "..";
       chdir(path.c_str());
       
+      gfin.close();
       fout.close();
       fin.close();
    }

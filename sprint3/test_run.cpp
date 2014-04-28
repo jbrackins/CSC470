@@ -150,7 +150,6 @@ int runtests(string prog, string specifictestcase)
     // compile each
     string prog_cpp = prog;
     string progname = prog_cpp.substr(0,prog_cpp.find("."));
-
     string progcomp = "g++ -pg -fprofile-arcs -ftest-coverage -o " + progname  + " " + prog_cpp;
     size_t found = prog_cpp.find_last_of("/\\");
 
@@ -367,14 +366,15 @@ void cleanup()
     for(i = 0; i < STUDENTVECTOR.size(); i++)
     {
         remover = "rm " + remove_extension( STUDENTVECTOR[i]) + " -f ";
+        //cout << "now we're deleting: " << remover << endl;
         system(remover.c_str());
     }
     STUDENTVECTOR.erase(STUDENTVECTOR.begin(), STUDENTVECTOR.end());
     TESTCASES.erase(TESTCASES.begin(), TESTCASES.end());  
 
 
-    system( "rm *.gcno *.gcov *.gcda -f &>/dev/null" );
-    //system( "rm */*.covs &>/dev/null");
+    system( "rm *.gcno *.gcov *.gcda *.covs -f &>/dev/null" );
+    system( "rm */*.covs &>/dev/null");
 }
 
 /**************************************************************************//**
@@ -447,8 +447,6 @@ void progbar(int kill_pid, int runtime, string progname)
         kill(kill_pid, 9);
 
 }
-
-
 
 /******************************************************************************
 * Author: Hafiza Farzami
@@ -649,7 +647,6 @@ int prezErrorCount( string file1, string file2 )
     return errors;
 }
 
-
 /**************************************************************************//**
  * @authors xxxxxxx
  *
@@ -664,7 +661,7 @@ int prezErrorCount( string file1, string file2 )
 void tester()
 {
 
-    string progname, prog_cpp, progcomp, progdir, nodir;
+    string progname, prog_cpp, progcomp, progdir, nodir, tempdir;
     
 
     //holds each test and result on a separate line
@@ -743,9 +740,11 @@ void tester()
             writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result, h);
 
 		progname = STUDENTVECTOR[h].substr(0,STUDENTVECTOR[h].find("."));
+		tempdir = progname.substr( 0, progname.rfind( "/" ) );
 		nodir = progname;
 		nodir.erase(0, nodir.find_last_of("/") + 1);
-		string gprofrun = "gprof -p -b " + progname + " gmon.sum > " + nodir + ".gprof.txt";
+		
+		string gprofrun = "gprof -p -b " + progname + " gmon.sum > " + tempdir + "/" + nodir + ".gprof.txt";
 		system( gprofrun.c_str() );
                 system( "rm gmon.out gmon.sum -f" );
         }
