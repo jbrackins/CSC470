@@ -18,17 +18,17 @@ extern vector<string> TESTCASES;
 extern int TOTALPASSED;
 /****************************************************************************/
 
-/************************Generate_Performance_Report***************************/
-// QQQ!!! Alex: built to write in the specifics of success and failures per cpp
-/******************************************************************************/
 /**************************************************************************//**
  * @authors Alex Wulff, Jonathan Dixon, Julian Brackins
  *
- * @par Description:
+ * @par Description: The following function generates performance report for
+ * individual students.
  *
- * @param[in] xxx - character to be replaced
+ * @param[in] file - the file
+ * @param[in] score - the student's score
+ * @param[in] total - total possible score
  *
- * @returns xxx -
+ * @returns report - the result
  *
  *****************************************************************************/
 string Generate_Performance_Report(string file, int score, int total)
@@ -50,17 +50,10 @@ string Generate_Performance_Report(string file, int score, int total)
   return report + ":  " + temp.str();
 }
 
-/***************************** writefinaloutfile ******************************/
-// Writes all of the data to the final .log file
-/******************************************************************************/ 
  /**************************************************************************//**
- * @author
+ * @author Alex Wulff
  *
- * @par Description:
- *
- * @param[in] xxx - character to be replaced
- *
- * @returns xxx -
+ * @par Description: Writes all of the data to the final .log file.
  *
  *****************************************************************************/  
 void writefinaloutfile(vector<string> finaloutfilecontents)//QQQ!!! Alex : commented out new processing method
@@ -104,21 +97,12 @@ void writefinaloutfile(vector<string> finaloutfilecontents)//QQQ!!! Alex : comme
   //closing the output file
   fout.close();
 }
-/*************************** END writefinaloutfile ****************************/
 
-/******************************writeindividualreport*************************/
-// QQQ!!! Alex : writes the specifics of each program's performance with a 
-// given test
-/****************************************************************************/
 
  /**************************************************************************//**
- * @author
+ * @author Alex Wulff
  *
- * @par Description:
- *
- * @param[in] xxx - character to be replaced
- *
- * @returns xxx -
+ * @par Description: This functions takes care of the individual file reports.
  *
  *****************************************************************************/
 void writeindividualreport(string program, string testcase, int success, int curr)
@@ -129,12 +113,6 @@ void writeindividualreport(string program, string testcase, int success, int cur
   if (success == 1) // if passed
   {
     temp = "passed: " + testcase;
-    INDIVIDUALREPORTS[curr].reports.push_back(temp);
-    //fout << "passed: " << testcase << endl;
-  }
-  else if (success == 2) // if passed with presentation error
-  {
-    temp = "passed: " + testcase + " - Presentation Error";
     INDIVIDUALREPORTS[curr].reports.push_back(temp);
     //fout << "passed: " << testcase << endl;
   }
@@ -154,17 +132,15 @@ void writeindividualreport(string program, string testcase, int success, int cur
   //fout.close();
 }
 
-/*****************************createReports***********************************/
-// Jon: Writes the .log file for a specific student
-/*****************************************************************************/
  /**************************************************************************//**
- * @author
+ * @authors Alex Wulff, Jonathan Dixon, Hafiza Farzami
  *
- * @par Description:
+ * @par Description: This function creates individual log files. It also outputs
+ * the result from code coverage and profiling into the student log file. 
  *
- * @param[in] xxx - character to be replaced
+ * @param[in] none 
  *
- * @returns xxx -
+ * @returns none - void function
  *
  *****************************************************************************/
 void createReports()
