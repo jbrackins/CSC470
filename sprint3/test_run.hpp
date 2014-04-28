@@ -15,6 +15,7 @@
 
 #include <stdio.h>
 #include <cstring>
+#include <cmath>
 
 #include <fstream>
 #include <time.h>
@@ -33,11 +34,24 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 
+struct subs
+{
+    std::string first;
+    std::string last;
+};
+
 int Event_REDIRECT(const char *commandline);
 int runtests(std::string  prog, std::string specifictestcase);
 int filesequal(std::string  file1name, std::string file2name);
 void cleanup();
 void progbar(int kill_pid, int runtime, std::string progname);
+bool compStrs1( std::string s1, std::string s2 );
+bool compStrs2( std::string s1, std::string s2 );
+int prezErrorCount( std::string file1, std::string file2 ); 
+subs subStrings( std::string s, char delim );
+bool roundNums( std::string s1, std::string s2 );
+int markError( std::istringstream &first, std::istringstream &last );
+std::string trim( std::string s );
 void tester();
 
 #endif

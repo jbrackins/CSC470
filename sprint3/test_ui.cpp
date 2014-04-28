@@ -760,8 +760,10 @@ void view_logfile_menu2()
     cout << endl;
     
     kitty = "cat " + LOGVECTOR[viewfile -1];
+    cout << "\n=========================================================\n";
     cout << "Opening File " << LOGVECTOR[viewfile -1] << "..." << endl;
     system(kitty.c_str());
+    cout << "\n=========================================================\n";
     cout << endl;
     goto filelist;
     end:

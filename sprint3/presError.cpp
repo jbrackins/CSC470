@@ -23,14 +23,14 @@ bool roundNums( string s1, string s2 );
 int markError( istringstream &first, istringstream &last );
 string trim( string s );
 
-/*int main()
+int main()
 {
 	string a = "a.txt";
 	string b = "b.txt";
-	prezErrorCount( a, b );
+	cout << prezErrorCount( a, b ) << endl;
 
 	return 0;
-}*/
+}
 
 /******************************************************************************
 * Author: Hafiza Farzami

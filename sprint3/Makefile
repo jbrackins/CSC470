@@ -1,10 +1,10 @@
-# Use the GNU C/C++ compiler:
-CC = gcc
-CPP = g++
+# GNU C/C++ compiler and linker:
+LINK = g++
 
 # COMPILER OPTIONS:
 
-CFLAGS = -c
+CFLAGS = -c  -g
+CXXFLAGS = $(CFLAGS) -std=c++11
 
 #OBJECT FILES
 OBJS = main.o test_dir.o test_gen.o test_log.o test_run.o test_string.o test_menu.o test_ui.o
@@ -13,7 +13,7 @@ OBJS = main.o test_dir.o test_gen.o test_log.o test_run.o test_string.o test_men
 HEAD = main.hpp test_dir.hpp test_gen.hpp test_log.hpp test_run.hpp test_string.hpp test_menu.hpp test_ui.hpp
 
 test: ${OBJS}
-	${CPP} -lm ${OBJS} ${HEAD} -o test
+	$(LINK) -lm ${OBJS} ${HEAD} -o test
 main.o: main.cpp
 test_dir.o: test_dir.cpp
 test_gen.o: test_gen.cpp
