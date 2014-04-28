@@ -51,10 +51,16 @@ std::string test_case_menu1();
 void test_case_menu2();
 void set_max_menu( );
 std::string grade_program_menu();
+std::string view_logfile_menu();
+std::string view_student_menu();
 void grade_program_header();
 void set_max_header();
+void view_logfile_header1();
+void view_logfile_header2();
+void view_logfile_menu2();
 void print_max_time();
 void dir_list();
 bool is_dir(std::string dir);
+void collect_logs(bool summ, bool log, bool cov);
 void prompt();
 #endif
