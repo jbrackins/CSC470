@@ -28,7 +28,8 @@ extern string HOME_DIR;
 * @author Julian Brackins
 *
 * @par Description:
-* This function reads the specification file, determines the number of 
+* This function reads the specification file, determines the number of options
+* in a spec file, and builds the test cases.
 ******************************************************************************/
 void read_spec_file()
 {
