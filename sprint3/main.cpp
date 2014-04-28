@@ -127,14 +127,14 @@ int loop_time;      //time tester will allow a program to run
 /****************************************************************************/
 
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Julian Brackins
  *
- * @par Description: Main function. Sets a few default global values,
- * then invokes the user interface.
+ * @par Description: The main function. 
  *
- * @param[in] xxx - xxxxxxxx
- *
- * @returns xxx -
+ * @param[in] argv - command line arguments
+ * @param[in] argc - number of command line arguments
+ * 
+ * @returns 0 - successful execution
  *
  *****************************************************************************/
 int main(int argc, char* argv[])
