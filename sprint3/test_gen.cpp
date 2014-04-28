@@ -27,18 +27,14 @@ extern string HOME_DIR;
 int MININT = -2147483647;
 /****************************************************************************/
 
-/******************************generatetestcases*****************************/
-//QQQ!!! Alex : testcase builder starts here
-/****************************************************************************/
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Alex Wulff, Jonathan Dixon, Julian Brackins
  *
- * @par Description: Originally Lounge Against The Machine's sprint 2 main,
- * reworked into a function for modularity purposes.
+ * @par Description: This function generates test cases.
  *
- * @param[in] xxx - xxxxxxxx
+ * @param[in] none
  *
- * @returns xxx -
+ * @returns none - void function
  *
  *****************************************************************************/
 void generatetestcases()
@@ -205,18 +201,14 @@ void generatetestcases()
     cout << "\nTest generation completed. Press enter to continue.\n\n";
 }
 
-/******************************generatetestcases*****************************/
-//QQQ!!! Alex : testcase builder starts here
-/****************************************************************************/
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Jonathan Dixon, Julian Brackins
  *
- * @par Description: Originally Lounge Against The Machine's sprint 2 main,
- * reworked into a function for modularity purposes.
+ * @par Description: This function generates string test cases.
  *
- * @param[in] xxx - xxxxxxxx
+ * @param[in] none
  *
- * @returns xxx -
+ * @returns none - void function
  *
  *****************************************************************************/
 void generatestringtestcases()
@@ -292,12 +284,12 @@ void generatestringtestcases()
 /**************************************************************************//**
  * @author Jonathan Dixon
  *
- * @par Description: Originally Lounge Against The Machine's sprint 2 main,
- * reworked into a function for modularity purposes.
+ * @par Description: This function creates a random string.
  *
- * @param[in] xxx - xxxxxxxx
+ * @param[in] s - string
+ * @param[in] len - length of the string
  *
- * @returns xxx -
+ * @returns none - void function
  *
  *****************************************************************************/
 void gen_random(char *s, const int len) 
@@ -311,18 +303,17 @@ void gen_random(char *s, const int len)
     s[len] = 0;
 }
 
-/****************************generatetestcasemenu****************************/
-//QQQ!!! Alex : testcase builder menu is here... long...
-/****************************************************************************/
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Alex Wulff, Jonathan Dixon, Julian Brackins
  *
- * @par Description: Originally Lounge Against The Machine's sprint 2 main,
- * reworked into a function for modularity purposes.
+ * @par Description: This function generates random numbers in a given interval.
+ * 
+ * @param[in] doubles - numbers to generate
+ * @param[in] lesserThanAmount - upperbound
+ * @param[in] greaterThanAmount - lowerbound
+ * @param[in] amountToGenerate - the amount of numbers to generate
  *
- * @param[in] xxx - xxxxxxxx
- *
- * @returns xxx -
+ * @returns none - void function
  *
  *****************************************************************************/
 void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount, 
@@ -545,18 +536,15 @@ void generatetestcasesmenu(bool &doubles, bool &lesserThanAmount,
 
 }
 
-/****************************generatetestcasemenu****************************/
-//QQQ!!! Alex : testcase builder menu is here... long...
-/****************************************************************************/
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Jonathan Dixon, Julian Brackins
  *
- * @par Description: Originally Lounge Against The Machine's sprint 2 main,
- * reworked into a function for modularity purposes.
+ * @par Description: This function generates string test cases.
  *
- * @param[in] xxx - xxxxxxxx
+ * @param[in] stringsToGen - strings to generate
+ * @param[in] maxLen - maximum length
  *
- * @returns xxx -
+ * @returns none - void function
  *
  *****************************************************************************/
 void generatestringtestcasesmenu(int &stringsToGen, int &maxLen, int &filesToMake)
@@ -663,14 +651,13 @@ void generatestringtestcasesmenu(int &stringsToGen, int &maxLen, int &filesToMak
 }
 
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Jonathan Dixon, Julian Brackins
  *
- * @par Description: Originally Lounge Against The Machine's sprint 2 main,
- * reworked into a function for modularity purposes.
+ * @par Description: String test case generator menu function.
  *
- * @param[in] xxx - xxxxxxxx
+ * @param[in] amountToGenerate - amount of strings to generate
  *
- * @returns xxx -
+ * @returns none - void function
  *
  *****************************************************************************/
 void generatemenutestcasesmenu(int &amountToGenerate, int &filesToMake)
@@ -775,18 +762,14 @@ void generatemenutestcasesmenu(int &amountToGenerate, int &filesToMake)
 
 }
 
-/****************************pregenerateclean********************************/
-// QQQ!!! Alex : removes old generated test cases
-/****************************************************************************/
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Jonathan Dixon, Julian Brackins
  *
- * @par Description: Originally Lounge Against The Machine's sprint 2 main,
- * reworked into a function for modularity purposes.
+ * @par Description: This function cleans the generated test cases.
  *
- * @param[in] xxx - xxxxxxxx
+ * @param[in] none
  *
- * @returns xxx -
+ * @returns none - void function
  *
  *****************************************************************************/
 void pregenerateclean()
@@ -794,18 +777,14 @@ void pregenerateclean()
     system("rm ./tests/GeneratedTestCase* &>/dev/null");
 }
 
-/*******************************generateanswers******************************/
-// QQQ!!! Alex : needed to generate answers to new tests using the golden cpp.
-/****************************************************************************/
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Jonathan Dixon, Julian Brackins
  *
- * @par Description: Originally Lounge Against The Machine's sprint 2 main,
- * reworked into a function for modularity purposes.
+ * @par Description: This function generates the answers. 
  *
- * @param[in] xxx - xxxxxxxx
+ * @param[in] none
  *
- * @returns xxx -
+ * @returns none - void function
  *
  *****************************************************************************/
 void generateanswers()
@@ -836,13 +815,13 @@ void generateanswers()
 }
 
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Jonathan Dixon, Julian Brackins
  *
  * @par Description: Prompt user to enter name of golden .cpp file.
  *
- * @param[in] xxx - xxxxxxxx
+ * @param[in] none
  *
- * @returns xxx -
+ * @returns none - void function
  *
  *****************************************************************************/
 void set_goldencpp()
