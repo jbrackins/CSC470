@@ -171,20 +171,22 @@ void read_spec_file()
 }
 
 /**************************************************************************//**
- * @authors xxxxxxx
+ * @authors Julian Brackins, Jonathan Dixon
  *
- * @par Description:
+ * @par Description: This function takes an array of menu options, matches the
+      option.number with the corresponding option number from the spec
+      file, and generates an appropriate test case according to that spec
  *
- * @param[in] xxx - xxxxxxxx
+ * @param[in] opt - option number
+ * @param[in] option - the option menu
+ * @param[in] arr_size - size of the array
+ * @param[in] fout - the output file
  *
- * @returns xxx -
+ * @returns none - void function
  *
  *****************************************************************************/
 void option_generator(int opt, struct menu_option option[], int arr_size, ofstream &fout)
 {
-    /*This function takes an array of menu options, matches the
-      option.number with the corresponding option number from the spec
-      file, and generates an appropriate test case according to that spec*/
     fout << opt << " ";
     for(int i = 0; i < arr_size; i++)
     {
