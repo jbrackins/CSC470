@@ -500,7 +500,7 @@ void tester()
                 writeindividualreport(STUDENTVECTOR[h], TESTCASES.at(i), result, h);
                 break; //stop tests
             }
-            if (result == 1)
+            if (result > 0)
             {
                 score += 1;
                 TOTALPASSED +=1;
